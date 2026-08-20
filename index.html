@@ -516,6 +516,36 @@
   }
   .toast.show{opacity:1;transform:translateY(0);}
   .toast svg{width:16px;height:16px;stroke:var(--ok);fill:none;stroke-width:2.2;flex:none;}
+  /* ---- Responsive (mobile) ---- */
+  .hamburger-btn{display:none;}
+  .rail-backdrop{display:none;}
+  @media (max-width:860px){
+    .hamburger-btn{
+      display:flex;align-items:center;justify-content:center;flex:none;
+      width:36px;height:36px;border-radius:8px;border:1px solid var(--border);
+      background:var(--bg);cursor:pointer;color:var(--ink);
+    }
+    .hamburger-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;}
+    .app{grid-template-columns:1fr;}
+    .rail{
+      position:fixed;top:0;left:0;bottom:0;width:264px;z-index:40;
+      transform:translateX(-100%);transition:transform .2s ease;
+    }
+    .app.rail-open .rail{transform:translateX(0);box-shadow:8px 0 28px rgba(0,0,0,.2);}
+    .rail-backdrop{position:fixed;inset:0;background:rgba(20,20,19,.42);z-index:35;}
+    .app:not(.rail-open) .rail-backdrop{display:none;}
+    .app.rail-open .rail-backdrop{display:block;}
+    .topbar{padding:14px 16px;gap:10px;}
+    .topbar-left{display:flex;align-items:center;gap:10px;min-width:0;}
+    .topbar h1{font-size:1.0625rem;}
+    .topbar .sub{display:none;}
+    .view{padding:16px 14px 44px;}
+    .field-row{grid-template-columns:1fr;}
+    .stats{grid-template-columns:1fr 1fr;}
+    .grid-2{grid-template-columns:1fr;}
+    .proto-pill span{display:none;}
+  }
+  @media (prefers-reduced-motion: reduce){ .rail{transition:none;} }
 </style>
 
 <!-- ============ ROLE GATE ============ -->
@@ -543,6 +573,7 @@
 
 <!-- ============ APP ============ -->
 <div class="app" id="app" style="display:none;">
+  <div class="rail-backdrop" id="railBackdrop"></div>
   <aside class="rail">
     <div class="brand">
       <div class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
@@ -589,14 +620,19 @@
 
   <div class="main">
     <header class="topbar">
-      <div>
-        <h1 id="viewTitle">Nuevo caso</h1>
-        <p class="sub" id="viewSub">Captar el caso, clasificarlo y derivarlo a la secretaría correspondiente.</p>
+      <div class="topbar-left">
+        <button class="hamburger-btn" id="railToggle" aria-label="Abrir menú">
+          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+        </button>
+        <div>
+          <h1 id="viewTitle">Nuevo caso</h1>
+          <p class="sub" id="viewSub">Captar el caso, clasificarlo y derivarlo a la secretaría correspondiente.</p>
+        </div>
       </div>
       <div class="topbar-right">
         <div class="proto-pill">
           <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/></svg>
-          Prototipo
+          <span>Prototipo</span>
         </div>
         <div class="role-badge">
           <span><strong id="roleBadgeText">—</strong></span>
@@ -1235,8 +1271,19 @@
 
   document.addEventListener("click", function(e){
     var btn = e.target.closest(".nav-item");
-    if (btn) setView(btn.dataset.view, btn.dataset.sec);
+    if (btn) { setView(btn.dataset.view, btn.dataset.sec); $("app").classList.remove("rail-open"); }
   });
+
+  if ($("railToggle")) {
+    $("railToggle").addEventListener("click", function(){
+      $("app").classList.toggle("rail-open");
+    });
+  }
+  if ($("railBackdrop")) {
+    $("railBackdrop").addEventListener("click", function(){
+      $("app").classList.remove("rail-open");
+    });
+  }
 
   /* ================= NUEVO CASO ================= */
   function fillOptions(sel, items, placeholder){
