@@ -1,11 +1,5 @@
-<!doctype html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portal de Casos — Prototipo de circuito</title>
-
-
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Portal de Casos — Prototipo de circuito (Propuesta B, 3 roles)</title>
 <style>
   @font-face {
     font-family: 'Public Sans';
@@ -31,16 +25,17 @@
 
   :root{
     --bg:#ffffff;
-    --surface:#f5faff;
-    --surface-2:#eaf3fc;
-    --border:#d7e6f5;
-    --ink:#24374a;
-    --ink-soft:#5f7a93;
-    --ink-faint:#98adc4;
-    --celeste:#57a8d6;
-    --celeste-deep:#2f7ba3;
-    --celeste-pale:#dbeefb;
-    --celeste-line:#b9def2;
+    --surface:#ffffff;
+    --surface-2:#f4f6f8;
+    --border:#e3e7ec;
+    --ink:#1f2a37;
+    --ink-soft:#5b6675;
+    --ink-faint:#93a0ae;
+    --celeste:#3f7ea8;
+    --celeste-deep:#1e5577;
+    --celeste-bright:#6fa8d8;
+    --celeste-pale:#eaf3fa;
+    --celeste-line:#bfdcee;
     --azul:#7c95dd;
     --azul-deep:#4c60ad;
     --azul-pale:#e4e9fb;
@@ -52,15 +47,15 @@
     --crit-bg:#fae6e1;
     --neutral-bg:#eef1f4;
     --neutral-ink:#5f7285;
-    --shadow:0 1px 2px rgba(30,70,110,.06),0 8px 24px rgba(30,70,110,.07);
+    --shadow:0 1px 2px rgba(15,35,55,.05),0 10px 26px rgba(15,35,55,.08);
     --font-display:'Public Sans',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
     --font-body:'Public Sans',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
   }
   @media (prefers-color-scheme: dark){
-    :root{
+    :root:not([data-theme="light"]){
       --bg:#0f1f2c; --surface:#152735; --surface-2:#1c3142; --border:#2b4557;
       --ink:#e7f0f8; --ink-soft:#a9bfd2; --ink-faint:#7793a9;
-      --celeste:#7ec2ea; --celeste-deep:#a7d9f2; --celeste-pale:#1f3a4a; --celeste-line:#2e5468;
+      --celeste:#7ec2ea; --celeste-deep:#a7d9f2; --celeste-bright:#cbe7f8; --celeste-pale:#1f3a4a; --celeste-line:#2e5468;
       --azul:#9db3ea; --azul-deep:#c2d0f5; --azul-pale:#232d47;
       --ok:#7ecead; --ok-bg:#173327; --warn:#e8bd74; --warn-bg:#3c2f15; --crit:#e8968a; --crit-bg:#3d221d;
       --neutral-bg:#1e2c36; --neutral-ink:#a9bfd2;
@@ -70,20 +65,20 @@
   :root[data-theme="dark"]{
     --bg:#0f1f2c; --surface:#152735; --surface-2:#1c3142; --border:#2b4557;
     --ink:#e7f0f8; --ink-soft:#a9bfd2; --ink-faint:#7793a9;
-    --celeste:#7ec2ea; --celeste-deep:#a7d9f2; --celeste-pale:#1f3a4a; --celeste-line:#2e5468;
+    --celeste:#7ec2ea; --celeste-deep:#a7d9f2; --celeste-bright:#cbe7f8; --celeste-pale:#1f3a4a; --celeste-line:#2e5468;
     --azul:#9db3ea; --azul-deep:#c2d0f5; --azul-pale:#232d47;
     --ok:#7ecead; --ok-bg:#173327; --warn:#e8bd74; --warn-bg:#3c2f15; --crit:#e8968a; --crit-bg:#3d221d;
     --neutral-bg:#1e2c36; --neutral-ink:#a9bfd2;
     --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.35);
   }
   :root[data-theme="light"]{
-    --bg:#ffffff; --surface:#f5faff; --surface-2:#eaf3fc; --border:#d7e6f5;
-    --ink:#24374a; --ink-soft:#5f7a93; --ink-faint:#98adc4;
-    --celeste:#57a8d6; --celeste-deep:#2f7ba3; --celeste-pale:#dbeefb; --celeste-line:#b9def2;
+    --bg:#ffffff; --surface:#ffffff; --surface-2:#f4f6f8; --border:#e3e7ec;
+    --ink:#1f2a37; --ink-soft:#5b6675; --ink-faint:#93a0ae;
+    --celeste:#3f7ea8; --celeste-deep:#1e5577; --celeste-bright:#6fa8d8; --celeste-pale:#eaf3fa; --celeste-line:#bfdcee;
     --azul:#7c95dd; --azul-deep:#4c60ad; --azul-pale:#e4e9fb;
     --ok:#4c9b7c; --ok-bg:#e2f4ec; --warn:#c2872f; --warn-bg:#faf0da; --crit:#c56050; --crit-bg:#fae6e1;
     --neutral-bg:#eef1f4; --neutral-ink:#5f7285;
-    --shadow:0 1px 2px rgba(30,70,110,.06),0 8px 24px rgba(30,70,110,.07);
+    --shadow:0 1px 2px rgba(15,35,55,.05),0 10px 26px rgba(15,35,55,.08);
   }
 
   *{box-sizing:border-box;}
@@ -111,17 +106,17 @@
     position:fixed;inset:0;background:linear-gradient(160deg,var(--bg),var(--surface));
     display:flex;align-items:center;justify-content:center;padding:24px;z-index:50;
   }
-  .role-gate-inner{max-width:560px;width:100%;text-align:center;}
+  .role-gate-inner{max-width:760px;width:100%;text-align:center;}
   .role-gate-mark{
     width:52px;height:52px;border-radius:14px;margin:0 auto 18px;
-    background:linear-gradient(155deg,var(--celeste),var(--azul));
+    background:linear-gradient(135deg,var(--celeste-deep),var(--celeste) 55%,var(--celeste-bright));
     display:flex;align-items:center;justify-content:center;
   }
   .role-gate-mark svg{width:26px;height:26px;stroke:#fff;}
   .role-gate-inner h1{font-size:1.5rem;font-weight:700;margin:0 0 6px;letter-spacing:-.01em;}
   .role-gate-inner p{color:var(--ink-soft);font-size:.9375rem;margin:0 0 28px;}
-  .role-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-  @media (max-width:520px){.role-cards{grid-template-columns:1fr;}}
+  .role-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  @media (max-width:760px){.role-cards{grid-template-columns:1fr;}}
   .role-card{
     text-align:left;border:1.5px solid var(--border);background:var(--bg);border-radius:14px;
     padding:18px;cursor:pointer;display:flex;flex-direction:column;gap:6px;
@@ -155,7 +150,7 @@
 
   /* ---- Rail ---- */
   .rail{
-    background:var(--surface);
+    background:var(--surface-2);
     border-right:1px solid var(--border);
     padding:20px 14px;
     display:flex;
@@ -169,7 +164,7 @@
   .brand{display:flex;align-items:center;gap:10px;padding:2px 8px 6px;}
   .brand-mark{
     width:34px;height:34px;border-radius:9px;
-    background:linear-gradient(155deg,var(--celeste),var(--azul));
+    background:linear-gradient(135deg,var(--celeste-deep),var(--celeste) 55%,var(--celeste-bright));
     display:flex;align-items:center;justify-content:center;
     flex:none;
   }
@@ -197,6 +192,7 @@
     background:var(--surface-2);border-radius:20px;padding:1px 7px;font-variant-numeric:tabular-nums;
   }
   .nav-item.active .count{background:var(--celeste-line);color:var(--celeste-deep);}
+  .nav-divider{height:1px;background:var(--border);margin:8px 10px;}
   .nav-spacer{margin-top:auto;}
   .rail-foot{
     border-top:1px solid var(--border);padding-top:14px;margin-top:4px;
@@ -228,10 +224,13 @@
   @media (max-width:920px){.grid-2{grid-template-columns:1fr;}}
 
   .card{
-    background:var(--surface);border:1px solid var(--border);border-radius:14px;
-    padding:22px 24px;
+    background:var(--surface);border:1px solid var(--border);border-radius:16px;
+    padding:24px 26px;box-shadow:var(--shadow);
   }
-  .card + .card{margin-top:18px;}
+  .card + .card{margin-top:20px;}
+  .card-accent{position:relative;overflow:hidden;}
+  .card-accent::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;
+    background:linear-gradient(90deg,var(--celeste-deep),var(--celeste-bright));}
   .card h2{margin:0 0 4px;font-size:1.0625rem;font-weight:700;letter-spacing:-.01em;}
   .card .hint{margin:0 0 18px;font-size:.8125rem;color:var(--ink-soft);}
 
@@ -269,8 +268,8 @@
     display:inline-flex;align-items:center;gap:8px;border:none;border-radius:9px;
     padding:11px 20px;font-size:.875rem;font-weight:700;cursor:pointer;
   }
-  .btn-primary{background:var(--celeste-deep);color:#fff;}
-  .btn-primary:hover{background:var(--celeste);}
+  .btn-primary{background:linear-gradient(135deg,var(--celeste-deep),var(--celeste) 65%,var(--celeste-bright));color:#fff;box-shadow:0 1px 2px rgba(15,45,65,.18);}
+  .btn-primary:hover{filter:brightness(1.06);}
   .btn-ghost{background:transparent;color:var(--ink-soft);border:1px solid var(--border);}
   .btn-ghost:hover{background:var(--surface-2);}
   .btn-sm{padding:7px 13px;font-size:.75rem;}
@@ -312,10 +311,17 @@
   .preview .row span:first-child{color:var(--ink-soft);}
   .preview .row span:last-child{font-weight:600;text-align:right;}
   .chip{
-    display:inline-flex;align-items:center;font-size:.6875rem;font-weight:700;
-    padding:3px 9px;border-radius:20px;white-space:nowrap;
+    display:inline-flex;align-items:center;gap:6px;font-size:.75rem;font-weight:600;
+    padding:4px 11px;border-radius:999px;white-space:nowrap;line-height:1.3;
   }
+  .chip-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex:none;}
   .chip-empty{color:var(--ink-faint);font-weight:600;font-style:normal;}
+  /* quiet/neutral badge — for fields that shouldn't compete visually with prioridad/estado */
+  .badge-quiet{
+    display:inline-flex;align-items:center;font-size:.6875rem;font-weight:600;
+    padding:2px 8px;border-radius:20px;white-space:nowrap;
+    border:1px solid var(--border);color:var(--ink-soft);background:transparent;
+  }
   .flow-line{
     display:flex;align-items:center;gap:6px;font-size:.8125rem;font-weight:600;color:var(--celeste-deep);
     background:var(--celeste-pale);border-radius:10px;padding:12px 14px;margin-top:16px;
@@ -325,7 +331,7 @@
   /* stat tiles */
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
   @media (max-width:820px){.stats{grid-template-columns:repeat(2,1fr);}}
-  .stat{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;}
+  .stat{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow);}
   .stat .lbl{display:flex;align-items:center;gap:6px;font-size:.75rem;font-weight:600;color:var(--ink-soft);}
   .stat .lbl svg{width:14px;height:14px;stroke:var(--ink-faint);fill:none;stroke-width:2;flex:none;}
   .stat .val{font-size:1.75rem;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em;margin-top:2px;}
@@ -340,7 +346,7 @@
   .step-label svg{width:14px;height:14px;stroke:var(--celeste-deep);fill:none;stroke-width:2.1;flex:none;}
 
   .sec-list{display:flex;flex-direction:column;gap:14px;}
-  .sec-row{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 18px;}
+  .sec-row{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 18px;box-shadow:var(--shadow);}
   .sec-row-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;}
   .sec-row-top strong{display:flex;align-items:center;gap:7px;font-size:.9375rem;}
   .sec-row-top strong svg{width:15px;height:15px;stroke:var(--celeste-deep);fill:none;stroke-width:2;flex:none;}
@@ -384,7 +390,7 @@
   .cell-id{color:var(--ink-faint);font-variant-numeric:tabular-nums;}
   .cell-name{font-weight:600;}
   .cell-name small{display:block;font-weight:400;color:var(--ink-faint);font-variant-numeric:tabular-nums;}
-  .table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:14px;background:var(--surface);}
+  .table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:14px;background:var(--surface);box-shadow:var(--shadow);}
   .table-wrap table{min-width:720px;}
   .table-wrap .card-pad{padding:4px 8px;}
 
@@ -395,6 +401,7 @@
   }
   select.est-Abierto{background-color:var(--celeste-pale);color:var(--celeste-deep);}
   select.est-En-proceso{background-color:var(--warn-bg);color:var(--warn);}
+  select.est-Resuelto{background-color:var(--azul-pale);color:var(--azul-deep);}
   select.est-Cerrado{background-color:var(--ok-bg);color:var(--ok);}
 
   .empty-row td{padding:40px 12px;text-align:center;color:var(--ink-faint);font-size:.8125rem;}
@@ -449,17 +456,13 @@
   .date-range span{color:var(--ink-faint);font-size:.75rem;}
 
   .panel-section{
-    margin-top:24px;padding:20px;border-radius:16px;
+    margin-top:36px;
   }
   .panel-section:first-of-type{margin-top:0;}
-  .panel-section .card{background:var(--bg);}
-  .panel-section .stat{background:var(--bg);}
-  .panel-section.casos{background:var(--celeste-pale);}
-  .panel-section.secretarias{background:var(--azul-pale);}
-  .panel-section.colaboradores{background:var(--neutral-bg);}
 
   .panel-section-head{
     display:flex;align-items:center;gap:10px;margin:0 0 16px;
+    padding-bottom:10px;border-bottom:1px solid var(--border);
   }
   .panel-section-head .dot{width:11px;height:11px;border-radius:50%;flex:none;}
   .panel-section-head span:last-child{font-size:.8125rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
@@ -474,6 +477,11 @@
     display:none;align-items:center;gap:10px;font-size:.75rem;color:var(--ink-soft);
     margin:-8px 0 16px;
   }
+  .new-cases-banner{
+    display:flex;align-items:center;gap:8px;background:var(--celeste-pale);border:1px solid var(--celeste-line);
+    border-radius:10px;padding:10px 14px;font-size:.8125rem;font-weight:600;color:var(--celeste-deep);margin-bottom:16px;
+  }
+  .new-cases-banner svg{width:16px;height:16px;stroke:var(--celeste-deep);fill:none;stroke-width:2;flex:none;}
   .mini-edit{border:none;background:none;color:var(--celeste-deep);font-size:.6875rem;font-weight:700;cursor:pointer;}
   .add-row{display:flex;gap:8px;margin-top:6px;}
   .add-row-top{margin-top:14px;padding-top:12px;border-top:1px dashed var(--border);}
@@ -508,6 +516,40 @@
   .informe-bar span{display:block;height:100%;background:var(--celeste);border-radius:5px;}
   .informe-n{width:28px;text-align:right;font-weight:700;font-variant-numeric:tabular-nums;flex:none;}
 
+  /* ---------- Ficha de caso ---------- */
+  tbody tr.row-clickable{cursor:pointer;}
+  tbody tr.row-clickable .cell-id{color:var(--celeste-deep);font-weight:700;}
+  tbody tr.row-clickable:hover .cell-id{text-decoration:underline;}
+  /* Casos "Cerrado" en la lista de casos del Colaborador: fondo verde clarito, solo tratamiento visual. */
+  tbody tr.row-cerrado{background:var(--ok-bg);}
+  tbody tr.row-cerrado:hover{background:var(--ok-bg);}
+  .ficha-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:18px;}
+  .ficha-head h2{margin:0 0 4px;font-size:1.3125rem;font-weight:700;letter-spacing:-.015em;}
+  .ficha-head p{margin:0;color:var(--ink-soft);font-size:.8125rem;}
+  .ficha-rows{display:flex;flex-direction:column;}
+  .ficha-ciu-summary{display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+  .ficha-ciu-summary .fcs-id{display:flex;flex-direction:column;gap:2px;min-width:160px;}
+  .ficha-ciu-summary .fcs-id strong{font-size:.9375rem;font-weight:700;}
+  .ficha-ciu-summary .fcs-id span{font-size:.75rem;color:var(--ink-soft);}
+  .ficha-ciu-summary .fcs-meta{display:flex;gap:22px;flex-wrap:wrap;flex:1;}
+  .ficha-ciu-summary .fcs-meta div{display:flex;flex-direction:column;gap:1px;}
+  .ficha-ciu-summary .fcs-meta strong{font-size:.8125rem;font-weight:600;color:var(--ink);}
+  .ficha-ciu-summary .fcs-meta span{font-size:.6875rem;color:var(--ink-faint);}
+  #btnToggleHistorialFicha{margin-left:auto;flex:none;}
+  #btnToggleHistorialFicha svg.fcs-chevron{width:13px;height:13px;stroke:currentColor;stroke-width:2;transition:transform .15s;margin-left:2px;flex:none;}
+  #btnToggleHistorialFicha.is-open svg.fcs-chevron{transform:rotate(180deg);}
+  #fichaHistorialWrap{margin-top:18px;padding-top:18px;border-top:1px dashed var(--border);}
+  .ficha-row{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px dashed var(--border);font-size:.8125rem;}
+  .ficha-row:last-child{border-bottom:none;}
+  .ficha-row span:first-child{color:var(--ink-soft);flex:none;}
+  .ficha-row span:last-child{font-weight:600;text-align:right;}
+  .ficha-estado-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);}
+  .ficha-nota{padding:10px 0;border-bottom:1px solid var(--border);}
+  .ficha-nota:last-child{border-bottom:none;}
+  .ficha-nota-meta{display:flex;justify-content:space-between;gap:10px;font-size:.75rem;color:var(--ink-soft);margin-bottom:3px;}
+  .ficha-nota-meta strong{color:var(--ink);}
+  .ficha-nota-texto{font-size:.875rem;}
+
   .toast{
     position:fixed;bottom:24px;right:24px;background:var(--ink);color:var(--bg);
     padding:13px 18px;border-radius:10px;font-size:.8125rem;font-weight:600;
@@ -516,38 +558,6 @@
   }
   .toast.show{opacity:1;transform:translateY(0);}
   .toast svg{width:16px;height:16px;stroke:var(--ok);fill:none;stroke-width:2.2;flex:none;}
-  /* ---- Responsive (mobile) ---- */
-  .hamburger-btn{display:none;}
-  .rail-backdrop{display:none;}
-  @media (max-width:860px){
-    .hamburger-btn{
-      display:flex;align-items:center;justify-content:center;flex:none;
-      width:36px;height:36px;border-radius:8px;border:1px solid var(--border);
-      background:var(--bg);cursor:pointer;color:var(--ink);
-    }
-    .hamburger-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;}
-    .app{grid-template-columns:1fr;}
-    .rail{
-      position:fixed;top:0;left:0;bottom:0;width:264px;z-index:40;
-      transform:translateX(-100%);transition:transform .2s ease;
-    }
-    .app.rail-open .rail{transform:translateX(0);box-shadow:8px 0 28px rgba(0,0,0,.2);}
-    .rail-backdrop{position:fixed;inset:0;background:rgba(20,20,19,.42);z-index:35;}
-    .app:not(.rail-open) .rail-backdrop{display:none;}
-    .app.rail-open .rail-backdrop{display:block;}
-    .topbar{padding:14px 16px;gap:8px;flex-wrap:wrap;row-gap:8px;align-items:center;}
-    .topbar-left{display:flex;align-items:center;gap:10px;min-width:0;width:100%;}
-    .topbar-left > div{min-width:0;overflow:hidden;}
-    .topbar h1{font-size:1.0625rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-    .topbar .sub{display:none;}
-    .topbar-right{width:100%;justify-content:flex-end;flex-wrap:wrap;row-gap:6px;}
-    .view{padding:16px 14px 44px;}
-    .field-row{grid-template-columns:1fr;}
-    .stats{grid-template-columns:1fr 1fr;}
-    .grid-2{grid-template-columns:1fr;}
-    .proto-pill span{display:none;}
-  }
-  @media (prefers-reduced-motion: reduce){ .rail{transition:none;} }
 </style>
 
 <!-- ============ ROLE GATE ============ -->
@@ -559,7 +569,11 @@
     <div class="role-cards">
       <button type="button" class="role-card" id="cardColaborador" data-rol="Colaborador">
         <strong>Colaborador</strong>
-        <span>Carga casos nuevos, busca ciudadanos y ve los casos que él mismo derivó.</span>
+        <span>Carga casos nuevos, busca ciudadanos y ve todos los casos del sistema.</span>
+      </button>
+      <button type="button" class="role-card" id="cardEncargado" data-rol="Encargado">
+        <strong>Encargado</strong>
+        <span>Trabaja los casos de su Secretaría (o Secretarías) y actualiza su estado.</span>
       </button>
       <button type="button" class="role-card" id="cardGestion" data-rol="Gestión">
         <strong>Gestión</strong>
@@ -575,33 +589,51 @@
 
 <!-- ============ APP ============ -->
 <div class="app" id="app" style="display:none;">
-  <div class="rail-backdrop" id="railBackdrop"></div>
   <aside class="rail">
     <div class="brand">
       <div class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
       <div class="brand-text"><strong>Portal de Casos</strong><span>Comunidad</span></div>
     </div>
 
-    <div class="nav-group">
-      <button class="nav-item active" data-view="nuevo" data-roles="colaborador,gestion">
-        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
-        Nuevo caso
-      </button>
-      <button class="nav-item" data-view="panel" data-roles="gestion">
+    <!-- Encargado: Secretarías va primero en su navegación (pedido de Macarena, 23/09/2026) -->
+    <div class="nav-group" data-roles="encargado">
+      <div class="eyebrow">Secretarías</div>
+      <button class="nav-item" data-view="encargado-secretarias">
         <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
-        Panel general
+        Secretarías
       </button>
-      <button class="nav-item" data-view="canal" data-roles="gestion">
-        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
-        Canal de contacto
-      </button>
+    </div>
+
+    <div class="nav-group">
       <button class="nav-item" data-view="ciudadanos" data-roles="colaborador,gestion">
         <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
         Ciudadanos
       </button>
-      <button class="nav-item" data-view="mis-casos" data-roles="colaborador">
-        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4"/><path d="M9 15h6M9 11h3M17 3l4 4L11 17l-4 1 1-4 9-9Z"/></svg>
-        Mis casos
+      <button class="nav-item active" data-view="nuevo" data-roles="colaborador,gestion">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
+        Nuevo caso
+      </button>
+      <button class="nav-item" data-view="mis-casos" data-roles="colaborador,encargado">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        Casos
+      </button>
+      <!-- Gestión: separador visual entre el grupo Ciudadanos/Nuevo Caso y el grupo Panel general/Información (pedido de Macarena, 23/09/2026) -->
+      <div class="nav-divider" data-roles="gestion"></div>
+      <button class="nav-item" data-view="panel" data-roles="gestion">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+        Panel general
+      </button>
+      <!--
+        Información: oculta por decisión de Macarena (23/09/2026), reactivar en su lugar
+        (después de Panel general) cuando se confirme el contenido.
+      <button class="nav-item" data-view="informacion" data-roles="colaborador,gestion">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+        Información
+      </button>
+      -->
+      <button class="nav-item" data-view="canal" data-roles="gestion">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
+        Canal de contacto
       </button>
     </div>
 
@@ -622,19 +654,14 @@
 
   <div class="main">
     <header class="topbar">
-      <div class="topbar-left">
-        <button class="hamburger-btn" id="railToggle" aria-label="Abrir menú">
-          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
-        </button>
-        <div>
-          <h1 id="viewTitle">Nuevo caso</h1>
-          <p class="sub" id="viewSub">Captar el caso, clasificarlo y derivarlo a la secretaría correspondiente.</p>
-        </div>
+      <div>
+        <h1 id="viewTitle">Nuevo caso</h1>
+        <p class="sub" id="viewSub">Captar el caso, clasificarlo y derivarlo a la secretaría correspondiente.</p>
       </div>
       <div class="topbar-right">
         <div class="proto-pill">
           <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/></svg>
-          <span>Prototipo</span>
+          Prototipo
         </div>
         <div class="role-badge">
           <span><strong id="roleBadgeText">—</strong></span>
@@ -674,7 +701,11 @@
                   <div class="field"><label>Teléfono</label><input type="text" id="ci-telefono" placeholder="11-0000-0000"></div>
                   <div class="field"><label>Mail</label><input type="email" id="ci-mail" placeholder="nombre@mail.com"></div>
                 </div>
-                <div class="field"><label>Dirección</label><input type="text" id="ci-direccion" placeholder="Calle, número, barrio"></div>
+                <div class="field"><label>Dirección</label><input type="text" id="ci-direccion" placeholder="Calle y número"></div>
+                <div class="field-row">
+                  <div class="field"><label>Barrio</label><input type="text" id="ci-barrio" placeholder="Barrio Centro"></div>
+                  <div class="field"><label>Localidad</label><input type="text" id="ci-localidad" placeholder="Localidad"></div>
+                </div>
                 <label class="check-especial"><input type="checkbox" id="ci-especial"> Ciudadano prioritario / especial</label>
                 <div style="display:flex;gap:8px;">
                   <button type="button" class="btn btn-primary btn-sm" id="btnGuardarCiudadanoInline">Guardar y continuar</button>
@@ -743,6 +774,10 @@
                 <textarea id="f-mensaje" placeholder="Pegar o resumir el mensaje recibido en redes…"></textarea>
               </div>
               <label class="check-visita"><input type="checkbox" id="f-visita"> ¿Requiere visita física?</label>
+              <div class="field" style="margin-top:14px;">
+                <label>Agregar nota (opcional)</label>
+                <textarea id="f-nota-inicial" placeholder="Nota interna para quien siga este caso — se guarda igual que las notas de la ficha…"></textarea>
+              </div>
               <button type="submit" class="btn btn-primary">
                 <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                 Derivar caso
@@ -752,7 +787,7 @@
         </div>
 
         <aside class="preview">
-          <div class="card">
+          <div class="card card-accent">
             <h2><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>Vista previa de derivación</h2>
             <p class="hint">Se actualiza a medida que completás el formulario.</p>
             <div class="row"><span>Ciudadano</span><span id="pv-ciudadano" class="chip-empty">—</span></div>
@@ -876,6 +911,7 @@
           <button class="tab-btn active" data-estado="Todos">Todos</button>
           <button class="tab-btn" data-estado="Abierto">Abiertos</button>
           <button class="tab-btn" data-estado="En proceso">En proceso</button>
+          <button class="tab-btn" data-estado="Resuelto">Resueltos</button>
           <button class="tab-btn" data-estado="Cerrado">Cerrados</button>
         </div>
         <div class="search-wrap">
@@ -894,7 +930,7 @@
         <div class="card-pad">
           <table>
             <thead><tr>
-              <th>ID</th><th>Ciudadano</th><th>Incidente</th><th>Prioridad</th><th>Canal</th><th>Responsable</th><th>Fecha</th><th>Estado</th>
+              <th>ID</th><th>Ciudadano</th><th>Incidente</th><th>Prioridad</th><th>Canal</th><th>Responsable</th><th>Fecha</th><th>Estado</th><th></th>
             </tr></thead>
             <tbody id="sec-table-body"></tbody>
           </table>
@@ -902,16 +938,152 @@
       </div>
     </section>
 
-    <!-- MIS CASOS -->
+    <!-- CASOS (antes "Mis casos") -->
     <section class="view" id="view-mis-casos">
+      <!-- Aviso de casos nuevos sin ver, solo para el rol Encargado — prototipo con estado en memoria (sin backend). -->
+      <div class="new-cases-banner" id="encargadoNuevosBanner" style="display:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span id="encargadoNuevosText"></span>
+      </div>
+
+      <!-- "Casos para chequear y cerrar": solo para el rol Colaborador. Listado fijo de tareas pendientes
+           (todos los casos Resuelto del sistema, sin filtro de Secretaría) — a diferencia del aviso de
+           casos nuevos del Encargado de arriba, este bloque NO tiene lógica de visto/no visto: se muestra
+           siempre que haya al menos un caso Resuelto, y desaparece solo cuando no queda ninguno pendiente. -->
+      <div class="card card-accent" id="resueltosParaCerrarCard" style="display:none;">
+        <h2><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12.3 11 14.3 15.5 9.5"/></svg>Casos para chequear y cerrar</h2>
+        <p class="hint">Casos que ya fueron resueltos por la Secretaría correspondiente. Revisalos y cerralos si está todo en orden.</p>
+        <div class="table-wrap">
+          <div class="card-pad">
+            <table>
+              <thead><tr><th>ID</th><th>Secretaría</th><th>Ciudadano</th><th>Incidente</th><th>Prioridad</th><th>Fecha</th><th></th></tr></thead>
+              <tbody id="resueltosParaCerrarBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <select class="filter-select" id="casos-estado-filter">
+          <option value="Todos">Todos los estados</option>
+          <option>Abierto</option>
+          <option>En proceso</option>
+          <option>Resuelto</option>
+          <option>Cerrado</option>
+        </select>
+        <select class="filter-select" id="casos-barrio-filter"></select>
+        <div class="date-range">
+          <input type="date" class="filter-select" id="casos-fecha-desde" title="Desde">
+          <span>—</span>
+          <input type="date" class="filter-select" id="casos-fecha-hasta" title="Hasta">
+        </div>
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" class="search-input" id="casos-dni-filter" placeholder="Buscar por DNI…">
+        </div>
+      </div>
+      <div class="filter-badge" id="casosFilterBadge">
+        <span id="casosFilterText"></span>
+        <button type="button" class="btn btn-ghost btn-sm" id="btnLimpiarFiltrosCasos">Limpiar filtros</button>
+      </div>
       <div class="table-wrap">
         <div class="card-pad">
           <table>
-            <thead><tr><th>ID</th><th>Secretaría</th><th>Ciudadano</th><th>Incidente</th><th>Prioridad</th><th>Canal</th><th>Fecha</th><th>Estado</th></tr></thead>
+            <thead><tr><th>ID</th><th>Secretaría</th><th>Ciudadano</th><th>Incidente</th><th>Prioridad</th><th>Canal</th><th>Fecha</th><th>Estado</th><th></th></tr></thead>
             <tbody id="misCasosBody"></tbody>
           </table>
         </div>
       </div>
+    </section>
+
+    <!-- FICHA DE CASO -->
+    <section class="view" id="view-ficha">
+      <button type="button" class="btn btn-ghost btn-sm" id="btnVolverFicha" style="margin-bottom:16px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Volver al listado
+      </button>
+
+      <div class="card card-accent" id="fichaCasoCard">
+        <div class="ficha-head">
+          <div>
+            <h2 id="ficha-titulo">—</h2>
+            <p id="ficha-sub"></p>
+          </div>
+          <span id="ficha-estado-chip"></span>
+        </div>
+        <div class="ficha-rows">
+          <div class="ficha-row"><span>Secretaría</span><span id="fc-secretaria">—</span></div>
+          <div class="ficha-row"><span>Área</span><span id="fc-area">—</span></div>
+          <div class="ficha-row"><span>Incidente</span><span id="fc-incidente">—</span></div>
+          <div class="ficha-row"><span>Prioridad</span><span id="fc-prioridad">—</span></div>
+          <div class="ficha-row"><span>Canal de contacto</span><span id="fc-canal">—</span></div>
+          <div class="ficha-row"><span>Fecha</span><span id="fc-fecha">—</span></div>
+          <div class="ficha-row"><span>Cargado / derivado por</span><span id="fc-derivadopor">—</span></div>
+          <div class="ficha-row"><span>Responsable</span><span id="fc-responsable">—</span></div>
+          <div class="ficha-row" id="fc-visita-row" style="display:none;"><span>Visita física</span><span id="fc-visita">—</span></div>
+        </div>
+        <div class="ficha-estado-actions" id="fichaEstadoActions"></div>
+      </div>
+
+      <div class="card">
+        <h2><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Notas internas</h2>
+        <p class="hint" id="ficha-notas-sub">Notas visibles para quien siga este caso — no son visibles para el ciudadano.</p>
+        <div id="fichaNotasList"></div>
+        <div class="field" style="margin-top:14px;">
+          <label>Agregar nota</label>
+          <textarea id="fichaNotaTexto" placeholder="Nota interna para quien siga este caso…"></textarea>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm" id="btnAgregarNotaFicha" style="margin-top:8px;">Agregar nota</button>
+      </div>
+
+      <div class="card">
+        <h2><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>Ciudadano</h2>
+        <div class="ficha-ciu-summary" id="fichaCiudadanoSummary">
+          <div class="fcs-id">
+            <strong id="fcs-nombre">—</strong>
+            <span id="fcs-dni">DNI —</span>
+          </div>
+          <div class="fcs-meta">
+            <div><strong id="fcs-telefono">—</strong><span>Teléfono</span></div>
+            <div><strong id="fcs-domicilio">—</strong><span>Domicilio</span></div>
+          </div>
+          <button type="button" class="btn btn-ghost btn-sm" id="btnToggleHistorialFicha">
+            <span id="btnToggleHistorialLabel">Ver historial de casos</span>
+            <svg class="fcs-chevron" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </div>
+        <div id="fichaHistorialWrap" hidden>
+          <p class="hint" id="ficha-hist-hint" style="margin:16px 0 12px;">Otros casos del mismo ciudadano, en cualquier secretaría.</p>
+          <div class="table-wrap">
+            <div class="card-pad">
+              <table>
+                <thead><tr><th>ID</th><th>Secretaría</th><th>Incidente</th><th>Prioridad</th><th>Fecha</th><th>Estado</th></tr></thead>
+                <tbody id="fichaHistBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ENCARGADO: SECRETARIAS -->
+    <section class="view" id="view-encargado-secretarias">
+      <div class="card">
+        <h2><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Secretarías</h2>
+        <p class="hint">Las secretarías que tenés asignadas están habilitadas. Las demás se muestran sin acceso.</p>
+        <div id="encargadoSecList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;"></div>
+      </div>
+    </section>
+
+    <!-- INFORMACION -->
+    <section class="view" id="view-informacion">
+      <div class="toolbar">
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" class="search-input" id="info-search" placeholder="Buscar por título o contenido…">
+        </div>
+      </div>
+      <div id="infoList"></div>
     </section>
 
     <!-- CIUDADANOS -->
@@ -921,11 +1093,6 @@
           <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
           <input type="text" class="search-input" id="cli-search" placeholder="Buscar por nombre o DNI…">
         </div>
-        <select class="filter-select" id="cli-estado-filter">
-          <option value="Todos">Todos los estados</option>
-          <option value="Activo">Activos</option>
-          <option value="Anulado">Anulados</option>
-        </select>
         <button type="button" class="btn btn-primary" id="btnNuevoCiudadano" style="margin-left:auto;">
           <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
           Nuevo ciudadano
@@ -935,7 +1102,7 @@
       <div class="table-wrap" id="ciudadanosListWrap">
         <div class="card-pad">
           <table>
-            <thead><tr><th>Nombre</th><th>DNI</th><th>Teléfono</th><th>Estado</th><th>Casos</th><th>Último caso</th><th></th></tr></thead>
+            <thead><tr><th>Nombre</th><th>DNI</th><th>Teléfono</th><th>Barrio</th><th>Casos</th><th>Último caso</th><th></th></tr></thead>
             <tbody id="ciudadanosTableBody"></tbody>
           </table>
         </div>
@@ -945,7 +1112,6 @@
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:10px;">
           <h2 id="ciudadanoDetailTitle" style="margin:0;font-size:.875rem;font-weight:700;color:var(--ink-soft);">Ciudadano</h2>
           <div style="display:flex;gap:8px;">
-            <button type="button" class="btn btn-ghost btn-sm" id="btnAnularCiudadano" data-roles="gestion">Anular</button>
             <button type="button" class="btn btn-ghost btn-sm" id="btnCerrarDetalleCiudadano">← Volver al listado</button>
           </div>
         </div>
@@ -965,7 +1131,11 @@
             <div class="field"><label>Teléfono</label><input type="text" id="cu-telefono" placeholder="11-0000-0000"></div>
             <div class="field"><label>Mail</label><input type="email" id="cu-mail" placeholder="nombre@mail.com"></div>
           </div>
-          <div class="field"><label>Dirección</label><input type="text" id="cu-direccion" placeholder="Calle, número, barrio"></div>
+          <div class="field"><label>Dirección</label><input type="text" id="cu-direccion" placeholder="Calle y número"></div>
+          <div class="field-row">
+            <div class="field"><label>Barrio</label><input type="text" id="cu-barrio" placeholder="Barrio Centro"></div>
+            <div class="field"><label>Localidad</label><input type="text" id="cu-localidad" placeholder="Localidad"></div>
+          </div>
           <label class="check-especial"><input type="checkbox" id="cu-especial"> Ciudadano prioritario / especial</label>
           <div style="display:flex;gap:8px;">
             <button type="submit" class="btn btn-primary">Guardar ciudadano</button>
@@ -973,19 +1143,23 @@
           </div>
         </form>
 
-        <h2 style="margin:26px 0 4px;"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-4 4"/></svg>Historial de casos</h2>
-        <p class="hint" style="margin-bottom:12px;">Todos los casos registrados con este DNI, en cualquier secretaría.</p>
-        <div class="table-wrap">
-          <div class="card-pad">
-            <table>
-              <thead><tr><th>ID</th><th>Secretaría</th><th>Incidente</th><th>Prioridad</th><th>Fecha</th><th>Estado</th></tr></thead>
-              <tbody id="ciudadanoHistBody"></tbody>
-            </table>
+        <!-- Historial de casos: solo tiene sentido para un ciudadano YA EXISTENTE. Se oculta por completo
+             (sin placeholder) mientras se está dando de alta uno nuevo — ver openCiudadanoNuevo() / openCiudadanoDetail(). -->
+        <div id="cdHistoriaWrap">
+          <h2 style="margin:26px 0 4px;"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-4 4"/></svg>Historial de casos</h2>
+          <p class="hint" id="cdHistHint" style="margin-bottom:12px;">Todos los casos registrados con este DNI, en cualquier secretaría.</p>
+          <div class="table-wrap">
+            <div class="card-pad">
+              <table>
+                <thead><tr><th>ID</th><th>Secretaría</th><th>Incidente</th><th>Prioridad</th><th>Fecha</th><th>Estado</th></tr></thead>
+                <tbody id="ciudadanoHistBody"></tbody>
+              </table>
+            </div>
           </div>
-        </div>
-        <div class="note-box" style="margin-top:16px;">
-          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/></svg>
-          Nombre y DNI de ejemplo — datos de prueba, no representan personas reales.
+          <div class="note-box" style="margin-top:16px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/></svg>
+            Nombre y DNI de ejemplo — datos de prueba, no representan personas reales.
+          </div>
         </div>
       </div>
     </section>
@@ -1013,11 +1187,11 @@
 
       <div class="card">
         <h2><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="3.2"/><path d="M2.5 20c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5"/><circle cx="18" cy="8.5" r="2.3"/><path d="M16.8 13.6c2.3.4 4.1 2.3 4.3 4.7"/></svg>Usuarios y roles</h2>
-        <p class="hint">Quién puede entrar como Colaborador (una secretaría) o como Gestión (acceso completo).</p>
+        <p class="hint">Quién puede entrar como Colaborador, Encargado (una o más secretarías) o Gestión (acceso completo). El alta de usuarios Encargado y la asignación de sus secretarías todavía se hacen por fuera de este formulario — está pendiente de definir la UI.</p>
         <div class="table-wrap">
           <div class="card-pad">
             <table>
-              <thead><tr><th>Nombre</th><th>Rol</th><th>Turno</th><th>Secretaría</th><th>Estado</th><th></th></tr></thead>
+              <thead><tr><th>Nombre</th><th>Rol</th><th>Turno</th><th>Secretaría(s)</th><th>Estado</th><th></th></tr></thead>
               <tbody id="usuariosTableBody"></tbody>
             </table>
           </div>
@@ -1106,18 +1280,21 @@
     {nombre:"Colaborador 4", rol:"Colaborador", turno:"Tarde", secretaria:"Desarrollo Social", activo:true},
     {nombre:"Colaborador 5", rol:"Colaborador", turno:"Mañana", secretaria:"Educación", activo:true},
     {nombre:"Colaborador 6", rol:"Colaborador", turno:"Mañana", secretaria:"Casos especiales", activo:true},
+    {nombre:"Encargado 1", rol:"Encargado", turno:"Mañana", secretarias:["Salud","Educación"], activo:true},
+    {nombre:"Encargado 2", rol:"Encargado", turno:"Tarde", secretarias:["Obras Públicas"], activo:true},
+    {nombre:"Encargado 3", rol:"Encargado", turno:"Mañana", secretarias:["Desarrollo Social","Casos especiales"], activo:true},
     {nombre:"Gestión 1", rol:"Gestión", turno:"Mañana", secretaria:"", activo:true}
   ];
 
   var ciudadanos = [
-    {dni:"00.000.001", nombre:"Vecino/a demo 1", telefono:"11-0000-0001", mail:"vecino1@demo.mail", direccion:"Calle Demo 101", activo:true, especial:false},
-    {dni:"00.000.002", nombre:"Vecino/a demo 2", telefono:"11-0000-0002", mail:"vecino2@demo.mail", direccion:"Calle Demo 202", activo:true, especial:true},
-    {dni:"00.000.003", nombre:"Vecino/a demo 3", telefono:"11-0000-0003", mail:"vecino3@demo.mail", direccion:"Calle Demo 303", activo:true, especial:false},
-    {dni:"00.000.004", nombre:"Vecino/a demo 4", telefono:"11-0000-0004", mail:"vecino4@demo.mail", direccion:"Calle Demo 404", activo:true, especial:false},
-    {dni:"00.000.005", nombre:"Vecino/a demo 5", telefono:"11-0000-0005", mail:"vecino5@demo.mail", direccion:"Calle Demo 505", activo:true, especial:true},
-    {dni:"00.000.006", nombre:"Vecino/a demo 6", telefono:"11-0000-0006", mail:"vecino6@demo.mail", direccion:"Calle Demo 606", activo:true, especial:false},
-    {dni:"00.000.007", nombre:"Vecino/a demo 7", telefono:"11-0000-0007", mail:"vecino7@demo.mail", direccion:"Calle Demo 707", activo:true, especial:false},
-    {dni:"00.000.008", nombre:"Vecino/a demo 8", telefono:"11-0000-0008", mail:"vecino8@demo.mail", direccion:"Calle Demo 808", activo:true, especial:false}
+    {dni:"00.000.001", nombre:"Vecino/a demo 1", telefono:"11-0000-0001", mail:"vecino1@demo.mail", direccion:"Calle Demo 101", barrio:"Barrio Centro", localidad:"Comunidad", activo:true, especial:false},
+    {dni:"00.000.002", nombre:"Vecino/a demo 2", telefono:"11-0000-0002", mail:"vecino2@demo.mail", direccion:"Calle Demo 202", barrio:"Barrio Norte", localidad:"Comunidad", activo:true, especial:true},
+    {dni:"00.000.003", nombre:"Vecino/a demo 3", telefono:"11-0000-0003", mail:"vecino3@demo.mail", direccion:"Calle Demo 303", barrio:"Barrio Sur", localidad:"Comunidad", activo:true, especial:false},
+    {dni:"00.000.004", nombre:"Vecino/a demo 4", telefono:"11-0000-0004", mail:"vecino4@demo.mail", direccion:"Calle Demo 404", barrio:"Barrio Este", localidad:"Comunidad", activo:true, especial:false},
+    {dni:"00.000.005", nombre:"Vecino/a demo 5", telefono:"11-0000-0005", mail:"vecino5@demo.mail", direccion:"Calle Demo 505", barrio:"Barrio Centro", localidad:"Comunidad", activo:true, especial:true},
+    {dni:"00.000.006", nombre:"Vecino/a demo 6", telefono:"11-0000-0006", mail:"vecino6@demo.mail", direccion:"Calle Demo 606", barrio:"Barrio Norte", localidad:"Comunidad", activo:true, especial:false},
+    {dni:"00.000.007", nombre:"Vecino/a demo 7", telefono:"11-0000-0007", mail:"vecino7@demo.mail", direccion:"Calle Demo 707", barrio:"Barrio Sur", localidad:"Comunidad", activo:true, especial:false},
+    {dni:"00.000.008", nombre:"Vecino/a demo 8", telefono:"11-0000-0008", mail:"vecino8@demo.mail", direccion:"Calle Demo 808", barrio:"Barrio Este", localidad:"Comunidad", activo:true, especial:false}
   ];
 
   var seq = 1;
@@ -1141,20 +1318,54 @@
     return '<svg class="sec-icon" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">' + (ICONOS_SECRETARIA[nombre] || ICONO_SECRETARIA_DEFAULT) + '</svg>';
   }
 
-  function mk(secretaria,area,incidente,prioridad,responsable,estado,fecha,nombre,dni,derivadoPor,canal,requiereVisita){
+  var ESTADOS = ["Abierto","En proceso","Resuelto","Cerrado"];
+
+  // Orden por defecto (triage): abiertos/en proceso antes que resueltos/cerrados,
+  // luego por prioridad (Urgente > Alta > Media > Baja), y a igual prioridad, el más antiguo primero.
+  var PRIORIDAD_RANK = {"Urgente":0, "Alta":1, "Media":2, "Baja":3};
+  function estadoGrupoRank(estado){ return (estado==="Abierto" || estado==="En proceso") ? 0 : 1; }
+  function defaultCaseSort(a, b){
+    var ga = estadoGrupoRank(a.estado), gb = estadoGrupoRank(b.estado);
+    if (ga !== gb) return ga - gb;
+    var pa = PRIORIDAD_RANK[a.prioridad], pb = PRIORIDAD_RANK[b.prioridad];
+    if (pa !== pb) return pa - pb;
+    return parseFecha(a.fecha) - parseFecha(b.fecha);
+  }
+
+  function mk(secretaria,area,incidente,prioridad,responsable,estado,fecha,nombre,dni,derivadoPor,canal,requiereVisita,notas){
     return {id:nextId(),secretaria:secretaria,area:area,incidente:incidente,prioridad:prioridad,
-      responsable:responsable,estado:estado,fecha:fecha,nombre:nombre,dni:dni,derivadoPor:derivadoPor||responsable,canal:canal||"Otro",requiereVisita:!!requiereVisita};
+      responsable:responsable,estado:estado,fecha:fecha,nombre:nombre,dni:dni,derivadoPor:derivadoPor||responsable,canal:canal||"Otro",requiereVisita:!!requiereVisita,notas:notas||[]};
   }
 
   var cases = [
-    mk("Salud","Atención Primaria","Turno médico no asignado","Alta","Colaborador 1","Abierto","10/08/2026","Vecino/a demo 1","00.000.001","Colaborador 1","WhatsApp",false),
+    mk("Salud","Atención Primaria","Turno médico no asignado","Alta","Colaborador 1","Abierto","10/08/2026","Vecino/a demo 1","00.000.001","Colaborador 1","WhatsApp",false,[
+      {autor:"Colaborador 1", rol:"Colaborador", fecha:"10/08/2026 09:40", texto:"Vecino insiste, pide que lo llamen antes del mediodía."}
+    ]),
     mk("Salud","Salud Mental","Demora en primera consulta","Media","Colaborador 2","En proceso","06/08/2026","Vecino/a demo 2","00.000.002","Colaborador 2","Instagram",true),
     mk("Obras Públicas","Alumbrado","Luminaria apagada","Media","Colaborador 3","Cerrado","29/07/2026","Vecino/a demo 3","00.000.003","Colaborador 3","Facebook",true),
     mk("Obras Públicas","Vialidad","Bache en la calzada","Urgente","Colaborador 3","Abierto","11/08/2026","Vecino/a demo 4","00.000.004","Colaborador 1","WhatsApp",true),
     mk("Desarrollo Social","Asistencia Directa","Módulo alimentario","Alta","Colaborador 4","En proceso","05/08/2026","Vecino/a demo 5","00.000.005","Colaborador 4","Presencial",false),
     mk("Desarrollo Social","Discapacidad","Trámite de CUD","Baja","Colaborador 4","Cerrado","20/07/2026","Vecino/a demo 6","00.000.006","Colaborador 2","Teléfono",false),
     mk("Educación","Becas","Consulta de estado de trámite","Baja","Colaborador 5","Cerrado","15/07/2026","Vecino/a demo 7","00.000.007","Colaborador 5","WhatsApp",false),
-    mk("Educación","Infraestructura escolar","Falta de mobiliario","Media","Colaborador 5","Abierto","09/08/2026","Vecino/a demo 8","00.000.008","Colaborador 3","TikTok",false)
+    mk("Educación","Infraestructura escolar","Falta de mobiliario","Media","Colaborador 5","Abierto","09/08/2026","Vecino/a demo 8","00.000.008","Colaborador 3","TikTok",false),
+    mk("Salud","Atención Primaria","Falta de vacunas","Media","Colaborador 1","Resuelto","03/08/2026","Vecino/a demo 3","00.000.003","Colaborador 2","WhatsApp",false,[
+      {autor:"Encargado 1", rol:"Encargado", fecha:"08/08/2026 14:15", texto:"Se coordinó turno con el centro de salud, quedó resuelto."}
+    ]),
+    mk("Obras Públicas","Vialidad","Falta de señalización","Baja","Colaborador 3","Resuelto","30/07/2026","Vecino/a demo 6","00.000.006","Colaborador 1","Presencial",false,[
+      {autor:"Encargado 2", rol:"Encargado", fecha:"02/08/2026 11:05", texto:"Cuadrilla colocó la señalización solicitada."}
+    ]),
+    mk("Desarrollo Social","Discapacidad","Transporte adaptado","Alta","Colaborador 4","Resuelto","28/07/2026","Vecino/a demo 8","00.000.008","Colaborador 4","Teléfono",true)
+  ];
+
+  var informacion = [
+    {titulo:"Horarios del centro de salud Barrio Centro", secretaria:"Salud", contenido:"Atiende de lunes a viernes de 8 a 18hs, y sábados de 8 a 12hs. Guardia de enfermería las 24 horas. No se necesita turno para consultas de enfermería.", actualizado:"01/08/2026"},
+    {titulo:"Requisitos para el Certificado Único de Discapacidad (CUD)", secretaria:"Desarrollo Social", contenido:"DNI, resumen de historia clínica actualizado (no mayor a 6 meses) y una foto carnet. El trámite es gratuito y se inicia con turno previo en la oficina de Discapacidad.", actualizado:"28/07/2026"},
+    {titulo:"Cómo solicitar una beca educativa", secretaria:"Educación", contenido:"Se solicita completando el formulario en la oficina de Becas con DNI del alumno, certificado de alumno regular y último recibo de sueldo o constancia de ANSES del grupo familiar. Convocatoria abierta todo el año.", actualizado:"15/07/2026"},
+    {titulo:"Direcciones de las oficinas de Obras Públicas", secretaria:"Obras Públicas", contenido:"Oficina central: Av. Demo 1200. Delegación Barrio Norte: Calle Demo 450. Ambas atienden de 8 a 15hs para reclamos de alumbrado y vialidad.", actualizado:"20/07/2026"},
+    {titulo:"Qué es un caso 'especial' o prioritario", secretaria:"Casos especiales", contenido:"Se marca como especial a un ciudadano en situación de vulnerabilidad que requiere seguimiento prioritario en cualquier Secretaría. La marca la puede poner cualquier Colaborador al cargar o editar el ciudadano.", actualizado:"05/08/2026"},
+    {titulo:"Teléfono y horario de atención general del organismo", secretaria:null, contenido:"Línea de atención ciudadana: 0800-000-0000, de lunes a viernes de 8 a 20hs. Fuera de ese horario, dejar mensaje por WhatsApp y se responde al siguiente día hábil.", actualizado:"10/08/2026"},
+    {titulo:"Módulo alimentario: quiénes pueden pedirlo", secretaria:"Desarrollo Social", contenido:"Pueden solicitarlo grupos familiares en situación de vulnerabilidad económica. Se entrega mensualmente y se retira en la oficina de Asistencia Directa con DNI del titular.", actualizado:"22/07/2026"},
+    {titulo:"Cómo reportar una luminaria apagada", secretaria:"Obras Públicas", contenido:"Se puede reportar por cualquier canal (WhatsApp, redes, presencial o teléfono) indicando la dirección exacta o un punto de referencia. El plazo estimado de reparación es de 5 a 10 días hábiles.", actualizado:"12/08/2026"}
   ];
 
   var state = {
@@ -1162,10 +1373,15 @@
     view:"nuevo", secretariaActual:null,
     secTabEstado:"Todos", secSearch:"", secPrioridad:"Todas",
     prioridadElegida:"Media",
-    cliSearch:"", cliEstadoFiltro:"Todos", clienteModoNuevo:false,
+    cliSearch:"", clienteModoNuevo:false,
     cfgMostrarTodas:false, cfgSearch:"",
     panelSecretariaFiltro:"Todas", panelUsuarioFiltro:"Todos", panelTab:"Resumen",
-    panelFechaDesde:"", panelFechaHasta:""
+    panelFechaDesde:"", panelFechaHasta:"",
+    casosFiltroEstado:"Todos", casosFechaDesde:"", casosFechaHasta:"", casosDni:"", casosBarrio:"Todos",
+    infoSearch:"", fichaCasoId:null, fichaReturn:null, ciudadanoDetailDni:null,
+    // Casos ya vistos por cada Encargado, para el aviso de "casos nuevos" — {nombreUsuario: [idsDeCasos]}.
+    // Solo estado en memoria de la sesión del prototipo, sin persistencia (no hay backend todavía).
+    vistosEncargado:{}
   };
 
   /* ================= ROLE GATE ================= */
@@ -1183,7 +1399,7 @@
     $("app").style.display = "grid";
     $("roleBadgeText").textContent = state.usuarioActivo + " · " + state.rol;
     applyRoleVisibility();
-    var defaultView = state.rol==="Gestión" ? "panel" : "nuevo";
+    var defaultView = state.rol==="Gestión" ? "panel" : state.rol==="Encargado" ? "encargado-secretarias" : "nuevo";
     setView(defaultView);
   }
   document.querySelectorAll(".role-card").forEach(function(card){
@@ -1214,10 +1430,79 @@
   });
 
   function applyRoleVisibility(){
-    var role = state.rol === "Gestión" ? "gestion" : "colaborador";
+    var role = state.rol === "Gestión" ? "gestion" : state.rol === "Encargado" ? "encargado" : "colaborador";
     document.querySelectorAll("[data-roles]").forEach(function(el){
       var roles = el.dataset.roles.split(",");
       el.style.display = roles.indexOf(role) > -1 ? "" : "none";
+    });
+  }
+
+  function encargadoTieneAcceso(secNombre){
+    if (state.rol !== "Encargado") return true;
+    var u = usuarios.find(function(x){ return x.nombre===state.usuarioActivo; });
+    return !!(u && u.secretarias && u.secretarias.indexOf(secNombre) > -1);
+  }
+  function getCiudadano(dni){ return ciudadanos.find(function(c){ return c.dni===dni; }); }
+  function getCaso(id){ return cases.find(function(c){ return c.id===id; }); }
+
+  // Secretarías asignadas al usuario Encargado actualmente logueado (null si el rol no es Encargado).
+  function misSecretariasEncargado(){
+    if (state.rol !== "Encargado") return null;
+    var u = usuarios.find(function(x){ return x.nombre===state.usuarioActivo; });
+    return (u && u.secretarias) || [];
+  }
+
+  /* ---- Aviso de casos nuevos para el Encargado (prototipo, estado en memoria — sin backend) ----
+     Se compara contra los casos Abierto/En proceso de las Secretarías asignadas al Encargado logueado,
+     y contra el registro de ids ya vistos por ese Encargado (state.vistosEncargado). */
+  function casosNuevosEncargado(){
+    if (state.rol !== "Encargado") return [];
+    var misSecs = misSecretariasEncargado() || [];
+    var vistos = state.vistosEncargado[state.usuarioActivo] || [];
+    return cases.filter(function(c){
+      return misSecs.indexOf(c.secretaria) > -1 &&
+        (c.estado==="Abierto" || c.estado==="En proceso") &&
+        vistos.indexOf(c.id) === -1;
+    });
+  }
+  // Marca como vistos, para el Encargado logueado, todos los casos Abierto/En proceso de sus Secretarías
+  // asignadas — se llama al entrar a la sección "Casos" (ver renderMisCasos), para que el aviso desaparezca.
+  function marcarCasosVistosEncargado(){
+    if (state.rol !== "Encargado") return;
+    var misSecs = misSecretariasEncargado() || [];
+    var idsRelevantes = cases.filter(function(c){
+      return misSecs.indexOf(c.secretaria) > -1 && (c.estado==="Abierto" || c.estado==="En proceso");
+    }).map(function(c){ return c.id; });
+    var vistos = state.vistosEncargado[state.usuarioActivo] || [];
+    idsRelevantes.forEach(function(id){ if (vistos.indexOf(id)===-1) vistos.push(id); });
+    state.vistosEncargado[state.usuarioActivo] = vistos;
+  }
+  // Historial de casos de un ciudadano. Si quien mira es Encargado, se filtra a sus Secretarías asignadas
+  // (Colaborador y Gestión siguen viendo el historial completo, sin filtrar).
+  function historialCiudadano(dni, excludeId){
+    var list = cases.filter(function(x){ return x.dni===dni && (!excludeId || x.id!==excludeId); });
+    var misSecs = misSecretariasEncargado();
+    var filtrado = false;
+    if (misSecs){
+      list = list.filter(function(x){ return misSecs.indexOf(x.secretaria) > -1; });
+      filtrado = true;
+    }
+    list = list.slice().sort(function(a,b){ return parseFecha(b.fecha)-parseFecha(a.fecha); });
+    return {list:list, filtrado:filtrado};
+  }
+  function renderHistRows(tbodyId, list, emptyMsg){
+    var hb = $(tbodyId); hb.innerHTML = "";
+    if (!list.length){
+      hb.innerHTML = '<tr class="empty-row"><td colspan="6">'+emptyMsg+'</td></tr>';
+      return;
+    }
+    list.forEach(function(cs){
+      var tr = document.createElement("tr");
+      tr.className = "row-clickable";
+      tr.dataset.id = cs.id;
+      tr.innerHTML = "<td class='cell-id'>"+(cs.requiereVisita?PIN_VISITA+' ':'')+cs.id+"</td><td>"+cs.secretaria+"</td><td>"+cs.incidente+"</td>"+
+        "<td>"+chipFor("prioridad", cs.prioridad)+"</td><td>"+cs.fecha+"</td><td>"+chipFor("estado", cs.estado)+"</td>";
+      hb.appendChild(tr);
     });
   }
 
@@ -1242,9 +1527,12 @@
     nuevo:{title:"Nuevo caso", sub:"Captar el caso, clasificarlo y derivarlo a la secretaría correspondiente."},
     panel:{title:"Panel general", sub:"Estado de todos los casos y usuarios, agrupados por secretaría."},
     canal:{title:"Canal de contacto", sub:"Por dónde llegan las consultas de los ciudadanos."},
-    ciudadanos:{title:"Ciudadanos", sub:"Alta, edición, anulación e historial de casos por ciudadano."},
-    "mis-casos":{title:"Mis casos", sub:"Casos que derivaste o que tenés asignados, en cualquier secretaría."},
-    config:{title:"Configuración", sub:"Secretarías, áreas, incidentes, usuarios y roles."}
+    ciudadanos:{title:"Ciudadanos", sub:"Alta y edición de datos, e historial de casos por ciudadano."},
+    "mis-casos":{title:"Casos", sub:"Todos los casos del sistema, con filtros por estado, fecha, DNI y barrio."},
+    "encargado-secretarias":{title:"Secretarías", sub:"Elegí una secretaría asignada para ver y trabajar sus casos."},
+    informacion:{title:"Información", sub:"Buscar información de referencia para consultas que no son casos."},
+    config:{title:"Configuración", sub:"Secretarías, áreas, incidentes, usuarios y roles."},
+    ficha:{title:"Detalle del caso", sub:""}
   };
 
   function setView(view, sec){
@@ -1265,27 +1553,19 @@
     if (view==="canal") renderCanalView();
     if (view==="secretaria") renderSecretaria();
     if (view==="mis-casos") renderMisCasos();
+    if (view==="encargado-secretarias") renderEncargadoSecretarias();
+    if (view==="informacion") renderInformacion();
     if (view==="ciudadanos"){ $("ciudadanoDetail").style.display="none"; $("ciudadanosListWrap").style.display="block"; renderCiudadanos(); }
     if (view==="config") renderConfig();
+    if (view==="ficha") renderFicha();
     renderSecNav();
     applyRoleVisibility();
   }
 
   document.addEventListener("click", function(e){
     var btn = e.target.closest(".nav-item");
-    if (btn) { setView(btn.dataset.view, btn.dataset.sec); $("app").classList.remove("rail-open"); }
+    if (btn) setView(btn.dataset.view, btn.dataset.sec);
   });
-
-  if ($("railToggle")) {
-    $("railToggle").addEventListener("click", function(){
-      $("app").classList.toggle("rail-open");
-    });
-  }
-  if ($("railBackdrop")) {
-    $("railBackdrop").addEventListener("click", function(){
-      $("app").classList.remove("rail-open");
-    });
-  }
 
   /* ================= NUEVO CASO ================= */
   function fillOptions(sel, items, placeholder){
@@ -1339,14 +1619,16 @@
       "<div><strong>"+(c.especial?STAR_ESPECIAL+" ":"")+c.nombre+"</strong><span>DNI "+c.dni+"</span></div>"+
       "<div><strong>"+(c.telefono||"—")+"</strong><span>Teléfono</span></div>"+
       "<div><strong>"+(c.mail||"—")+"</strong><span>Mail</span></div>"+
-      "<div><strong>"+(c.direccion||"—")+"</strong><span>Dirección</span></div>";
+      "<div><strong>"+(c.direccion||"—")+"</strong><span>Dirección</span></div>"+
+      "<div><strong>"+(c.barrio||"—")+"</strong><span>Barrio</span></div>"+
+      "<div><strong>"+(c.localidad||"—")+"</strong><span>Localidad</span></div>";
   }
 
   $("btnCrearCiudadanoInline").addEventListener("click", function(){
     $("ciudadanoInlineForm").style.display = "block";
   });
   function limpiarInlineCiudadano(){
-    ["ci-nombre","ci-dni","ci-telefono","ci-mail","ci-direccion"].forEach(function(id){ $(id).value=""; });
+    ["ci-nombre","ci-dni","ci-telefono","ci-mail","ci-direccion","ci-barrio","ci-localidad"].forEach(function(id){ $(id).value=""; });
     $("ci-especial").checked = false;
     $("ciudadanoInlineForm").style.display = "none";
   }
@@ -1355,7 +1637,7 @@
     var dni = $("ci-dni").value.trim(), nombre = $("ci-nombre").value.trim();
     if (!dni || !nombre){ showToast("Completá al menos nombre y DNI del ciudadano."); return; }
     if (ciudadanos.some(function(c){ return c.dni===dni; })){ showToast("Ya existe un ciudadano con ese DNI."); return; }
-    ciudadanos.push({dni:dni, nombre:nombre, telefono:$("ci-telefono").value.trim(), mail:$("ci-mail").value.trim(), direccion:$("ci-direccion").value.trim(), activo:true, especial:$("ci-especial").checked});
+    ciudadanos.push({dni:dni, nombre:nombre, telefono:$("ci-telefono").value.trim(), mail:$("ci-mail").value.trim(), direccion:$("ci-direccion").value.trim(), barrio:$("ci-barrio").value.trim(), localidad:$("ci-localidad").value.trim(), activo:true, especial:$("ci-especial").checked});
     seleccionarCiudadano(dni);
     limpiarInlineCiudadano();
     showToast("Ciudadano creado — continuá con el caso.");
@@ -1428,36 +1710,32 @@
     updatePreview();
   });
 
+  function chipPill(bg, color, val){
+    return '<span class="chip" style="background:'+bg+';color:'+color+';"><i class="chip-dot"></i>'+val+'</span>';
+  }
   function chipFor(kind, value){
     if (kind==="prioridad"){
-      var cls = value==="Baja" ? "background:var(--neutral-bg);color:var(--neutral-ink);" :
-                value==="Media" ? "background:var(--celeste-pale);color:var(--celeste-deep);" :
-                value==="Alta" ? "background:var(--warn-bg);color:var(--warn);" :
-                "background:var(--crit-bg);color:var(--crit);";
-      return '<span class="chip" style="'+cls+'">'+value+'</span>';
+      return value==="Baja" ? chipPill("var(--neutral-bg)","var(--neutral-ink)",value) :
+             value==="Media" ? chipPill("var(--celeste-pale)","var(--celeste-deep)",value) :
+             value==="Alta" ? chipPill("var(--warn-bg)","var(--warn)",value) :
+             chipPill("var(--crit-bg)","var(--crit)",value);
     }
     if (kind==="estado"){
-      var m = {"Abierto":["var(--celeste-pale)","var(--celeste-deep)"],"En proceso":["var(--warn-bg)","var(--warn)"],"Cerrado":["var(--ok-bg)","var(--ok)"]}[value];
-      return '<span class="chip" style="background:'+m[0]+';color:'+m[1]+';">'+value+'</span>';
+      var m = {"Abierto":["var(--celeste-pale)","var(--celeste-deep)"],"En proceso":["var(--warn-bg)","var(--warn)"],"Resuelto":["var(--azul-pale)","var(--azul-deep)"],"Cerrado":["var(--ok-bg)","var(--ok)"]}[value];
+      return chipPill(m[0], m[1], value);
     }
     if (kind==="activo"){
-      return value ? '<span class="chip" style="background:var(--ok-bg);color:var(--ok);">Activo</span>' : '<span class="chip" style="background:var(--neutral-bg);color:var(--neutral-ink);">Anulado</span>';
+      return value ? chipPill("var(--ok-bg)","var(--ok)","Activo") : chipPill("var(--neutral-bg)","var(--neutral-ink)","Anulado");
     }
     if (kind==="canal"){
-      var canalColores = {
-        "WhatsApp": ["var(--ok-bg)","var(--ok)"],
-        "Instagram": ["var(--azul-pale)","var(--azul-deep)"],
-        "Facebook": ["var(--celeste-pale)","var(--celeste-deep)"],
-        "TikTok": ["var(--neutral-bg)","var(--neutral-ink)"],
-        "Teléfono": ["var(--warn-bg)","var(--warn)"],
-        "Presencial": ["var(--celeste-pale)","var(--celeste-deep)"]
-      };
-      var cc = canalColores[value] || ["var(--neutral-bg)","var(--neutral-ink)"];
-      return '<span class="chip" style="background:'+cc[0]+';color:'+cc[1]+';">'+value+'</span>';
+      // El canal no compite visualmente con prioridad/estado — badge neutro, sin color por tipo.
+      return value ? '<span class="badge-quiet">'+value+'</span>' : '';
     }
     if (kind==="rol"){
-      var c2 = value==="Gestión" ? "background:var(--azul-pale);color:var(--azul-deep);" : "background:var(--celeste-pale);color:var(--celeste-deep);";
-      return '<span class="chip" style="'+c2+'">'+value+'</span>';
+      var c2 = value==="Gestión" ? ["var(--azul-pale)","var(--azul-deep)"] :
+                value==="Encargado" ? ["var(--warn-bg)","var(--warn)"] :
+                ["var(--celeste-pale)","var(--celeste-deep)"];
+      return chipPill(c2[0], c2[1], value);
     }
   }
 
@@ -1499,7 +1777,9 @@
     var today = "12/08/2026";
     var canalElegido = $("f-canal").value || "Otro";
     var visitaElegida = $("f-visita").checked;
-    cases.push(mk(s,a,i,state.prioridadElegida,r,"Abierto",today,ciu.nombre,ciu.dni,state.usuarioActivo,canalElegido,visitaElegida));
+    var notaInicialTexto = $("f-nota-inicial").value.trim();
+    var notasIniciales = notaInicialTexto ? [crearNota(notaInicialTexto)] : [];
+    cases.push(mk(s,a,i,state.prioridadElegida,r,"Abierto",today,ciu.nombre,ciu.dni,state.usuarioActivo,canalElegido,visitaElegida,notasIniciales));
     showToast("Caso derivado a " + s + " → " + a);
     this.reset();
     $("f-ciudadano-search").value = ""; seleccionarCiudadano("");
@@ -1751,6 +2031,12 @@
     var s = state.secretariaActual;
     var secObj = getSecretaria(s);
     if (!secObj) return;
+    if (!encargadoTieneAcceso(s)){
+      $("sec-title").innerHTML = iconoSecretariaSvg(s) + '<span>'+s+'</span>';
+      $("sec-desc").textContent = "No tenés esta secretaría asignada.";
+      $("sec-table-body").innerHTML = '<tr class="empty-row"><td colspan="9">Sin acceso a esta secretaría con tu usuario actual.</td></tr>';
+      return;
+    }
     var areas = secObj.areas.filter(function(a){return a.activo;});
     var incCount = areas.reduce(function(n,a){return n+a.incidentes.filter(function(i){return i.activo;}).length;},0);
     $("sec-title").innerHTML = iconoSecretariaSvg(s) + '<span>'+s+'</span>';
@@ -1762,15 +2048,31 @@
     if (state.secSearch) list = list.filter(function(c){
       return c.nombre.toLowerCase().indexOf(state.secSearch)>-1 || c.incidente.toLowerCase().indexOf(state.secSearch)>-1;
     });
+    list = list.slice().sort(defaultCaseSort);
 
     var body = $("sec-table-body"); body.innerHTML = "";
     if (!list.length){
-      body.innerHTML = '<tr class="empty-row"><td colspan="8">No hay casos que coincidan con este filtro.</td></tr>';
+      body.innerHTML = '<tr class="empty-row"><td colspan="9">No hay casos que coincidan con este filtro.</td></tr>';
       return;
     }
     list.forEach(function(c){
       var tr = document.createElement("tr");
+      tr.className = "row-clickable";
+      tr.dataset.id = c.id;
       var estClass = "est-" + c.estado.replace(" ","-");
+      // Gestión: acceso total, select libre a cualquier estado (sin cambios respecto al comportamiento
+      // anterior). Encargado: circuito estricto — solo ve el botón de la única transición que le toca
+      // según el estado actual del caso, o el chip de estado sin acción si no le toca actuar.
+      var estadoCell;
+      if (state.rol === "Gestión"){
+        estadoCell = '<select class="estado-select '+estClass+'" data-id="'+c.id+'">'+
+            ESTADOS.map(function(o){return '<option '+(o===c.estado?"selected":"")+'>'+o+'</option>';}).join("")+
+          '</select>';
+      } else {
+        var t = transicionHabilitada(c);
+        estadoCell = chipFor("estado", c.estado) + (t ?
+          ' <button type="button" class="btn btn-primary btn-sm btn-avanzar-estado" data-id="'+c.id+'" data-nuevo-estado="'+t.nuevoEstado+'">'+t.label+'</button>' : '');
+      }
       tr.innerHTML =
         '<td class="cell-id">'+(c.requiereVisita?PIN_VISITA+' ':'')+c.id+'</td>'+
         '<td class="cell-name">'+c.nombre+'<small>DNI '+c.dni+'</small></td>'+
@@ -1779,9 +2081,8 @@
         '<td>'+chipFor("canal", c.canal)+'</td>'+
         '<td>'+c.responsable+'</td>'+
         '<td>'+c.fecha+'</td>'+
-        '<td><select class="estado-select '+estClass+'" data-id="'+c.id+'">'+
-          ["Abierto","En proceso","Cerrado"].map(function(o){return '<option '+(o===c.estado?"selected":"")+'>'+o+'</option>';}).join("")+
-        '</select></td>';
+        '<td>'+estadoCell+'</td>'+
+        '<td><button type="button" class="btn btn-ghost btn-sm btn-ver-ficha" data-id="'+c.id+'">Ver ficha'+(c.notas&&c.notas.length?' · '+c.notas.length+' nota'+(c.notas.length===1?'':'s'):'')+'</button></td>';
       body.appendChild(tr);
     });
   }
@@ -1795,32 +2096,405 @@
       renderSecNav(); renderSecretaria();
     }
   });
+  $("sec-table-body").addEventListener("click", function(e){
+    var btn = e.target.closest(".btn-avanzar-estado"); if(!btn) return;
+    var c = cases.find(function(x){return x.id===btn.dataset.id;});
+    if (c){
+      c.estado = btn.dataset.nuevoEstado;
+      showToast("Caso "+c.id+" pasó a "+c.estado+".");
+      renderSecNav(); renderSecretaria();
+    }
+  });
+  wireCaseRowOpen("sec-table-body", function(){ return {view:"secretaria", sec: state.secretariaActual}; });
 
-  /* ================= MIS CASOS ================= */
+  /* ================= CASOS (Colaborador: todos los casos / Encargado: todos los casos) ================= */
+  function refreshCasosFiltroBarrio(){
+    var sel = $("casos-barrio-filter");
+    var cur = sel.value;
+    var barrios = [];
+    ciudadanos.forEach(function(c){ if (c.barrio && barrios.indexOf(c.barrio)===-1) barrios.push(c.barrio); });
+    barrios.sort();
+    sel.innerHTML = "<option value='Todos'>Todos los barrios</option>" + barrios.map(function(b){ return "<option>"+b+"</option>"; }).join("");
+    if (cur) sel.value = cur;
+  }
+
+  function filteredCasosGenerales(){
+    return cases.filter(function(c){
+      if (state.casosFiltroEstado!=="Todos" && c.estado!==state.casosFiltroEstado) return false;
+      if (state.casosFechaDesde && parseFecha(c.fecha) < parseFechaInput(state.casosFechaDesde)) return false;
+      if (state.casosFechaHasta && parseFecha(c.fecha) > parseFechaInput(state.casosFechaHasta)) return false;
+      if (state.casosDni && c.dni.toLowerCase().indexOf(state.casosDni.toLowerCase())===-1) return false;
+      if (state.casosBarrio!=="Todos"){
+        var ciu = getCiudadano(c.dni);
+        if (!ciu || ciu.barrio!==state.casosBarrio) return false;
+      }
+      return true;
+    }).slice().sort(defaultCaseSort);
+  }
+
   function renderMisCasos(){
-    var list = cases.filter(function(c){ return c.derivadoPor===state.usuarioActivo || c.responsable===state.usuarioActivo; })
-      .slice().sort(function(a,b){ return parseFecha(b.fecha)-parseFecha(a.fecha); });
+    refreshCasosFiltroBarrio();
+    renderResueltosParaCerrar();
+
+    // Aviso de casos nuevos sin ver, solo para el Encargado. Se calcula ANTES de marcarlos como vistos,
+    // para poder mostrar el número real; después de mostrarlo se marcan como vistos (ver más abajo).
+    var banner = $("encargadoNuevosBanner");
+    if (state.rol === "Encargado"){
+      var nuevos = casosNuevosEncargado();
+      if (nuevos.length){
+        $("encargadoNuevosText").textContent = nuevos.length===1 ?
+          "Se ingresó 1 caso nuevo." : "Se ingresaron " + nuevos.length + " casos nuevos.";
+        banner.style.display = "flex";
+      } else {
+        banner.style.display = "none";
+      }
+      marcarCasosVistosEncargado();
+    } else {
+      banner.style.display = "none";
+    }
+
+    var activeFilters = [];
+    if (state.casosFiltroEstado!=="Todos") activeFilters.push("Estado: "+state.casosFiltroEstado);
+    if (state.casosBarrio!=="Todos") activeFilters.push("Barrio: "+state.casosBarrio);
+    if (state.casosDni) activeFilters.push("DNI: "+state.casosDni);
+    if (state.casosFechaDesde || state.casosFechaHasta) activeFilters.push("Fecha: "+(state.casosFechaDesde||"…")+" a "+(state.casosFechaHasta||"…"));
+    var badge = $("casosFilterBadge");
+    if (activeFilters.length){
+      badge.style.display = "flex";
+      $("casosFilterText").textContent = "Filtrando por " + activeFilters.join(" · ");
+    } else {
+      badge.style.display = "none";
+    }
+
+    var list = filteredCasosGenerales();
     var body = $("misCasosBody"); body.innerHTML = "";
     if (!list.length){
-      body.innerHTML = '<tr class="empty-row"><td colspan="8">Todavía no derivaste ningún caso.</td></tr>';
+      body.innerHTML = '<tr class="empty-row"><td colspan="9">No hay casos que coincidan con este filtro.</td></tr>';
       return;
     }
     list.forEach(function(c){
       var tr = document.createElement("tr");
+      tr.className = "row-clickable" + (c.estado==="Cerrado" ? " row-cerrado" : "");
+      tr.dataset.id = c.id;
+      var acciones = '<button type="button" class="btn btn-ghost btn-sm btn-ver-ficha" data-id="'+c.id+'">Ver ficha'+(c.notas&&c.notas.length?' · '+c.notas.length+' nota'+(c.notas.length===1?'':'s'):'')+'</button>';
+      // "Marcar cerrado" (Resuelto → Cerrado) es una acción exclusiva del Colaborador (ver circuito de
+      // estados): el Encargado, aunque comparte esta tabla, ya no tiene turno de actuar sobre un caso Resuelto.
+      if (c.estado==="Resuelto" && state.rol==="Colaborador") acciones += ' <button type="button" class="btn btn-primary btn-sm btn-cerrar-caso" data-id="'+c.id+'">Marcar cerrado</button>';
       tr.innerHTML = "<td class='cell-id'>"+(c.requiereVisita?PIN_VISITA+' ':'')+c.id+"</td><td>"+c.secretaria+"</td>"+
         "<td class='cell-name'>"+c.nombre+"<small>DNI "+c.dni+"</small></td>"+
-        "<td>"+c.incidente+"</td><td>"+chipFor("prioridad",c.prioridad)+"</td><td>"+chipFor("canal",c.canal)+"</td><td>"+c.fecha+"</td><td>"+chipFor("estado",c.estado)+"</td>";
+        "<td>"+c.incidente+"</td><td>"+chipFor("prioridad",c.prioridad)+"</td><td>"+chipFor("canal",c.canal)+"</td><td>"+c.fecha+"</td><td>"+chipFor("estado",c.estado)+"</td>"+
+        "<td>"+acciones+"</td>";
       body.appendChild(tr);
     });
   }
+
+  $("casos-estado-filter").addEventListener("change", function(){ state.casosFiltroEstado = this.value; renderMisCasos(); });
+  $("casos-barrio-filter").addEventListener("change", function(){ state.casosBarrio = this.value; renderMisCasos(); });
+  $("casos-fecha-desde").addEventListener("change", function(){ state.casosFechaDesde = this.value; renderMisCasos(); });
+  $("casos-fecha-hasta").addEventListener("change", function(){ state.casosFechaHasta = this.value; renderMisCasos(); });
+  $("casos-dni-filter").addEventListener("input", function(){ state.casosDni = this.value; renderMisCasos(); });
+  $("btnLimpiarFiltrosCasos").addEventListener("click", function(){
+    state.casosFiltroEstado = "Todos"; state.casosBarrio = "Todos"; state.casosFechaDesde = ""; state.casosFechaHasta = ""; state.casosDni = "";
+    $("casos-estado-filter").value = "Todos"; $("casos-barrio-filter").value = "Todos";
+    $("casos-fecha-desde").value = ""; $("casos-fecha-hasta").value = ""; $("casos-dni-filter").value = "";
+    renderMisCasos();
+  });
+  $("misCasosBody").addEventListener("click", function(e){
+    var bc = e.target.closest(".btn-cerrar-caso");
+    if (bc){
+      var c = getCaso(bc.dataset.id);
+      if (c){ c.estado = "Cerrado"; showToast("Caso "+c.id+" marcado como cerrado."); renderMisCasos(); renderSecNav(); }
+      return;
+    }
+  });
+  wireCaseRowOpen("misCasosBody", function(){ return {view:"mis-casos"}; });
+
+  /* ---- "Casos para chequear y cerrar" (Colaborador) ----
+     A diferencia del aviso de casos nuevos del Encargado, este listado NO se marca como visto: se
+     recalcula en cada render y se muestra siempre que haya al menos un caso Resuelto en el sistema
+     (sin filtro de Secretaría, igual que el resto de esta vista para el Colaborador). */
+  function renderResueltosParaCerrar(){
+    var card = $("resueltosParaCerrarCard");
+    if (state.rol !== "Colaborador"){ card.style.display = "none"; return; }
+    var list = cases.filter(function(c){ return c.estado==="Resuelto"; }).slice().sort(defaultCaseSort);
+    if (!list.length){ card.style.display = "none"; return; }
+    card.style.display = "block";
+    var body = $("resueltosParaCerrarBody"); body.innerHTML = "";
+    list.forEach(function(c){
+      var tr = document.createElement("tr");
+      tr.className = "row-clickable";
+      tr.dataset.id = c.id;
+      tr.innerHTML =
+        "<td class='cell-id'>"+(c.requiereVisita?PIN_VISITA+' ':'')+c.id+"</td>"+
+        "<td>"+c.secretaria+"</td>"+
+        "<td class='cell-name'>"+c.nombre+"<small>DNI "+c.dni+"</small></td>"+
+        "<td>"+c.incidente+"</td>"+
+        "<td>"+chipFor("prioridad",c.prioridad)+"</td>"+
+        "<td>"+c.fecha+"</td>"+
+        "<td><button type='button' class='btn btn-ghost btn-sm btn-ver-ficha' data-id='"+c.id+"'>Ver ficha</button> "+
+          "<button type='button' class='btn btn-primary btn-sm btn-cerrar-caso' data-id='"+c.id+"'>Marcar cerrado</button></td>";
+      body.appendChild(tr);
+    });
+  }
+  $("resueltosParaCerrarBody").addEventListener("click", function(e){
+    var bc = e.target.closest(".btn-cerrar-caso");
+    if (bc){
+      var c = getCaso(bc.dataset.id);
+      if (c){ c.estado = "Cerrado"; showToast("Caso "+c.id+" marcado como cerrado."); renderMisCasos(); renderSecNav(); }
+      return;
+    }
+  });
+  wireCaseRowOpen("resueltosParaCerrarBody", function(){ return {view:"mis-casos"}; });
+
+  /* ================= ENCARGADO: SECRETARIAS ================= */
+  function renderEncargadoSecretarias(){
+    var u = usuarios.find(function(x){ return x.nombre===state.usuarioActivo; });
+    var mias = (u && u.secretarias) || [];
+    var wrap = $("encargadoSecList"); wrap.innerHTML = "";
+    secretariasActivas().forEach(function(s){
+      var autorizado = mias.indexOf(s.nombre) > -1;
+      var pend = cases.filter(function(c){ return c.secretaria===s.nombre && c.estado!=="Cerrado"; }).length;
+      var card = document.createElement(autorizado ? "button" : "div");
+      if (autorizado) card.type = "button";
+      card.className = "card";
+      card.style.textAlign = "left";
+      card.style.display = "block";
+      card.style.width = "100%";
+      card.style.cursor = autorizado ? "pointer" : "default";
+      card.style.opacity = autorizado ? "1" : ".5";
+      card.innerHTML =
+        '<h2 style="display:flex;align-items:center;gap:8px;">'+iconoSecretariaSvg(s.nombre)+'<span>'+s.nombre+'</span></h2>'+
+        '<p class="hint" style="margin-bottom:8px;">'+pend+' caso'+(pend===1?"":"s")+' sin cerrar</p>'+
+        (autorizado ? '<span class="chip" style="background:var(--ok-bg);color:var(--ok);">Ver casos →</span>' : '<span class="chip" style="background:var(--neutral-bg);color:var(--neutral-ink);">Sin acceso</span>');
+      if (autorizado){
+        card.addEventListener("click", function(){ setView("secretaria", s.nombre); });
+      }
+      wrap.appendChild(card);
+    });
+  }
+
+  /* ================= INFORMACION ================= */
+  function renderInformacion(){
+    var q = (state.infoSearch || "").toLowerCase().trim();
+    var list = informacion.filter(function(i){
+      if (!q) return true;
+      return i.titulo.toLowerCase().indexOf(q)>-1 || i.contenido.toLowerCase().indexOf(q)>-1;
+    });
+    var wrap = $("infoList"); wrap.innerHTML = "";
+    if (!list.length){
+      wrap.innerHTML = '<div class="card"><p class="hint" style="margin:0;">No hay información que coincida con la búsqueda.</p></div>';
+      return;
+    }
+    list.forEach(function(i){
+      var card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML =
+        '<h2 style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">'+
+          '<span>'+i.titulo+'</span>'+
+          (i.secretaria ? '<span class="badge-quiet">'+i.secretaria+'</span>' : '<span class="badge-quiet">General</span>')+
+        '</h2>'+
+        '<p style="margin:0 0 10px;font-size:.875rem;line-height:1.5;">'+i.contenido+'</p>'+
+        '<p class="hint" style="margin:0;">Actualizado: '+i.actualizado+'</p>';
+      wrap.appendChild(card);
+    });
+  }
+  $("info-search").addEventListener("input", function(){ state.infoSearch = this.value; renderInformacion(); });
+
+  /* ================= FICHA DE CASO ================= */
+  // Abre la ficha de un caso desde cualquier listado. returnCtx guarda a dónde volver con "Volver al listado".
+  function wireCaseRowOpen(tbodyId, returnCtxFn){
+    $(tbodyId).addEventListener("click", function(e){
+      var verBtn = e.target.closest(".btn-ver-ficha");
+      if (verBtn){ openFicha(verBtn.dataset.id, returnCtxFn ? returnCtxFn() : null); return; }
+      if (e.target.closest("select, button, a, input, textarea")) return;
+      var tr = e.target.closest("tr.row-clickable");
+      if (!tr) return;
+      openFicha(tr.dataset.id, returnCtxFn ? returnCtxFn() : null);
+    });
+  }
+
+  function openFicha(id, returnCtx){
+    state.fichaCasoId = id;
+    state.fichaReturn = returnCtx || {view: state.view==="ficha" ? "mis-casos" : state.view, sec: state.secretariaActual};
+    setView("ficha");
+  }
+
+  function volverDeFicha(){
+    var r = state.fichaReturn || {view:"mis-casos"};
+    if (r.view === "ciudadanos" && r.dni){
+      setView("ciudadanos");
+      openCiudadanoDetail(r.dni);
+    } else if (r.view === "secretaria"){
+      setView("secretaria", r.sec);
+    } else if (VIEW_META[r.view]) {
+      setView(r.view);
+    } else {
+      setView("mis-casos");
+    }
+  }
+  $("btnVolverFicha").addEventListener("click", volverDeFicha);
+
+  // Misma lógica de nota usada en la ficha del caso y en "Nuevo caso" (nota inicial), para no duplicarla.
+  function crearNota(texto){
+    return {autor: state.usuarioActivo, rol: state.rol, fecha: "12/08/2026 10:00", texto: texto};
+  }
+
+  function renderFichaNotasList(c){
+    var html = (c.notas && c.notas.length) ? c.notas.map(function(n){
+      return '<div class="ficha-nota">'+
+        '<div class="ficha-nota-meta"><strong>'+n.autor+'</strong><span>'+n.rol+' · '+n.fecha+'</span></div>'+
+        '<div class="ficha-nota-texto">'+n.texto+'</div></div>';
+    }).join("") : '<p class="hint">Todavía no hay notas en este caso.</p>';
+    $("fichaNotasList").innerHTML = html;
+  }
+
+  $("btnAgregarNotaFicha").addEventListener("click", function(){
+    var texto = $("fichaNotaTexto").value.trim();
+    if (!texto) return;
+    var c = getCaso(state.fichaCasoId);
+    if (!c) return;
+    if (!c.notas) c.notas = [];
+    c.notas.push(crearNota(texto));
+    $("fichaNotaTexto").value = "";
+    renderFichaNotasList(c);
+    showToast("Nota agregada.");
+  });
+
+  /* ---- Circuito de estados: gatea las transiciones por rol + estado actual del caso ----
+     Colaborador carga y deriva el caso (pasa a Abierto automáticamente, ya existente). Encargado lo
+     mueve Abierto → En proceso → Resuelto, un paso por vez y solo en sus Secretarías asignadas.
+     Colaborador chequea y lo cierra, Resuelto → Cerrado. Gestión no pasa por esta función: tiene
+     acceso total a cualquier transición, en cualquier momento, sin restricción (ver renderFichaEstadoActions
+     y renderSecretaria). Devuelve {nuevoEstado, label} con la única transición habilitada para el rol
+     logueado, o null si no le corresponde actuar sobre este caso en su estado actual. */
+  function transicionHabilitada(c){
+    if (state.rol === "Encargado"){
+      if (!encargadoTieneAcceso(c.secretaria)) return null;
+      if (c.estado === "Abierto") return {nuevoEstado:"En proceso", label:'Pasar a "En proceso"'};
+      if (c.estado === "En proceso") return {nuevoEstado:"Resuelto", label:"Marcar resuelto"};
+      return null;
+    }
+    if (state.rol === "Colaborador" && c.estado === "Resuelto"){
+      return {nuevoEstado:"Cerrado", label:"Marcar cerrado"};
+    }
+    return null;
+  }
+
+  function renderFichaEstadoActions(c){
+    var wrap = $("fichaEstadoActions"); wrap.innerHTML = "";
+
+    // Gestión: acceso total a cualquier transición de estado, en cualquier momento — comportamiento sin
+    // cambios respecto a la versión anterior (regla general del rol, no se restringe acá).
+    if (state.rol === "Gestión"){
+      var estClass = "est-" + c.estado.replace(" ","-");
+      wrap.innerHTML =
+        '<label style="font-size:.75rem;font-weight:600;color:var(--ink-soft);">Cambiar estado</label>'+
+        '<select class="estado-select '+estClass+'" id="fichaEstadoSelect">'+
+          ESTADOS.map(function(o){return '<option '+(o===c.estado?"selected":"")+'>'+o+'</option>';}).join("")+
+        '</select>';
+      $("fichaEstadoSelect").addEventListener("change", function(){
+        c.estado = this.value;
+        this.className = "estado-select est-" + this.value.replace(" ","-");
+        showToast("Caso "+c.id+" pasó a "+c.estado+".");
+        renderSecNav();
+        $("ficha-estado-chip").innerHTML = chipFor("estado", c.estado);
+      });
+      return;
+    }
+
+    // Colaborador y Encargado: solo se muestra el botón de la única transición que le toca a este rol
+    // según el estado actual (ver transicionHabilitada). Si no le toca actuar, no hay botón — se oculta,
+    // no se deshabilita.
+    var t = transicionHabilitada(c);
+    if (t){
+      var btn = document.createElement("button");
+      btn.type = "button"; btn.className = "btn btn-primary btn-sm";
+      btn.textContent = t.label;
+      btn.addEventListener("click", function(){
+        c.estado = t.nuevoEstado;
+        showToast("Caso "+c.id+" pasó a "+c.estado+".");
+        renderSecNav();
+        renderFichaEstadoActions(c);
+        $("ficha-estado-chip").innerHTML = chipFor("estado", c.estado);
+      });
+      wrap.appendChild(btn);
+    } else if (state.rol === "Colaborador" && (c.estado === "Abierto" || c.estado === "En proceso")){
+      wrap.innerHTML = '<p class="hint" style="margin:0;">En manos del Encargado de '+c.secretaria+'.</p>';
+    } else {
+      wrap.innerHTML = '<p class="hint" style="margin:0;">Sin acciones de estado disponibles para tu rol en este caso.</p>';
+    }
+  }
+
+  function renderFicha(){
+    var c = getCaso(state.fichaCasoId);
+    if (!c){
+      $("ficha-titulo").textContent = "Caso no encontrado";
+      $("ficha-sub").textContent = "";
+      return;
+    }
+    $("viewTitle").textContent = c.id + " — " + c.nombre;
+    $("viewSub").textContent = c.secretaria + " · " + c.area;
+
+    $("ficha-titulo").textContent = c.id + " — " + c.incidente;
+    $("ficha-sub").textContent = "Cargado el " + c.fecha;
+    $("ficha-estado-chip").innerHTML = chipFor("estado", c.estado);
+
+    $("fc-secretaria").textContent = c.secretaria;
+    $("fc-area").textContent = c.area;
+    $("fc-incidente").textContent = c.incidente;
+    $("fc-prioridad").innerHTML = chipFor("prioridad", c.prioridad);
+    $("fc-canal").innerHTML = chipFor("canal", c.canal) || "—";
+    $("fc-fecha").textContent = c.fecha;
+    $("fc-derivadopor").textContent = c.derivadoPor || "—";
+    $("fc-responsable").textContent = c.responsable || "—";
+    if (c.requiereVisita){
+      $("fc-visita-row").style.display = "flex";
+      $("fc-visita").innerHTML = PIN_VISITA + ' Sí';
+    } else {
+      $("fc-visita-row").style.display = "none";
+    }
+
+    renderFichaEstadoActions(c);
+
+    if (!c.notas) c.notas = [];
+    renderFichaNotasList(c);
+    $("fichaNotaTexto").value = "";
+
+    var ciu = getCiudadano(c.dni);
+    if (ciu){
+      $("fcs-nombre").innerHTML = (ciu.especial?STAR_ESPECIAL+' ':'')+ciu.nombre;
+      $("fcs-dni").textContent = "DNI " + ciu.dni;
+      $("fcs-telefono").textContent = ciu.telefono || "—";
+      $("fcs-domicilio").textContent = (ciu.direccion||"—") + (ciu.barrio?", "+ciu.barrio:"");
+    } else {
+      $("fcs-nombre").textContent = c.nombre;
+      $("fcs-dni").textContent = "DNI " + c.dni;
+      $("fcs-telefono").textContent = "—";
+      $("fcs-domicilio").textContent = "—";
+    }
+
+    var histRes = historialCiudadano(c.dni, c.id);
+    $("btnToggleHistorialLabel").textContent = "Ver historial de casos (" + histRes.list.length + ")";
+    $("ficha-hist-hint").textContent = histRes.filtrado ?
+      "Mostrando solo tus Secretarías asignadas — el ciudadano puede tener más casos en otras Secretarías." :
+      "Otros casos del mismo ciudadano, en cualquier secretaría.";
+    renderHistRows("fichaHistBody", histRes.list,
+      histRes.filtrado ? "Sin otros casos de este ciudadano en tus Secretarías asignadas." : "Este ciudadano no tiene otros casos registrados.");
+    $("fichaHistorialWrap").hidden = true;
+    $("btnToggleHistorialFicha").classList.remove("is-open");
+  }
+  $("btnToggleHistorialFicha").addEventListener("click", function(){
+    var w = $("fichaHistorialWrap");
+    w.hidden = !w.hidden;
+    this.classList.toggle("is-open", !w.hidden);
+  });
+  wireCaseRowOpen("fichaHistBody", function(){ return state.fichaReturn; });
 
   /* ================= CIUDADANOS ================= */
   function renderCiudadanos(){
     var q = (state.cliSearch || "").toLowerCase();
     var body = $("ciudadanosTableBody"); body.innerHTML = "";
     var list = ciudadanos.filter(function(c){
-      if (state.cliEstadoFiltro==="Activo" && !c.activo) return false;
-      if (state.cliEstadoFiltro==="Anulado" && c.activo) return false;
       if (!q) return true;
       return c.nombre.toLowerCase().indexOf(q)>-1 || c.dni.toLowerCase().indexOf(q)>-1;
     });
@@ -1837,7 +2511,7 @@
         "<td class='cell-name'>"+(c.especial?STAR_ESPECIAL+" ":"")+c.nombre+"</td>"+
         "<td class='cell-id'>"+c.dni+"</td>"+
         "<td>"+(c.telefono || "—")+"</td>"+
-        "<td>"+chipFor("activo", c.activo)+"</td>"+
+        "<td>"+(c.barrio || "—")+"</td>"+
         "<td>"+count+"</td>"+
         "<td>"+ultimo+"</td>"+
         "<td><button type='button' class='btn btn-ghost btn-sm btn-ver-historial' data-dni='"+c.dni+"'>Ver historial</button></td>";
@@ -1846,7 +2520,6 @@
   }
 
   $("cli-search").addEventListener("input", function(){ state.cliSearch = this.value; renderCiudadanos(); });
-  $("cli-estado-filter").addEventListener("change", function(){ state.cliEstadoFiltro = this.value; renderCiudadanos(); });
 
   $("ciudadanosTableBody").addEventListener("click", function(e){
     var b = e.target.closest(".btn-ver-historial");
@@ -1858,6 +2531,7 @@
     var c = ciudadanos.find(function(x){ return x.dni===dni; });
     if (!c) return;
     state.clienteModoNuevo = false;
+    state.ciudadanoDetailDni = dni;
     $("ciudadanoDetailTitle").innerHTML = (c.especial ? STAR_ESPECIAL+" " : "") + c.nombre;
     $("cu-nombre").value = c.nombre;
     $("cu-dni").value = c.dni;
@@ -1865,47 +2539,45 @@
     $("cu-telefono").value = c.telefono || "";
     $("cu-mail").value = c.mail || "";
     $("cu-direccion").value = c.direccion || "";
+    $("cu-barrio").value = c.barrio || "";
+    $("cu-localidad").value = c.localidad || "";
     $("cu-especial").checked = !!c.especial;
-    $("btnAnularCiudadano").textContent = c.activo ? "Anular" : "Reactivar";
-    $("btnAnularCiudadano").dataset.dni = c.dni;
 
     $("cdSummary").innerHTML =
       "<div><strong>"+c.dni+"</strong><span>DNI</span></div>"+
       "<div><strong>"+(c.telefono||"—")+"</strong><span>Teléfono</span></div>"+
       "<div><strong>"+(c.mail||"—")+"</strong><span>Mail</span></div>"+
-      "<div><strong>"+(c.direccion||"—")+"</strong><span>Dirección</span></div>";
+      "<div><strong>"+(c.direccion||"—")+"</strong><span>Dirección</span></div>"+
+      "<div><strong>"+(c.barrio||"—")+"</strong><span>Barrio</span></div>"+
+      "<div><strong>"+(c.localidad||"—")+"</strong><span>Localidad</span></div>";
     $("cdSummary").style.display = "flex";
     $("btnEditarCiudadano").style.display = "inline-flex";
     $("ciudadanoForm").style.display = "none";
 
-    var hist = cases.filter(function(x){ return x.dni===dni; })
-      .slice().sort(function(a,b){ return parseFecha(b.fecha)-parseFecha(a.fecha); });
-    var hb = $("ciudadanoHistBody"); hb.innerHTML = "";
-    if (!hist.length){
-      hb.innerHTML = '<tr class="empty-row"><td colspan="6">Todavía no tiene casos registrados.</td></tr>';
-    } else {
-      hist.forEach(function(cs){
-        var tr = document.createElement("tr");
-        tr.innerHTML = "<td class='cell-id'>"+(cs.requiereVisita?PIN_VISITA+' ':'')+cs.id+"</td><td>"+cs.secretaria+"</td><td>"+cs.incidente+"</td>"+
-          "<td>"+chipFor("prioridad", cs.prioridad)+"</td><td>"+cs.fecha+"</td><td>"+chipFor("estado", cs.estado)+"</td>";
-        hb.appendChild(tr);
-      });
-    }
+    var histRes = historialCiudadano(dni, null);
+    $("cdHistHint").textContent = histRes.filtrado ?
+      "Mostrando solo tus Secretarías asignadas — este ciudadano puede tener más casos en otras Secretarías." :
+      "Todos los casos registrados con este DNI, en cualquier secretaría.";
+    renderHistRows("ciudadanoHistBody", histRes.list,
+      histRes.filtrado ? "Sin casos registrados en tus Secretarías asignadas." : "Todavía no tiene casos registrados.");
+    $("cdHistoriaWrap").style.display = "block";
     $("ciudadanoDetail").style.display = "block";
     $("ciudadanosListWrap").style.display = "none";
     applyRoleVisibility();
   }
+  wireCaseRowOpen("ciudadanoHistBody", function(){ return {view:"ciudadanos", dni: state.ciudadanoDetailDni}; });
 
   function openCiudadanoNuevo(){
     state.clienteModoNuevo = true;
     $("ciudadanoDetailTitle").textContent = "Nuevo ciudadano";
     $("ciudadanoForm").reset();
     $("cu-dni").disabled = false;
-    $("btnAnularCiudadano").style.display = "none";
     $("cdSummary").style.display = "none";
     $("btnEditarCiudadano").style.display = "none";
     $("ciudadanoForm").style.display = "block";
-    $("ciudadanoHistBody").innerHTML = '<tr class="empty-row"><td colspan="6">Se podrá ver su historial una vez que tenga casos.</td></tr>';
+    // Ciudadano recién creado: todavía no puede tener casos, así que la sección de historial
+    // se oculta por completo (ni vacía ni con placeholder) — pedido de Macarena, 23/09/2026.
+    $("cdHistoriaWrap").style.display = "none";
     $("ciudadanoDetail").style.display = "block";
     $("ciudadanosListWrap").style.display = "none";
   }
@@ -1913,7 +2585,6 @@
   function closeCiudadanoDetail(){
     $("ciudadanoDetail").style.display = "none";
     $("ciudadanosListWrap").style.display = "block";
-    $("btnAnularCiudadano").style.display = "";
     renderCiudadanos();
   }
 
@@ -1930,18 +2601,6 @@
     else openCiudadanoDetail($("cu-dni").value);
   });
 
-  $("btnAnularCiudadano").addEventListener("click", function(){
-    var btn = this;
-    var c = ciudadanos.find(function(x){ return x.dni===btn.dataset.dni; });
-    if (!c) return;
-    if (!c.activo){ c.activo = true; showToast("Ciudadano reactivado."); openCiudadanoDetail(c.dni); return; }
-    confirmThenRun(btn, function(){
-      c.activo = false;
-      showToast("Ciudadano anulado.");
-      openCiudadanoDetail(c.dni);
-    });
-  });
-
   $("ciudadanoForm").addEventListener("submit", function(e){
     e.preventDefault();
     var dni = $("cu-dni").value.trim();
@@ -1952,12 +2611,13 @@
         showToast("Ya existe un ciudadano con ese DNI.");
         return;
       }
-      ciudadanos.push({dni:dni, nombre:nombre, telefono:$("cu-telefono").value.trim(), mail:$("cu-mail").value.trim(), direccion:$("cu-direccion").value.trim(), activo:true, especial:$("cu-especial").checked});
+      ciudadanos.push({dni:dni, nombre:nombre, telefono:$("cu-telefono").value.trim(), mail:$("cu-mail").value.trim(), direccion:$("cu-direccion").value.trim(), barrio:$("cu-barrio").value.trim(), localidad:$("cu-localidad").value.trim(), activo:true, especial:$("cu-especial").checked});
       showToast("Ciudadano creado.");
     } else {
       var c = ciudadanos.find(function(x){ return x.dni===dni; });
       c.nombre = nombre; c.telefono = $("cu-telefono").value.trim();
       c.mail = $("cu-mail").value.trim(); c.direccion = $("cu-direccion").value.trim();
+      c.barrio = $("cu-barrio").value.trim(); c.localidad = $("cu-localidad").value.trim();
       c.especial = $("cu-especial").checked;
       showToast("Ciudadano actualizado.");
     }
@@ -2129,10 +2789,11 @@
     var body = $("usuariosTableBody"); body.innerHTML = "";
     usuarios.forEach(function(u){
       var tr = document.createElement("tr");
+      var secTxt = u.rol==="Colaborador" ? u.secretaria : u.rol==="Encargado" ? (u.secretarias||[]).join(", ") : "—";
       tr.innerHTML = "<td class='cell-name'>"+u.nombre+"</td>"+
         "<td>"+chipFor("rol", u.rol)+"</td>"+
         "<td>"+u.turno+"</td>"+
-        "<td>"+(u.rol==="Colaborador" ? u.secretaria : "—")+"</td>"+
+        "<td>"+secTxt+"</td>"+
         "<td>"+chipFor("activo", u.activo)+"</td>"+
         "<td><button type='button' class='btn btn-ghost btn-sm btn-anular-usuario' data-nombre='"+u.nombre+"'>"+(u.activo?"Anular":"Reactivar")+"</button></td>";
       body.appendChild(tr);
@@ -2170,5 +2831,5 @@
   renderSecNav();
 })();
 </script>
-</body>
-</html>
+
+</body></html>
