@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Portal de Casos — Prototipo de circuito (Propuesta B, 3 roles)</title>
+<title>Portal de Casos — Prototipo</title>
 <style>
   @font-face {
     font-family: 'Public Sans';
@@ -296,6 +296,9 @@
   .pin-visita{width:13px;height:13px;fill:none;stroke:var(--crit);stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-2px;}
   .check-visita{display:flex;align-items:center;gap:8px;font-size:.8125rem;color:var(--ink);margin:0 0 16px;cursor:pointer;}
   .check-visita input{width:16px;height:16px;accent-color:var(--crit);cursor:pointer;flex:none;}
+  .foto-thumbs{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+  .foto-thumbs img{width:64px;height:64px;object-fit:cover;border-radius:8px;border:1px solid var(--border);}
+  .foto-thumbs .foto-thumb-empty{font-size:.75rem;color:var(--ink-faint);}
   .resumen-ciudadano{
     display:flex;gap:18px;flex-wrap:wrap;background:var(--celeste-pale);border-radius:10px;
     padding:12px 16px;margin:-2px 0 16px;font-size:.8125rem;
@@ -595,7 +598,7 @@
       <div class="brand-text"><strong>Portal de Casos</strong><span>Comunidad</span></div>
     </div>
 
-    <!-- Encargado: Secretarías va primero en su navegación (pedido de Macarena, 23/09/2026) -->
+    <!-- Encargado: Secretarías va primero en su navegación -->
     <div class="nav-group" data-roles="encargado">
       <div class="eyebrow">Secretarías</div>
       <button class="nav-item" data-view="encargado-secretarias">
@@ -617,20 +620,16 @@
         <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
         Casos
       </button>
-      <!-- Gestión: separador visual entre el grupo Ciudadanos/Nuevo Caso y el grupo Panel general/Información (pedido de Macarena, 23/09/2026) -->
+      <button class="nav-item" data-view="informacion" data-roles="colaborador">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+        Información
+      </button>
+      <!-- Gestión: separador visual entre el grupo Ciudadanos/Nuevo Caso y el grupo Panel general -->
       <div class="nav-divider" data-roles="gestion"></div>
       <button class="nav-item" data-view="panel" data-roles="gestion">
         <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
         Panel general
       </button>
-      <!--
-        Información: oculta por decisión de Macarena (23/09/2026), reactivar en su lugar
-        (después de Panel general) cuando se confirme el contenido.
-      <button class="nav-item" data-view="informacion" data-roles="colaborador,gestion">
-        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
-        Información
-      </button>
-      -->
       <button class="nav-item" data-view="canal" data-roles="gestion">
         <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>
         Canal de contacto
@@ -694,17 +693,34 @@
                   <div><strong>Nuevo ciudadano</strong><span>Se agrega a la lista y queda elegido para este caso</span></div>
                 </div>
                 <div class="field-row">
-                  <div class="field"><label>Nombre completo</label><input type="text" id="ci-nombre"></div>
-                  <div class="field"><label>DNI</label><input type="text" id="ci-dni" placeholder="00.000.000"></div>
+                  <div class="field"><label>Nombre *</label><input type="text" id="ci-nombre" required></div>
+                  <div class="field"><label>Apellido *</label><input type="text" id="ci-apellido" required></div>
                 </div>
                 <div class="field-row">
-                  <div class="field"><label>Teléfono</label><input type="text" id="ci-telefono" placeholder="11-0000-0000"></div>
+                  <div class="field"><label>DNI *</label><input type="text" id="ci-dni" placeholder="00000000" required></div>
+                  <div class="field"><label>Teléfono *</label><input type="text" id="ci-telefono" placeholder="1100000000" required></div>
+                </div>
+                <div class="field-row">
+                  <div class="field"><label>Género *</label>
+                    <select id="ci-genero" required><option value="">Elegir…</option><option>Femenino</option><option>Masculino</option><option>Otro</option></select>
+                  </div>
+                  <div class="field"><label>Fecha de nacimiento *</label><input type="date" id="ci-fecha-nacimiento" required></div>
+                </div>
+                <div class="field"><label>Localidad *</label>
+                  <select id="ci-localidad" required><option value="">Elegir localidad…</option></select>
+                </div>
+                <div class="field-row">
                   <div class="field"><label>Mail</label><input type="email" id="ci-mail" placeholder="nombre@mail.com"></div>
+                  <div class="field"><label>Instagram</label><input type="text" id="ci-instagram" placeholder="Link de perfil"></div>
                 </div>
-                <div class="field"><label>Dirección</label><input type="text" id="ci-direccion" placeholder="Calle y número"></div>
+                <div class="field"><label>Facebook</label><input type="text" id="ci-facebook" placeholder="Link de perfil"></div>
                 <div class="field-row">
-                  <div class="field"><label>Barrio</label><input type="text" id="ci-barrio" placeholder="Barrio Centro"></div>
-                  <div class="field"><label>Localidad</label><input type="text" id="ci-localidad" placeholder="Localidad"></div>
+                  <div class="field"><label>Calle</label><input type="text" id="ci-dom-calle"></div>
+                  <div class="field"><label>Número</label><input type="text" id="ci-dom-numero"></div>
+                </div>
+                <div class="field-row">
+                  <div class="field"><label>Entre calle 1</label><input type="text" id="ci-dom-entre1"></div>
+                  <div class="field"><label>Entre calle 2</label><input type="text" id="ci-dom-entre2"></div>
                 </div>
                 <label class="check-especial"><input type="checkbox" id="ci-especial"> Ciudadano prioritario / especial</label>
                 <div style="display:flex;gap:8px;">
@@ -721,25 +737,8 @@
                 <div class="field"><label>Secretaría</label>
                   <select id="f-secretaria" required><option value="">Elegir secretaría…</option></select>
                 </div>
-                <div class="field"><label>Área</label>
-                  <select id="f-area" disabled required><option value="">Elegir área…</option></select>
-                </div>
-              </div>
-              <div class="field"><label>Incidente</label>
-                <div style="display:flex;gap:8px;">
-                  <select id="f-incidente" disabled required style="flex:1;"><option value="">Elegir incidente…</option></select>
-                  <button type="button" class="btn btn-ghost btn-sm" id="btnCrearIncidente" style="flex:none;" disabled>+ Nuevo</button>
-                </div>
-              </div>
-              <div class="inline-panel" id="incidenteInlineForm" style="display:none;">
-                <div class="inline-panel-head">
-                  <div class="ico-badge"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 12.6 12.8 20.4a2 2 0 0 1-2.8 0l-7-7a2 2 0 0 1 0-2.8L10.8 2.8A2 2 0 0 1 12.2 2.2L20 2v7.8a2 2 0 0 1-.6 1.4Z"/></svg></div>
-                  <div><strong>Nuevo incidente</strong><span>Se agrega a esta área y queda disponible para siempre</span></div>
-                </div>
-                <div style="display:flex;gap:8px;">
-                  <input type="text" id="inc-nombre" placeholder="Nombre del incidente…" style="flex:1;border:1px solid var(--border);background:var(--bg);border-radius:8px;padding:9px 11px;font-size:.875rem;">
-                  <button type="button" class="btn btn-primary btn-sm" id="btnGuardarIncidente">Guardar</button>
-                  <button type="button" class="btn btn-ghost btn-sm" id="btnCancelarIncidente">Cancelar</button>
+                <div class="field"><label>Tema</label>
+                  <select id="f-tema" required><option value="">Elegir tema…</option></select>
                 </div>
               </div>
               <div class="field">
@@ -775,6 +774,11 @@
               </div>
               <label class="check-visita"><input type="checkbox" id="f-visita"> ¿Requiere visita física?</label>
               <div class="field" style="margin-top:14px;">
+                <label>Fotos (opcional)</label>
+                <input type="file" id="f-fotos" accept="image/*" multiple>
+                <div class="foto-thumbs" id="f-fotos-thumbs"></div>
+              </div>
+              <div class="field" style="margin-top:14px;">
                 <label>Agregar nota (opcional)</label>
                 <textarea id="f-nota-inicial" placeholder="Nota interna para quien siga este caso — se guarda igual que las notas de la ficha…"></textarea>
               </div>
@@ -792,8 +796,7 @@
             <p class="hint">Se actualiza a medida que completás el formulario.</p>
             <div class="row"><span>Ciudadano</span><span id="pv-ciudadano" class="chip-empty">—</span></div>
             <div class="row"><span>Secretaría</span><span id="pv-secretaria" class="chip-empty">—</span></div>
-            <div class="row"><span>Área</span><span id="pv-area" class="chip-empty">—</span></div>
-            <div class="row"><span>Incidente</span><span id="pv-incidente" class="chip-empty">—</span></div>
+            <div class="row"><span>Tema</span><span id="pv-tema" class="chip-empty">—</span></div>
             <div class="row"><span>Prioridad</span><span id="pv-prioridad"></span></div>
             <div class="row"><span>Responsable</span><span id="pv-responsable" class="chip-empty">—</span></div>
             <div class="row"><span>Canal</span><span id="pv-canal" class="chip-empty">—</span></div>
@@ -816,6 +819,13 @@
           <input type="date" class="filter-select" id="panel-fecha-desde" title="Desde">
           <span>—</span>
           <input type="date" class="filter-select" id="panel-fecha-hasta" title="Hasta">
+        </div>
+        <div class="combo" style="flex:none;max-width:280px;margin-left:auto;">
+          <button type="button" class="btn btn-ghost btn-sm" id="btnInformes">
+            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4"/><path d="M17 3l4 4L11 17l-4 1 1-4Z"/></svg>
+            Informes
+          </button>
+          <div class="combo-list" id="informesMenu" style="display:none;right:0;left:auto;min-width:320px;"></div>
         </div>
       </div>
 
@@ -862,9 +872,9 @@
         </div>
 
         <div class="card">
-          <h2><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 2.9 17a2 2 0 0 0 1.7 3h14.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg>Incidentes más recurrentes</h2>
-          <p class="hint">Los 5 tipos de incidente con más casos.</p>
-          <div id="informeIncidentes"></div>
+          <h2><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 2.9 17a2 2 0 0 0 1.7 3h14.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg>Temas más recurrentes</h2>
+          <p class="hint">Los 5 temas con más casos.</p>
+          <div id="informeTemas"></div>
         </div>
       </div>
 
@@ -916,7 +926,7 @@
         </div>
         <div class="search-wrap">
           <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-          <input type="text" class="search-input" id="sec-search" placeholder="Buscar por nombre o incidente…">
+          <input type="text" class="search-input" id="sec-search" placeholder="Buscar por nombre o tema…">
         </div>
         <select class="filter-select" id="sec-priority-filter">
           <option value="Todas">Toda prioridad</option>
@@ -930,7 +940,7 @@
         <div class="card-pad">
           <table>
             <thead><tr>
-              <th>ID</th><th>Ciudadano</th><th>Incidente</th><th>Prioridad</th><th>Canal</th><th>Responsable</th><th>Fecha</th><th>Estado</th><th></th>
+              <th>ID</th><th>Ciudadano</th><th>Tema</th><th>Prioridad</th><th>Canal</th><th>Responsable</th><th>Fecha</th><th>Estado</th><th></th>
             </tr></thead>
             <tbody id="sec-table-body"></tbody>
           </table>
@@ -946,19 +956,32 @@
         <span id="encargadoNuevosText"></span>
       </div>
 
-      <!-- "Casos para chequear y cerrar": solo para el rol Colaborador. Listado fijo de tareas pendientes
-           (todos los casos Resuelto del sistema, sin filtro de Secretaría) — a diferencia del aviso de
-           casos nuevos del Encargado de arriba, este bloque NO tiene lógica de visto/no visto: se muestra
-           siempre que haya al menos un caso Resuelto, y desaparece solo cuando no queda ninguno pendiente. -->
-      <div class="card card-accent" id="resueltosParaCerrarCard" style="display:none;">
-        <h2><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12.3 11 14.3 15.5 9.5"/></svg>Casos para chequear y cerrar</h2>
-        <p class="hint">Casos que ya fueron resueltos por la Secretaría correspondiente. Revisalos y cerralos si está todo en orden.</p>
-        <div class="table-wrap">
-          <div class="card-pad">
-            <table>
-              <thead><tr><th>ID</th><th>Secretaría</th><th>Ciudadano</th><th>Incidente</th><th>Prioridad</th><th>Fecha</th><th></th></tr></thead>
-              <tbody id="resueltosParaCerrarBody"></tbody>
-            </table>
+      <!-- Seguimiento por Secretaría: solo para el rol Colaborador. El botón muestra/oculta el panel de
+           abajo, que agrupa la lista de Secretarías de seguimiento asignadas y el listado de "Casos para
+           chequear y cerrar" (mismo contenido de siempre: todos los casos Resuelto del sistema, sin
+           filtro de Secretaría). -->
+      <button type="button" class="btn btn-ghost btn-sm" id="btnToggleSeguimiento" data-roles="colaborador" style="margin-bottom:14px;">Seguimiento</button>
+      <div id="seguimientoPanel" style="display:none;">
+        <div class="card" id="seguimientoSecretariasCard">
+          <h2><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Tus Secretarías de seguimiento</h2>
+          <p class="hint">Elegí una Secretaría para ver todos sus casos, en cualquier estado.</p>
+          <div id="seguimientoSecList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;"></div>
+        </div>
+
+        <!-- "Casos para chequear y cerrar": listado fijo de tareas pendientes (todos los casos Resuelto
+             del sistema, sin filtro de Secretaría) — a diferencia del aviso de casos nuevos del Encargado
+             de arriba, este bloque NO tiene lógica de visto/no visto: se muestra siempre que haya al menos
+             un caso Resuelto, y desaparece solo cuando no queda ninguno pendiente. -->
+        <div class="card card-accent" id="resueltosParaCerrarCard" style="display:none;">
+          <h2><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12.3 11 14.3 15.5 9.5"/></svg>Casos para chequear y cerrar</h2>
+          <p class="hint">Casos que ya fueron resueltos por la Secretaría correspondiente. Revisalos y cerralos si está todo en orden.</p>
+          <div class="table-wrap">
+            <div class="card-pad">
+              <table>
+                <thead><tr><th>ID</th><th>Secretaría</th><th>Ciudadano</th><th>Tema</th><th>Prioridad</th><th>Fecha</th><th></th></tr></thead>
+                <tbody id="resueltosParaCerrarBody"></tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -971,7 +994,7 @@
           <option>Resuelto</option>
           <option>Cerrado</option>
         </select>
-        <select class="filter-select" id="casos-barrio-filter"></select>
+        <select class="filter-select" id="casos-localidad-filter"></select>
         <div class="date-range">
           <input type="date" class="filter-select" id="casos-fecha-desde" title="Desde">
           <span>—</span>
@@ -989,7 +1012,7 @@
       <div class="table-wrap">
         <div class="card-pad">
           <table>
-            <thead><tr><th>ID</th><th>Secretaría</th><th>Ciudadano</th><th>Incidente</th><th>Prioridad</th><th>Canal</th><th>Fecha</th><th>Estado</th><th></th></tr></thead>
+            <thead><tr><th>ID</th><th>Secretaría</th><th>Ciudadano</th><th>Tema</th><th>Prioridad</th><th>Canal</th><th>Fecha</th><th>Estado</th><th></th></tr></thead>
             <tbody id="misCasosBody"></tbody>
           </table>
         </div>
@@ -1013,8 +1036,7 @@
         </div>
         <div class="ficha-rows">
           <div class="ficha-row"><span>Secretaría</span><span id="fc-secretaria">—</span></div>
-          <div class="ficha-row"><span>Área</span><span id="fc-area">—</span></div>
-          <div class="ficha-row"><span>Incidente</span><span id="fc-incidente">—</span></div>
+          <div class="ficha-row"><span>Tema</span><span id="fc-tema">—</span></div>
           <div class="ficha-row"><span>Prioridad</span><span id="fc-prioridad">—</span></div>
           <div class="ficha-row"><span>Canal de contacto</span><span id="fc-canal">—</span></div>
           <div class="ficha-row"><span>Fecha</span><span id="fc-fecha">—</span></div>
@@ -1034,6 +1056,16 @@
           <textarea id="fichaNotaTexto" placeholder="Nota interna para quien siga este caso…"></textarea>
         </div>
         <button type="button" class="btn btn-primary btn-sm" id="btnAgregarNotaFicha" style="margin-top:8px;">Agregar nota</button>
+      </div>
+
+      <div class="card">
+        <h2><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>Fotos</h2>
+        <p class="hint">Fotos adjuntas al caso — se guardan solo en esta sesión del navegador (prototipo sin backend).</p>
+        <div class="foto-thumbs" id="fichaFotosThumbs"></div>
+        <div class="field" style="margin-top:14px;">
+          <label>Agregar foto</label>
+          <input type="file" id="fichaFotoInput" accept="image/*" multiple>
+        </div>
       </div>
 
       <div class="card">
@@ -1057,7 +1089,7 @@
           <div class="table-wrap">
             <div class="card-pad">
               <table>
-                <thead><tr><th>ID</th><th>Secretaría</th><th>Incidente</th><th>Prioridad</th><th>Fecha</th><th>Estado</th></tr></thead>
+                <thead><tr><th>ID</th><th>Secretaría</th><th>Tema</th><th>Prioridad</th><th>Fecha</th><th>Estado</th></tr></thead>
                 <tbody id="fichaHistBody"></tbody>
               </table>
             </div>
@@ -1102,7 +1134,7 @@
       <div class="table-wrap" id="ciudadanosListWrap">
         <div class="card-pad">
           <table>
-            <thead><tr><th>Nombre</th><th>DNI</th><th>Teléfono</th><th>Barrio</th><th>Casos</th><th>Último caso</th><th></th></tr></thead>
+            <thead><tr><th>Nombre</th><th>DNI</th><th>Teléfono</th><th>Localidad</th><th>Casos</th><th>Último caso</th><th></th></tr></thead>
             <tbody id="ciudadanosTableBody"></tbody>
           </table>
         </div>
@@ -1124,17 +1156,34 @@
 
         <form id="ciudadanoForm" style="display:none;">
           <div class="field-row">
-            <div class="field"><label>Nombre completo</label><input type="text" id="cu-nombre" required></div>
-            <div class="field"><label>DNI</label><input type="text" id="cu-dni" placeholder="00.000.000" required></div>
+            <div class="field"><label>Nombre *</label><input type="text" id="cu-nombre" required></div>
+            <div class="field"><label>Apellido *</label><input type="text" id="cu-apellido" required></div>
           </div>
           <div class="field-row">
-            <div class="field"><label>Teléfono</label><input type="text" id="cu-telefono" placeholder="11-0000-0000"></div>
+            <div class="field"><label>DNI *</label><input type="text" id="cu-dni" placeholder="00000000" required></div>
+            <div class="field"><label>Teléfono *</label><input type="text" id="cu-telefono" placeholder="1100000000" required></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Género *</label>
+              <select id="cu-genero" required><option value="">Elegir…</option><option>Femenino</option><option>Masculino</option><option>Otro</option></select>
+            </div>
+            <div class="field"><label>Fecha de nacimiento *</label><input type="date" id="cu-fecha-nacimiento" required></div>
+          </div>
+          <div class="field"><label>Localidad *</label>
+            <select id="cu-localidad" required><option value="">Elegir localidad…</option></select>
+          </div>
+          <div class="field-row">
             <div class="field"><label>Mail</label><input type="email" id="cu-mail" placeholder="nombre@mail.com"></div>
+            <div class="field"><label>Instagram</label><input type="text" id="cu-instagram" placeholder="Link de perfil"></div>
           </div>
-          <div class="field"><label>Dirección</label><input type="text" id="cu-direccion" placeholder="Calle y número"></div>
+          <div class="field"><label>Facebook</label><input type="text" id="cu-facebook" placeholder="Link de perfil"></div>
           <div class="field-row">
-            <div class="field"><label>Barrio</label><input type="text" id="cu-barrio" placeholder="Barrio Centro"></div>
-            <div class="field"><label>Localidad</label><input type="text" id="cu-localidad" placeholder="Localidad"></div>
+            <div class="field"><label>Calle</label><input type="text" id="cu-dom-calle"></div>
+            <div class="field"><label>Número</label><input type="text" id="cu-dom-numero"></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Entre calle 1</label><input type="text" id="cu-dom-entre1"></div>
+            <div class="field"><label>Entre calle 2</label><input type="text" id="cu-dom-entre2"></div>
           </div>
           <label class="check-especial"><input type="checkbox" id="cu-especial"> Ciudadano prioritario / especial</label>
           <div style="display:flex;gap:8px;">
@@ -1151,7 +1200,7 @@
           <div class="table-wrap">
             <div class="card-pad">
               <table>
-                <thead><tr><th>ID</th><th>Secretaría</th><th>Incidente</th><th>Prioridad</th><th>Fecha</th><th>Estado</th></tr></thead>
+                <thead><tr><th>ID</th><th>Secretaría</th><th>Tema</th><th>Prioridad</th><th>Fecha</th><th>Estado</th></tr></thead>
                 <tbody id="ciudadanoHistBody"></tbody>
               </table>
             </div>
@@ -1167,21 +1216,34 @@
     <!-- CONFIG -->
     <section class="view" id="view-config">
       <div class="card">
-        <h2><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Secretarías, áreas e incidentes</h2>
-        <p class="hint">Alta, edición y baja (anulación) de cada nivel. Anular conserva el histórico — no borra nada.</p>
+        <h2><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Secretarías y Temas</h2>
+        <p class="hint">Alta, edición y baja (anulación) de cada uno. Anular conserva el histórico — no borra nada. El Tema es una lista única, la misma para cualquier Secretaría.</p>
         <div class="toolbar" style="margin-bottom:18px;">
           <div class="search-wrap">
             <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-            <input type="text" class="search-input" id="cfg-search" placeholder="Buscar área o incidente…">
+            <input type="text" class="search-input" id="cfg-search" placeholder="Buscar secretaría o tema…">
           </div>
           <label style="display:flex;align-items:center;gap:6px;font-size:.8125rem;color:var(--ink-soft);">
             <input type="checkbox" id="cfg-mostrar-todas"> Mostrar anuladas
           </label>
         </div>
-        <div class="tree" id="configTree"></div>
-        <div class="add-row add-row-top">
-          <input type="text" class="add-input" id="newSecretariaInput" placeholder="Nueva secretaría…">
-          <button type="button" class="mini-add" id="btnAddSecretaria">+ Agregar secretaría</button>
+        <div class="tree" id="configTree">
+          <div>
+            <h3 style="margin:0 0 10px;font-size:.8125rem;font-weight:700;color:var(--ink-soft);">Secretarías</h3>
+            <div id="configSecList"></div>
+            <div class="add-row add-row-top">
+              <input type="text" class="add-input" id="newSecretariaInput" placeholder="Nueva secretaría…">
+              <button type="button" class="mini-add" id="btnAddSecretaria">+ Agregar secretaría</button>
+            </div>
+          </div>
+          <div>
+            <h3 style="margin:0 0 10px;font-size:.8125rem;font-weight:700;color:var(--ink-soft);">Temas</h3>
+            <div id="configTemasList"></div>
+            <div class="add-row add-row-top">
+              <input type="text" class="add-input" id="newTemaInput" placeholder="Nuevo tema…">
+              <button type="button" class="mini-add" id="btnAddTema">+ Agregar tema</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1224,60 +1286,47 @@
   var $ = function(id){ return document.getElementById(id); };
 
   /* ================= DATA ================= */
+  // Clasificación del caso: 2 niveles, Secretaría + Tema. El Tema es una lista plana, la misma para
+  // cualquier Secretaría (no hay filtro dependiente entre los dos niveles).
   var CONFIG = [
-    { nombre:"Salud", activo:true, areas:[
-        { nombre:"Atención Primaria", activo:true, incidentes:[
-            {nombre:"Turno médico no asignado", activo:true},
-            {nombre:"Falta de vacunas", activo:true},
-            {nombre:"Insumos faltantes en el centro", activo:true}
-        ]},
-        { nombre:"Salud Mental", activo:true, incidentes:[
-            {nombre:"Demora en primera consulta", activo:true},
-            {nombre:"Derivación a especialista", activo:true}
-        ]}
-    ]},
-    { nombre:"Obras Públicas", activo:true, areas:[
-        { nombre:"Alumbrado", activo:true, incidentes:[
-            {nombre:"Luminaria apagada", activo:true},
-            {nombre:"Poste dañado", activo:true}
-        ]},
-        { nombre:"Vialidad", activo:true, incidentes:[
-            {nombre:"Bache en la calzada", activo:true},
-            {nombre:"Falta de señalización", activo:true}
-        ]}
-    ]},
-    { nombre:"Desarrollo Social", activo:true, areas:[
-        { nombre:"Asistencia Directa", activo:true, incidentes:[
-            {nombre:"Módulo alimentario", activo:true},
-            {nombre:"Subsidio habitacional", activo:true}
-        ]},
-        { nombre:"Discapacidad", activo:true, incidentes:[
-            {nombre:"Trámite de CUD", activo:true},
-            {nombre:"Transporte adaptado", activo:true}
-        ]}
-    ]},
-    { nombre:"Educación", activo:true, areas:[
-        { nombre:"Becas", activo:true, incidentes:[
-            {nombre:"Solicitud de beca", activo:true},
-            {nombre:"Consulta de estado de trámite", activo:true}
-        ]},
-        { nombre:"Infraestructura escolar", activo:true, incidentes:[
-            {nombre:"Reparación edilicia", activo:true},
-            {nombre:"Falta de mobiliario", activo:true}
-        ]}
-    ]},
-    { nombre:"Casos especiales", activo:true, areas:[
-        { nombre:"Atención Prioritaria", activo:true, incidentes:[
-            {nombre:"Seguimiento especial", activo:true}
-        ]}
-    ]}
+    { nombre:"Salud", activo:true },
+    { nombre:"Obras Públicas", activo:true },
+    { nombre:"Desarrollo Social", activo:true },
+    { nombre:"Educación", activo:true },
+    { nombre:"Casos especiales", activo:true }
   ];
+
+  var TEMAS = [
+    { nombre:"Turno médico no asignado", activo:true },
+    { nombre:"Falta de vacunas", activo:true },
+    { nombre:"Insumos faltantes en el centro", activo:true },
+    { nombre:"Demora en primera consulta", activo:true },
+    { nombre:"Derivación a especialista", activo:true },
+    { nombre:"Luminaria apagada", activo:true },
+    { nombre:"Poste dañado", activo:true },
+    { nombre:"Bache en la calzada", activo:true },
+    { nombre:"Falta de señalización", activo:true },
+    { nombre:"Módulo alimentario", activo:true },
+    { nombre:"Subsidio habitacional", activo:true },
+    { nombre:"Trámite de CUD", activo:true },
+    { nombre:"Transporte adaptado", activo:true },
+    { nombre:"Solicitud de beca", activo:true },
+    { nombre:"Consulta de estado de trámite", activo:true },
+    { nombre:"Reparación edilicia", activo:true },
+    { nombre:"Falta de mobiliario", activo:true },
+    { nombre:"Seguimiento especial", activo:true },
+    { nombre:"Consulta general", activo:true },
+    { nombre:"Reclamo de espacio público", activo:true }
+  ];
+
+  // Localidades de prueba — array simple y separado para poder ampliarlo fácilmente más adelante.
+  var LOCALIDADES = ["Aldo Bonzi", "Ciudad Celina", "Ciudad Evita", "González Catán"];
 
   var usuarios = [
     {nombre:"Colaborador 1", rol:"Colaborador", turno:"Mañana", secretaria:"Salud", activo:true},
-    {nombre:"Colaborador 2", rol:"Colaborador", turno:"Tarde", secretaria:"Salud", activo:true},
-    {nombre:"Colaborador 3", rol:"Colaborador", turno:"Mañana", secretaria:"Obras Públicas", activo:true},
-    {nombre:"Colaborador 4", rol:"Colaborador", turno:"Tarde", secretaria:"Desarrollo Social", activo:true},
+    {nombre:"Colaborador 2", rol:"Colaborador", turno:"Tarde", secretaria:"Salud", activo:true, secretarias:["Salud","Educación"]},
+    {nombre:"Colaborador 3", rol:"Colaborador", turno:"Mañana", secretaria:"Obras Públicas", activo:true, secretarias:["Obras Públicas"]},
+    {nombre:"Colaborador 4", rol:"Colaborador", turno:"Tarde", secretaria:"Desarrollo Social", activo:true, secretarias:["Desarrollo Social","Casos especiales"]},
     {nombre:"Colaborador 5", rol:"Colaborador", turno:"Mañana", secretaria:"Educación", activo:true},
     {nombre:"Colaborador 6", rol:"Colaborador", turno:"Mañana", secretaria:"Casos especiales", activo:true},
     {nombre:"Encargado 1", rol:"Encargado", turno:"Mañana", secretarias:["Salud","Educación"], activo:true},
@@ -1286,15 +1335,17 @@
     {nombre:"Gestión 1", rol:"Gestión", turno:"Mañana", secretaria:"", activo:true}
   ];
 
+  // Ciudadano: DNI, nombre y apellido separados, género, fecha de nacimiento, localidad (lista cerrada),
+  // teléfono, mail y redes opcionales, y domicilio como bloque de campos opcionales.
   var ciudadanos = [
-    {dni:"00.000.001", nombre:"Vecino/a demo 1", telefono:"11-0000-0001", mail:"vecino1@demo.mail", direccion:"Calle Demo 101", barrio:"Barrio Centro", localidad:"Comunidad", activo:true, especial:false},
-    {dni:"00.000.002", nombre:"Vecino/a demo 2", telefono:"11-0000-0002", mail:"vecino2@demo.mail", direccion:"Calle Demo 202", barrio:"Barrio Norte", localidad:"Comunidad", activo:true, especial:true},
-    {dni:"00.000.003", nombre:"Vecino/a demo 3", telefono:"11-0000-0003", mail:"vecino3@demo.mail", direccion:"Calle Demo 303", barrio:"Barrio Sur", localidad:"Comunidad", activo:true, especial:false},
-    {dni:"00.000.004", nombre:"Vecino/a demo 4", telefono:"11-0000-0004", mail:"vecino4@demo.mail", direccion:"Calle Demo 404", barrio:"Barrio Este", localidad:"Comunidad", activo:true, especial:false},
-    {dni:"00.000.005", nombre:"Vecino/a demo 5", telefono:"11-0000-0005", mail:"vecino5@demo.mail", direccion:"Calle Demo 505", barrio:"Barrio Centro", localidad:"Comunidad", activo:true, especial:true},
-    {dni:"00.000.006", nombre:"Vecino/a demo 6", telefono:"11-0000-0006", mail:"vecino6@demo.mail", direccion:"Calle Demo 606", barrio:"Barrio Norte", localidad:"Comunidad", activo:true, especial:false},
-    {dni:"00.000.007", nombre:"Vecino/a demo 7", telefono:"11-0000-0007", mail:"vecino7@demo.mail", direccion:"Calle Demo 707", barrio:"Barrio Sur", localidad:"Comunidad", activo:true, especial:false},
-    {dni:"00.000.008", nombre:"Vecino/a demo 8", telefono:"11-0000-0008", mail:"vecino8@demo.mail", direccion:"Calle Demo 808", barrio:"Barrio Este", localidad:"Comunidad", activo:true, especial:false}
+    {dni:"00000001", nombre:"Vecino/a", apellido:"Demo 1", genero:"Femenino", fechaNacimiento:"1990-03-14", localidad:"Aldo Bonzi", telefono:"1100000001", mail:"vecino1@demo.mail", instagram:"", facebook:"", domicilio:{calle:"Calle Demo",numero:"101",entre1:"",entre2:""}, activo:true, especial:false},
+    {dni:"00000002", nombre:"Vecino/a", apellido:"Demo 2", genero:"Masculino", fechaNacimiento:"1985-07-22", localidad:"Ciudad Celina", telefono:"1100000002", mail:"vecino2@demo.mail", instagram:"", facebook:"", domicilio:{calle:"Calle Demo",numero:"202",entre1:"",entre2:""}, activo:true, especial:true},
+    {dni:"00000003", nombre:"Vecino/a", apellido:"Demo 3", genero:"Otro", fechaNacimiento:"1978-11-02", localidad:"Ciudad Evita", telefono:"1100000003", mail:"vecino3@demo.mail", instagram:"", facebook:"", domicilio:{calle:"Calle Demo",numero:"303",entre1:"",entre2:""}, activo:true, especial:false},
+    {dni:"00000004", nombre:"Vecino/a", apellido:"Demo 4", genero:"Femenino", fechaNacimiento:"2001-01-30", localidad:"González Catán", telefono:"1100000004", mail:"vecino4@demo.mail", instagram:"", facebook:"", domicilio:{calle:"Calle Demo",numero:"404",entre1:"",entre2:""}, activo:true, especial:false},
+    {dni:"00000005", nombre:"Vecino/a", apellido:"Demo 5", genero:"Masculino", fechaNacimiento:"1965-05-18", localidad:"Aldo Bonzi", telefono:"1100000005", mail:"vecino5@demo.mail", instagram:"", facebook:"", domicilio:{calle:"Calle Demo",numero:"505",entre1:"",entre2:""}, activo:true, especial:true},
+    {dni:"00000006", nombre:"Vecino/a", apellido:"Demo 6", genero:"Femenino", fechaNacimiento:"1998-09-09", localidad:"Ciudad Celina", telefono:"1100000006", mail:"vecino6@demo.mail", instagram:"", facebook:"", domicilio:{calle:"Calle Demo",numero:"606",entre1:"",entre2:""}, activo:true, especial:false},
+    {dni:"00000007", nombre:"Vecino/a", apellido:"Demo 7", genero:"Masculino", fechaNacimiento:"1972-12-25", localidad:"Ciudad Evita", telefono:"1100000007", mail:"vecino7@demo.mail", instagram:"", facebook:"", domicilio:{calle:"Calle Demo",numero:"707",entre1:"",entre2:""}, activo:true, especial:false},
+    {dni:"00000008", nombre:"Vecino/a", apellido:"Demo 8", genero:"Otro", fechaNacimiento:"1993-04-06", localidad:"González Catán", telefono:"1100000008", mail:"vecino8@demo.mail", instagram:"", facebook:"", domicilio:{calle:"Calle Demo",numero:"808",entre1:"",entre2:""}, activo:true, especial:false}
   ];
 
   var seq = 1;
@@ -1303,6 +1354,27 @@
   function parseFechaInput(v){ if (!v) return null; var p = v.split("-"); return new Date(+p[0], +p[1]-1, +p[2]); }
   function getSecretaria(nombre){ return CONFIG.find(function(s){ return s.nombre===nombre; }); }
   function secretariasActivas(){ return CONFIG.filter(function(s){ return s.activo; }); }
+  function getTema(nombre){ return TEMAS.find(function(t){ return t.nombre===nombre; }); }
+  function temasActivos(){ return TEMAS.filter(function(t){ return t.activo; }); }
+
+  // Nombre completo de un ciudadano (nombre + apellido, campos separados en el formulario).
+  function nombreCompleto(ciu){ return ciu ? (ciu.nombre + " " + ciu.apellido) : ""; }
+  // Deja solo dígitos — autocorrección silenciosa de DNI y teléfono al escribir o salir del campo.
+  function soloDigitos(v){ return (v||"").replace(/\D+/g,""); }
+  // Fecha de nacimiento guardada en formato de <input type=date> (aaaa-mm-dd) — se muestra día/mes/año.
+  function formatFechaDMY(iso){
+    if (!iso) return "";
+    var p = iso.split("-");
+    return p.length===3 ? (p[2]+"/"+p[1]+"/"+p[0]) : iso;
+  }
+  // Domicilio como texto legible, armado a partir del bloque de campos opcionales.
+  function formatDomicilio(dom){
+    if (!dom) return "";
+    var base = [dom.calle, dom.numero].filter(Boolean).join(" ");
+    var entre = [dom.entre1, dom.entre2].filter(Boolean).join(" y ");
+    if (base && entre) return base + ", entre " + entre;
+    return base || (entre ? "Entre " + entre : "");
+  }
 
   var ICONOS_SECRETARIA = {
     "Salud": '<circle cx="12" cy="12" r="9"/><path d="M12 7.5v9M7.5 12h9"/>',
@@ -1313,7 +1385,7 @@
   };
   var ICONO_SECRETARIA_DEFAULT = '<rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M9 8h6M9 12h6M9 16h3"/>';
   var STAR_ESPECIAL = '<svg class="star-especial" viewBox="0 0 24 24"><path d="M12 2 14.9 8.6 22 9.3 16.8 14 18.2 21 12 17.5 5.8 21 7.2 14 2 9.3 9.1 8.6 12 2Z"/></svg>';
-  var PIN_VISITA = '<svg class="pin-visita" viewBox="0 0 24 24"><title>Requiere visita física</title><path d="M12 21s7-7.5 7-12.5A7 7 0 0 0 5 8.5C5 13.5 12 21 12 21Z"/><circle cx="12" cy="8.5" r="2.3"/></svg>';
+  var PIN_VISITA = '<svg class="pin-visita" viewBox="0 0 24 24" aria-label="Requiere visita física"><path d="M12 21s7-7.5 7-12.5A7 7 0 0 0 5 8.5C5 13.5 12 21 12 21Z"/><circle cx="12" cy="8.5" r="2.3"/></svg>';
   function iconoSecretariaSvg(nombre){
     return '<svg class="sec-icon" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">' + (ICONOS_SECRETARIA[nombre] || ICONO_SECRETARIA_DEFAULT) + '</svg>';
   }
@@ -1332,29 +1404,29 @@
     return parseFecha(a.fecha) - parseFecha(b.fecha);
   }
 
-  function mk(secretaria,area,incidente,prioridad,responsable,estado,fecha,nombre,dni,derivadoPor,canal,requiereVisita,notas){
-    return {id:nextId(),secretaria:secretaria,area:area,incidente:incidente,prioridad:prioridad,
-      responsable:responsable,estado:estado,fecha:fecha,nombre:nombre,dni:dni,derivadoPor:derivadoPor||responsable,canal:canal||"Otro",requiereVisita:!!requiereVisita,notas:notas||[]};
+  function mk(secretaria,tema,prioridad,responsable,estado,fecha,nombre,dni,derivadoPor,canal,requiereVisita,notas,fotos){
+    return {id:nextId(),secretaria:secretaria,tema:tema,prioridad:prioridad,
+      responsable:responsable,estado:estado,fecha:fecha,nombre:nombre,dni:dni,derivadoPor:derivadoPor||responsable,canal:canal||"Otro",requiereVisita:!!requiereVisita,notas:notas||[],fotos:fotos||[]};
   }
 
   var cases = [
-    mk("Salud","Atención Primaria","Turno médico no asignado","Alta","Colaborador 1","Abierto","10/08/2026","Vecino/a demo 1","00.000.001","Colaborador 1","WhatsApp",false,[
+    mk("Salud","Turno médico no asignado","Alta","Colaborador 1","Abierto","10/08/2026","Vecino/a Demo 1","00000001","Colaborador 1","WhatsApp",false,[
       {autor:"Colaborador 1", rol:"Colaborador", fecha:"10/08/2026 09:40", texto:"Vecino insiste, pide que lo llamen antes del mediodía."}
     ]),
-    mk("Salud","Salud Mental","Demora en primera consulta","Media","Colaborador 2","En proceso","06/08/2026","Vecino/a demo 2","00.000.002","Colaborador 2","Instagram",true),
-    mk("Obras Públicas","Alumbrado","Luminaria apagada","Media","Colaborador 3","Cerrado","29/07/2026","Vecino/a demo 3","00.000.003","Colaborador 3","Facebook",true),
-    mk("Obras Públicas","Vialidad","Bache en la calzada","Urgente","Colaborador 3","Abierto","11/08/2026","Vecino/a demo 4","00.000.004","Colaborador 1","WhatsApp",true),
-    mk("Desarrollo Social","Asistencia Directa","Módulo alimentario","Alta","Colaborador 4","En proceso","05/08/2026","Vecino/a demo 5","00.000.005","Colaborador 4","Presencial",false),
-    mk("Desarrollo Social","Discapacidad","Trámite de CUD","Baja","Colaborador 4","Cerrado","20/07/2026","Vecino/a demo 6","00.000.006","Colaborador 2","Teléfono",false),
-    mk("Educación","Becas","Consulta de estado de trámite","Baja","Colaborador 5","Cerrado","15/07/2026","Vecino/a demo 7","00.000.007","Colaborador 5","WhatsApp",false),
-    mk("Educación","Infraestructura escolar","Falta de mobiliario","Media","Colaborador 5","Abierto","09/08/2026","Vecino/a demo 8","00.000.008","Colaborador 3","TikTok",false),
-    mk("Salud","Atención Primaria","Falta de vacunas","Media","Colaborador 1","Resuelto","03/08/2026","Vecino/a demo 3","00.000.003","Colaborador 2","WhatsApp",false,[
+    mk("Salud","Demora en primera consulta","Media","Colaborador 2","En proceso","06/08/2026","Vecino/a Demo 2","00000002","Colaborador 2","Instagram",true),
+    mk("Obras Públicas","Luminaria apagada","Media","Colaborador 3","Cerrado","29/07/2026","Vecino/a Demo 3","00000003","Colaborador 3","Facebook",true),
+    mk("Obras Públicas","Bache en la calzada","Urgente","Colaborador 3","Abierto","11/08/2026","Vecino/a Demo 4","00000004","Colaborador 1","WhatsApp",true),
+    mk("Desarrollo Social","Módulo alimentario","Alta","Colaborador 4","En proceso","05/08/2026","Vecino/a Demo 5","00000005","Colaborador 4","Presencial",false),
+    mk("Desarrollo Social","Trámite de CUD","Baja","Colaborador 4","Cerrado","20/07/2026","Vecino/a Demo 6","00000006","Colaborador 2","Teléfono",false),
+    mk("Educación","Consulta de estado de trámite","Baja","Colaborador 5","Cerrado","15/07/2026","Vecino/a Demo 7","00000007","Colaborador 5","WhatsApp",false),
+    mk("Educación","Falta de mobiliario","Media","Colaborador 5","Abierto","09/08/2026","Vecino/a Demo 8","00000008","Colaborador 3","TikTok",false),
+    mk("Salud","Falta de vacunas","Media","Colaborador 1","Resuelto","03/08/2026","Vecino/a Demo 3","00000003","Colaborador 2","WhatsApp",false,[
       {autor:"Encargado 1", rol:"Encargado", fecha:"08/08/2026 14:15", texto:"Se coordinó turno con el centro de salud, quedó resuelto."}
     ]),
-    mk("Obras Públicas","Vialidad","Falta de señalización","Baja","Colaborador 3","Resuelto","30/07/2026","Vecino/a demo 6","00.000.006","Colaborador 1","Presencial",false,[
+    mk("Obras Públicas","Falta de señalización","Baja","Colaborador 3","Resuelto","30/07/2026","Vecino/a Demo 6","00000006","Colaborador 1","Presencial",false,[
       {autor:"Encargado 2", rol:"Encargado", fecha:"02/08/2026 11:05", texto:"Cuadrilla colocó la señalización solicitada."}
     ]),
-    mk("Desarrollo Social","Discapacidad","Transporte adaptado","Alta","Colaborador 4","Resuelto","28/07/2026","Vecino/a demo 8","00.000.008","Colaborador 4","Teléfono",true)
+    mk("Desarrollo Social","Transporte adaptado","Alta","Colaborador 4","Resuelto","28/07/2026","Vecino/a Demo 8","00000008","Colaborador 4","Teléfono",true)
   ];
 
   var informacion = [
@@ -1377,11 +1449,17 @@
     cfgMostrarTodas:false, cfgSearch:"",
     panelSecretariaFiltro:"Todas", panelUsuarioFiltro:"Todos", panelTab:"Resumen",
     panelFechaDesde:"", panelFechaHasta:"",
-    casosFiltroEstado:"Todos", casosFechaDesde:"", casosFechaHasta:"", casosDni:"", casosBarrio:"Todos",
+    casosFiltroEstado:"Todos", casosFechaDesde:"", casosFechaHasta:"", casosDni:"", casosLocalidad:"Todas",
     infoSearch:"", fichaCasoId:null, fichaReturn:null, ciudadanoDetailDni:null,
     // Casos ya vistos por cada Encargado, para el aviso de "casos nuevos" — {nombreUsuario: [idsDeCasos]}.
     // Solo estado en memoria de la sesión del prototipo, sin persistencia (no hay backend todavía).
-    vistosEncargado:{}
+    vistosEncargado:{},
+    // Seguimiento por Secretaría (Colaborador): si el bloque de seguimiento está desplegado y, si eligió
+    // una de sus Secretarías asignadas, cuál — para filtrar el listado general de Casos.
+    seguimientoAbierto:false, casosSecSeguimiento:null,
+    informesMenuAbierto:false,
+    // Fotos cargadas en el formulario de "Nuevo caso", antes de derivarlo (se limpia al enviar el form).
+    fotosNuevoCaso:[]
   };
 
   /* ================= ROLE GATE ================= */
@@ -1452,6 +1530,14 @@
     return (u && u.secretarias) || [];
   }
 
+  // Secretarías de seguimiento asignadas al usuario Colaborador actualmente logueado — mismo mecanismo
+  // (campo "secretarias" en el usuario) que usa el Encargado para sus Secretarías asignadas.
+  function misSecretariasSeguimiento(){
+    if (state.rol !== "Colaborador") return [];
+    var u = usuarios.find(function(x){ return x.nombre===state.usuarioActivo; });
+    return (u && u.secretarias) || [];
+  }
+
   /* ---- Aviso de casos nuevos para el Encargado (prototipo, estado en memoria — sin backend) ----
      Se compara contra los casos Abierto/En proceso de las Secretarías asignadas al Encargado logueado,
      y contra el registro de ids ya vistos por ese Encargado (state.vistosEncargado). */
@@ -1500,7 +1586,7 @@
       var tr = document.createElement("tr");
       tr.className = "row-clickable";
       tr.dataset.id = cs.id;
-      tr.innerHTML = "<td class='cell-id'>"+(cs.requiereVisita?PIN_VISITA+' ':'')+cs.id+"</td><td>"+cs.secretaria+"</td><td>"+cs.incidente+"</td>"+
+      tr.innerHTML = "<td class='cell-id'>"+(cs.requiereVisita?PIN_VISITA+' ':'')+cs.id+"</td><td>"+cs.secretaria+"</td><td>"+cs.tema+"</td>"+
         "<td>"+chipFor("prioridad", cs.prioridad)+"</td><td>"+cs.fecha+"</td><td>"+chipFor("estado", cs.estado)+"</td>";
       hb.appendChild(tr);
     });
@@ -1528,10 +1614,10 @@
     panel:{title:"Panel general", sub:"Estado de todos los casos y usuarios, agrupados por secretaría."},
     canal:{title:"Canal de contacto", sub:"Por dónde llegan las consultas de los ciudadanos."},
     ciudadanos:{title:"Ciudadanos", sub:"Alta y edición de datos, e historial de casos por ciudadano."},
-    "mis-casos":{title:"Casos", sub:"Todos los casos del sistema, con filtros por estado, fecha, DNI y barrio."},
+    "mis-casos":{title:"Casos", sub:"Todos los casos del sistema, con filtros por estado, fecha, DNI y localidad."},
     "encargado-secretarias":{title:"Secretarías", sub:"Elegí una secretaría asignada para ver y trabajar sus casos."},
     informacion:{title:"Información", sub:"Buscar información de referencia para consultas que no son casos."},
-    config:{title:"Configuración", sub:"Secretarías, áreas, incidentes, usuarios y roles."},
+    config:{title:"Configuración", sub:"Secretarías, temas, usuarios y roles."},
     ficha:{title:"Detalle del caso", sub:""}
   };
 
@@ -1575,22 +1661,26 @@
     });
   }
   fillOptions($("f-secretaria"), secretariasActivas().map(function(s){return s.nombre;}), "Elegir secretaría…");
+  // El Tema es una lista plana e independiente de la Secretaría elegida — se completa una sola vez,
+  // sin ningún filtro dependiente entre los dos niveles.
+  fillOptions($("f-tema"), temasActivos().map(function(t){return t.nombre;}), "Elegir tema…");
+  fillOptions($("ci-localidad"), LOCALIDADES, "Elegir localidad…");
 
   function renderComboCiudadanos(query){
     var list = ciudadanos.filter(function(c){ return c.activo; });
     var q = (query||"").toLowerCase().trim();
-    if (q) list = list.filter(function(c){ return c.nombre.toLowerCase().indexOf(q)>-1 || c.dni.toLowerCase().indexOf(q)>-1; });
+    if (q) list = list.filter(function(c){ return nombreCompleto(c).toLowerCase().indexOf(q)>-1 || c.dni.toLowerCase().indexOf(q)>-1; });
     list = list.slice(0,8);
     var box = $("f-ciudadano-list");
     box.innerHTML = list.length ? list.map(function(c){
-      return '<button type="button" class="combo-item" data-dni="'+c.dni+'">'+c.nombre+'<small>DNI '+c.dni+'</small></button>';
+      return '<button type="button" class="combo-item" data-dni="'+c.dni+'">'+nombreCompleto(c)+'<small>DNI '+c.dni+'</small></button>';
     }).join("") : '<div class="combo-empty">Sin resultados — usá "+ Crear ciudadano".</div>';
     box.style.display = "block";
   }
   function seleccionarCiudadano(dni){
     var c = ciudadanos.find(function(x){ return x.dni===dni; });
     $("f-ciudadano").value = c ? dni : "";
-    $("f-ciudadano-search").value = c ? (c.nombre + " — DNI " + c.dni) : "";
+    $("f-ciudadano-search").value = c ? (nombreCompleto(c) + " — DNI " + c.dni) : "";
     $("f-ciudadano-list").style.display = "none";
     mostrarResumenCiudadano(c ? dni : "");
     updatePreview();
@@ -1616,28 +1706,48 @@
     if (!c){ box.style.display="none"; box.innerHTML=""; return; }
     box.style.display = "flex";
     box.innerHTML =
-      "<div><strong>"+(c.especial?STAR_ESPECIAL+" ":"")+c.nombre+"</strong><span>DNI "+c.dni+"</span></div>"+
+      "<div><strong>"+(c.especial?STAR_ESPECIAL+" ":"")+nombreCompleto(c)+"</strong><span>DNI "+c.dni+"</span></div>"+
+      "<div><strong>"+(c.genero||"—")+"</strong><span>Género</span></div>"+
+      "<div><strong>"+(formatFechaDMY(c.fechaNacimiento)||"—")+"</strong><span>Fecha de nacimiento</span></div>"+
+      "<div><strong>"+(c.localidad||"—")+"</strong><span>Localidad</span></div>"+
       "<div><strong>"+(c.telefono||"—")+"</strong><span>Teléfono</span></div>"+
       "<div><strong>"+(c.mail||"—")+"</strong><span>Mail</span></div>"+
-      "<div><strong>"+(c.direccion||"—")+"</strong><span>Dirección</span></div>"+
-      "<div><strong>"+(c.barrio||"—")+"</strong><span>Barrio</span></div>"+
-      "<div><strong>"+(c.localidad||"—")+"</strong><span>Localidad</span></div>";
+      "<div><strong>"+(formatDomicilio(c.domicilio)||"—")+"</strong><span>Domicilio</span></div>";
   }
 
   $("btnCrearCiudadanoInline").addEventListener("click", function(){
     $("ciudadanoInlineForm").style.display = "block";
   });
   function limpiarInlineCiudadano(){
-    ["ci-nombre","ci-dni","ci-telefono","ci-mail","ci-direccion","ci-barrio","ci-localidad"].forEach(function(id){ $(id).value=""; });
+    ["ci-nombre","ci-apellido","ci-dni","ci-telefono","ci-mail","ci-instagram","ci-facebook",
+     "ci-fecha-nacimiento","ci-dom-calle","ci-dom-numero","ci-dom-entre1","ci-dom-entre2"].forEach(function(id){ $(id).value=""; });
+    $("ci-genero").value = ""; $("ci-localidad").value = "";
     $("ci-especial").checked = false;
     $("ciudadanoInlineForm").style.display = "none";
   }
   $("btnCancelarCiudadanoInline").addEventListener("click", limpiarInlineCiudadano);
+  // DNI y Teléfono: autocorrección silenciosa — se saca todo lo que no sea dígito al escribir o al salir.
+  ["ci-dni","cu-dni"].forEach(function(id){
+    ["input","blur"].forEach(function(ev){ $(id).addEventListener(ev, function(){ this.value = soloDigitos(this.value); }); });
+  });
+  ["ci-telefono","cu-telefono"].forEach(function(id){
+    ["input","blur"].forEach(function(ev){ $(id).addEventListener(ev, function(){ this.value = soloDigitos(this.value); }); });
+  });
   $("btnGuardarCiudadanoInline").addEventListener("click", function(){
-    var dni = $("ci-dni").value.trim(), nombre = $("ci-nombre").value.trim();
-    if (!dni || !nombre){ showToast("Completá al menos nombre y DNI del ciudadano."); return; }
+    var dni = $("ci-dni").value.trim(), nombre = $("ci-nombre").value.trim(), apellido = $("ci-apellido").value.trim();
+    var genero = $("ci-genero").value, fechaNac = $("ci-fecha-nacimiento").value, localidad = $("ci-localidad").value;
+    var telefono = $("ci-telefono").value.trim();
+    if (!dni || !nombre || !apellido || !genero || !fechaNac || !localidad || !telefono){
+      showToast("Completá los campos obligatorios del ciudadano.");
+      return;
+    }
     if (ciudadanos.some(function(c){ return c.dni===dni; })){ showToast("Ya existe un ciudadano con ese DNI."); return; }
-    ciudadanos.push({dni:dni, nombre:nombre, telefono:$("ci-telefono").value.trim(), mail:$("ci-mail").value.trim(), direccion:$("ci-direccion").value.trim(), barrio:$("ci-barrio").value.trim(), localidad:$("ci-localidad").value.trim(), activo:true, especial:$("ci-especial").checked});
+    ciudadanos.push({
+      dni:dni, nombre:nombre, apellido:apellido, genero:genero, fechaNacimiento:fechaNac, localidad:localidad,
+      telefono:telefono, mail:$("ci-mail").value.trim(), instagram:$("ci-instagram").value.trim(), facebook:$("ci-facebook").value.trim(),
+      domicilio:{calle:$("ci-dom-calle").value.trim(), numero:$("ci-dom-numero").value.trim(), entre1:$("ci-dom-entre1").value.trim(), entre2:$("ci-dom-entre2").value.trim()},
+      activo:true, especial:$("ci-especial").checked
+    });
     seleccionarCiudadano(dni);
     limpiarInlineCiudadano();
     showToast("Ciudadano creado — continuá con el caso.");
@@ -1646,59 +1756,38 @@
 
   $("f-secretaria").addEventListener("change", function(){
     var s = this.value;
-    var areaSel = $("f-area"), incSel = $("f-incidente"), respSel = $("f-responsable");
-    $("btnCrearIncidente").disabled = true;
-    $("incidenteInlineForm").style.display = "none";
+    var respSel = $("f-responsable");
     if (!s){
-      areaSel.disabled = true; incSel.disabled = true; respSel.disabled = true;
-      fillOptions(areaSel, [], "Elegir área…"); fillOptions(incSel, [], "Elegir incidente…"); fillOptions(respSel, [], "Elegir responsable…");
+      respSel.disabled = true;
+      fillOptions(respSel, [], "Elegir responsable…");
     } else {
-      var sec = getSecretaria(s);
-      fillOptions(areaSel, sec.areas.filter(function(a){return a.activo;}).map(function(a){return a.nombre;}), "Elegir área…"); areaSel.disabled = false;
-      fillOptions(incSel, [], "Elegir incidente…"); incSel.disabled = true;
       var resp = usuarios.filter(function(u){ return u.rol==="Colaborador" && u.activo && u.secretaria===s; }).map(function(u){ return u.nombre; });
       fillOptions(respSel, resp, "Elegir responsable…"); respSel.disabled = resp.length===0;
     }
     updatePreview();
   });
-  $("f-area").addEventListener("change", function(){
-    var s = $("f-secretaria").value, a = this.value;
-    var incSel = $("f-incidente");
-    $("incidenteInlineForm").style.display = "none";
-    if (!a){ incSel.disabled = true; $("btnCrearIncidente").disabled = true; fillOptions(incSel, [], "Elegir incidente…"); }
-    else {
-      var area = getSecretaria(s).areas.find(function(x){return x.nombre===a;});
-      fillOptions(incSel, area.incidentes.filter(function(i){return i.activo;}).map(function(i){return i.nombre;}), "Elegir incidente…");
-      incSel.disabled = false;
-      $("btnCrearIncidente").disabled = false;
-    }
-    updatePreview();
+
+  // Fotos del caso — se convierten a data URL en memoria (prototipo sin backend) y se acumulan
+  // hasta que se derive el caso; ahí se copian a caso.fotos y se limpia esta lista.
+  function renderFotosThumbs(elId, fotos, hint){
+    var wrap = $(elId);
+    if (!fotos || !fotos.length){ wrap.innerHTML = hint ? '<span class="foto-thumb-empty">'+hint+'</span>' : ""; return; }
+    wrap.innerHTML = fotos.map(function(src){ return '<img src="'+src+'" alt="Foto adjunta">'; }).join("");
+  }
+  $("f-fotos").addEventListener("change", function(){
+    var files = Array.prototype.slice.call(this.files || []);
+    files.forEach(function(file){
+      var reader = new FileReader();
+      reader.onload = function(){
+        state.fotosNuevoCaso.push(reader.result);
+        renderFotosThumbs("f-fotos-thumbs", state.fotosNuevoCaso);
+      };
+      reader.readAsDataURL(file);
+    });
+    this.value = "";
   });
 
-  $("btnCrearIncidente").addEventListener("click", function(){
-    $("incidenteInlineForm").style.display = "block";
-  });
-  $("btnCancelarIncidente").addEventListener("click", function(){
-    $("incidenteInlineForm").style.display = "none";
-    $("inc-nombre").value = "";
-  });
-  $("btnGuardarIncidente").addEventListener("click", function(){
-    var nombre = $("inc-nombre").value.trim();
-    if (!nombre) return;
-    var s = $("f-secretaria").value, a = $("f-area").value;
-    if (!s || !a){ showToast("Elegí secretaría y área primero."); return; }
-    var area = getSecretaria(s).areas.find(function(x){ return x.nombre===a; });
-    if (area.incidentes.some(function(i){ return i.nombre===nombre; })){ showToast("Ese incidente ya existe en esta área."); return; }
-    area.incidentes.push({nombre:nombre, activo:true});
-    fillOptions($("f-incidente"), area.incidentes.filter(function(i){return i.activo;}).map(function(i){return i.nombre;}), "Elegir incidente…");
-    $("f-incidente").value = nombre;
-    $("f-incidente").disabled = false;
-    $("inc-nombre").value = "";
-    $("incidenteInlineForm").style.display = "none";
-    showToast("Incidente agregado a " + a + " — ya queda disponible en la lista.");
-    updatePreview();
-  });
-  ["f-incidente","f-responsable","f-canal","f-visita"].forEach(function(id){
+  ["f-tema","f-responsable","f-canal","f-visita"].forEach(function(id){
     $(id).addEventListener("change", updatePreview);
   });
 
@@ -1742,11 +1831,10 @@
   function updatePreview(){
     var ciuDni = $("f-ciudadano").value;
     var ciu = ciudadanos.find(function(c){return c.dni===ciuDni;});
-    var s=$("f-secretaria").value, a=$("f-area").value, i=$("f-incidente").value, r=$("f-responsable").value;
-    $("pv-ciudadano").outerHTML = ciu ? '<span id="pv-ciudadano">'+ciu.nombre+'</span>' : '<span id="pv-ciudadano" class="chip-empty">—</span>';
+    var s=$("f-secretaria").value, tema=$("f-tema").value, r=$("f-responsable").value;
+    $("pv-ciudadano").outerHTML = ciu ? '<span id="pv-ciudadano">'+nombreCompleto(ciu)+'</span>' : '<span id="pv-ciudadano" class="chip-empty">—</span>';
     $("pv-secretaria").outerHTML = s ? '<span id="pv-secretaria">'+s+'</span>' : '<span id="pv-secretaria" class="chip-empty">—</span>';
-    $("pv-area").outerHTML = a ? '<span id="pv-area">'+a+'</span>' : '<span id="pv-area" class="chip-empty">—</span>';
-    $("pv-incidente").outerHTML = i ? '<span id="pv-incidente">'+i+'</span>' : '<span id="pv-incidente" class="chip-empty">—</span>';
+    $("pv-tema").outerHTML = tema ? '<span id="pv-tema">'+tema+'</span>' : '<span id="pv-tema" class="chip-empty">—</span>';
     $("pv-responsable").outerHTML = r ? '<span id="pv-responsable">'+r+'</span>' : '<span id="pv-responsable" class="chip-empty">—</span>';
     var canalVal = $("f-canal").value;
     $("pv-canal").outerHTML = canalVal ? '<span id="pv-canal">'+chipFor("canal", canalVal)+'</span>' : '<span id="pv-canal" class="chip-empty">—</span>';
@@ -1756,9 +1844,9 @@
       '<span id="pv-visita" class="chip-empty">No</span>';
     $("pv-prioridad").innerHTML = chipFor("prioridad", state.prioridadElegida);
     var flow = $("pv-flow");
-    if (s && a){
+    if (s && tema){
       flow.style.display = "flex";
-      $("pv-flow-text").textContent = "Se derivará a " + s + " → " + a;
+      $("pv-flow-text").textContent = "Se derivará a " + s + " → " + tema;
     } else {
       flow.style.display = "none";
     }
@@ -1769,9 +1857,9 @@
     e.preventDefault();
     var dni = $("f-ciudadano").value;
     var ciu = ciudadanos.find(function(c){ return c.dni===dni; });
-    var s=$("f-secretaria").value, a=$("f-area").value, i=$("f-incidente").value, r=$("f-responsable").value;
-    if (!ciu || !s || !a || !i || !r){
-      showToast("Elegí un ciudadano y completá secretaría, área, incidente y responsable.");
+    var s=$("f-secretaria").value, tema=$("f-tema").value, r=$("f-responsable").value;
+    if (!ciu || !s || !tema || !r){
+      showToast("Elegí un ciudadano y completá secretaría, tema y responsable.");
       return;
     }
     var today = "12/08/2026";
@@ -1779,16 +1867,14 @@
     var visitaElegida = $("f-visita").checked;
     var notaInicialTexto = $("f-nota-inicial").value.trim();
     var notasIniciales = notaInicialTexto ? [crearNota(notaInicialTexto)] : [];
-    cases.push(mk(s,a,i,state.prioridadElegida,r,"Abierto",today,ciu.nombre,ciu.dni,state.usuarioActivo,canalElegido,visitaElegida,notasIniciales));
-    showToast("Caso derivado a " + s + " → " + a);
+    cases.push(mk(s,tema,state.prioridadElegida,r,"Abierto",today,nombreCompleto(ciu),ciu.dni,state.usuarioActivo,canalElegido,visitaElegida,notasIniciales,state.fotosNuevoCaso.slice()));
+    showToast("Caso derivado a " + s + " → " + tema);
     this.reset();
     $("f-ciudadano-search").value = ""; seleccionarCiudadano("");
-    fillOptions($("f-area"), [], "Elegir área…"); $("f-area").disabled = true;
-    fillOptions($("f-incidente"), [], "Elegir incidente…"); $("f-incidente").disabled = true;
-    $("btnCrearIncidente").disabled = true;
-    $("incidenteInlineForm").style.display = "none"; $("inc-nombre").value = "";
     fillOptions($("f-responsable"), [], "Elegir responsable…"); $("f-responsable").disabled = true;
     state.prioridadElegida = "Media";
+    state.fotosNuevoCaso = [];
+    renderFotosThumbs("f-fotos-thumbs", state.fotosNuevoCaso);
     $("f-prioridad").querySelectorAll(".seg-btn").forEach(function(x){ x.classList.toggle("active", x.dataset.p==="Media"); });
     updatePreview();
     renderSecNav(); renderPanel(); renderCiudadanos(); renderMisCasos();
@@ -1983,10 +2069,10 @@
     );
 
     var counts = {};
-    list.forEach(function(c){ counts[c.incidente] = (counts[c.incidente]||0)+1; });
+    list.forEach(function(c){ counts[c.tema] = (counts[c.tema]||0)+1; });
     var top = Object.keys(counts).map(function(k){ return [k, counts[k]]; }).sort(function(a,b){ return b[1]-a[1]; }).slice(0,5);
     var maxTop = top.length ? top[0][1] : 1;
-    $("informeIncidentes").innerHTML = barListHtml(top, maxTop);
+    $("informeTemas").innerHTML = barListHtml(top, maxTop);
 
     var byUser = {};
     list.forEach(function(c){ byUser[c.derivadoPor] = (byUser[c.derivadoPor]||0)+1; });
@@ -2000,6 +2086,44 @@
     var maxResp = respPairs.length ? respPairs[0][1] : 1;
     $("informeResponsable").innerHTML = barListHtml(respPairs, maxResp);
   }
+
+  /* ---- Botón "Informes" (Gestión) ----
+     Solo muestra la lista de informes propuestos, a modo de idea visual — ningún ítem calcula ni
+     genera nada real todavía. */
+  var INFORMES_PROPUESTOS = [
+    "Secretarías con más demanda (de mayor a menor)",
+    "Casos por localidad, por Secretaría (de mayor a menor)",
+    "Tema con más demanda, por Secretaría (de mayor a menor)",
+    "Localidades con más demanda del tema más consultado, por Secretaría (de mayor a menor)",
+    "Temas más consultados en general (de mayor a menor)",
+    "Localidades con más demanda (de mayor a menor)",
+    "Comunicación por género (de mayor a menor)",
+    "Comunicación por edad (de mayor a menor)"
+  ];
+  function renderInformesMenu(){
+    var menu = $("informesMenu");
+    menu.innerHTML = INFORMES_PROPUESTOS.map(function(txt){
+      return '<button type="button" class="combo-item">'+txt+'</button>';
+    }).join("");
+  }
+  $("btnInformes").addEventListener("click", function(e){
+    e.stopPropagation();
+    state.informesMenuAbierto = !state.informesMenuAbierto;
+    if (state.informesMenuAbierto) renderInformesMenu();
+    $("informesMenu").style.display = state.informesMenuAbierto ? "block" : "none";
+  });
+  $("informesMenu").addEventListener("click", function(e){
+    if (!e.target.closest(".combo-item")) return;
+    // Ítem decorativo — no dispara ningún cálculo, solo cierra el menú.
+    state.informesMenuAbierto = false;
+    $("informesMenu").style.display = "none";
+  });
+  document.addEventListener("click", function(e){
+    if (!state.informesMenuAbierto) return;
+    if (e.target.closest("#informesMenu") || e.target.closest("#btnInformes")) return;
+    state.informesMenuAbierto = false;
+    $("informesMenu").style.display = "none";
+  });
 
   /* ================= CANAL DE CONTACTO (vista propia) ================= */
   function renderCanalView(){
@@ -2037,16 +2161,14 @@
       $("sec-table-body").innerHTML = '<tr class="empty-row"><td colspan="9">Sin acceso a esta secretaría con tu usuario actual.</td></tr>';
       return;
     }
-    var areas = secObj.areas.filter(function(a){return a.activo;});
-    var incCount = areas.reduce(function(n,a){return n+a.incidentes.filter(function(i){return i.activo;}).length;},0);
     $("sec-title").innerHTML = iconoSecretariaSvg(s) + '<span>'+s+'</span>';
-    $("sec-desc").textContent = areas.length+" áreas · "+incCount+" tipos de incidente configurados";
+    $("sec-desc").textContent = "Casos derivados a esta secretaría, clasificados por tema.";
 
     var list = cases.filter(function(c){ return c.secretaria===s; });
     if (state.secTabEstado!=="Todos") list = list.filter(function(c){ return c.estado===state.secTabEstado; });
     if (state.secPrioridad!=="Todas") list = list.filter(function(c){ return c.prioridad===state.secPrioridad; });
     if (state.secSearch) list = list.filter(function(c){
-      return c.nombre.toLowerCase().indexOf(state.secSearch)>-1 || c.incidente.toLowerCase().indexOf(state.secSearch)>-1;
+      return c.nombre.toLowerCase().indexOf(state.secSearch)>-1 || c.tema.toLowerCase().indexOf(state.secSearch)>-1;
     });
     list = list.slice().sort(defaultCaseSort);
 
@@ -2076,7 +2198,7 @@
       tr.innerHTML =
         '<td class="cell-id">'+(c.requiereVisita?PIN_VISITA+' ':'')+c.id+'</td>'+
         '<td class="cell-name">'+c.nombre+'<small>DNI '+c.dni+'</small></td>'+
-        '<td>'+c.incidente+'</td>'+
+        '<td>'+c.tema+'</td>'+
         '<td>'+chipFor("prioridad", c.prioridad)+'</td>'+
         '<td>'+chipFor("canal", c.canal)+'</td>'+
         '<td>'+c.responsable+'</td>'+
@@ -2108,33 +2230,40 @@
   wireCaseRowOpen("sec-table-body", function(){ return {view:"secretaria", sec: state.secretariaActual}; });
 
   /* ================= CASOS (Colaborador: todos los casos / Encargado: todos los casos) ================= */
-  function refreshCasosFiltroBarrio(){
-    var sel = $("casos-barrio-filter");
+  function refreshCasosFiltroLocalidad(){
+    var sel = $("casos-localidad-filter");
     var cur = sel.value;
-    var barrios = [];
-    ciudadanos.forEach(function(c){ if (c.barrio && barrios.indexOf(c.barrio)===-1) barrios.push(c.barrio); });
-    barrios.sort();
-    sel.innerHTML = "<option value='Todos'>Todos los barrios</option>" + barrios.map(function(b){ return "<option>"+b+"</option>"; }).join("");
+    sel.innerHTML = "<option value='Todas'>Todas las localidades</option>" + LOCALIDADES.map(function(l){ return "<option>"+l+"</option>"; }).join("");
     if (cur) sel.value = cur;
   }
 
   function filteredCasosGenerales(){
     return cases.filter(function(c){
+      // Seguimiento: si el Colaborador eligió una de sus Secretarías asignadas, se muestran todos los
+      // casos de esa Secretaría, en cualquier estado — el filtro de estado se ignora mientras dure.
+      if (state.casosSecSeguimiento){
+        return c.secretaria === state.casosSecSeguimiento;
+      }
       if (state.casosFiltroEstado!=="Todos" && c.estado!==state.casosFiltroEstado) return false;
       if (state.casosFechaDesde && parseFecha(c.fecha) < parseFechaInput(state.casosFechaDesde)) return false;
       if (state.casosFechaHasta && parseFecha(c.fecha) > parseFechaInput(state.casosFechaHasta)) return false;
       if (state.casosDni && c.dni.toLowerCase().indexOf(state.casosDni.toLowerCase())===-1) return false;
-      if (state.casosBarrio!=="Todos"){
+      if (state.casosLocalidad!=="Todas"){
         var ciu = getCiudadano(c.dni);
-        if (!ciu || ciu.barrio!==state.casosBarrio) return false;
+        if (!ciu || ciu.localidad!==state.casosLocalidad) return false;
       }
       return true;
     }).slice().sort(defaultCaseSort);
   }
 
   function renderMisCasos(){
-    refreshCasosFiltroBarrio();
+    refreshCasosFiltroLocalidad();
+    // El panel de seguimiento es exclusivo del Colaborador — si se cambia de rol se oculta sin importar
+    // cómo haya quedado el botón la última vez.
+    $("seguimientoPanel").style.display = (state.rol==="Colaborador" && state.seguimientoAbierto) ? "block" : "none";
+    if (state.rol !== "Colaborador") state.casosSecSeguimiento = null;
     renderResueltosParaCerrar();
+    renderSeguimientoSecretarias();
 
     // Aviso de casos nuevos sin ver, solo para el Encargado. Se calcula ANTES de marcarlos como vistos,
     // para poder mostrar el número real; después de mostrarlo se marcan como vistos (ver más abajo).
@@ -2154,8 +2283,9 @@
     }
 
     var activeFilters = [];
+    if (state.casosSecSeguimiento) activeFilters.push("Seguimiento: "+state.casosSecSeguimiento);
     if (state.casosFiltroEstado!=="Todos") activeFilters.push("Estado: "+state.casosFiltroEstado);
-    if (state.casosBarrio!=="Todos") activeFilters.push("Barrio: "+state.casosBarrio);
+    if (state.casosLocalidad!=="Todas") activeFilters.push("Localidad: "+state.casosLocalidad);
     if (state.casosDni) activeFilters.push("DNI: "+state.casosDni);
     if (state.casosFechaDesde || state.casosFechaHasta) activeFilters.push("Fecha: "+(state.casosFechaDesde||"…")+" a "+(state.casosFechaHasta||"…"));
     var badge = $("casosFilterBadge");
@@ -2182,20 +2312,21 @@
       if (c.estado==="Resuelto" && state.rol==="Colaborador") acciones += ' <button type="button" class="btn btn-primary btn-sm btn-cerrar-caso" data-id="'+c.id+'">Marcar cerrado</button>';
       tr.innerHTML = "<td class='cell-id'>"+(c.requiereVisita?PIN_VISITA+' ':'')+c.id+"</td><td>"+c.secretaria+"</td>"+
         "<td class='cell-name'>"+c.nombre+"<small>DNI "+c.dni+"</small></td>"+
-        "<td>"+c.incidente+"</td><td>"+chipFor("prioridad",c.prioridad)+"</td><td>"+chipFor("canal",c.canal)+"</td><td>"+c.fecha+"</td><td>"+chipFor("estado",c.estado)+"</td>"+
+        "<td>"+c.tema+"</td><td>"+chipFor("prioridad",c.prioridad)+"</td><td>"+chipFor("canal",c.canal)+"</td><td>"+c.fecha+"</td><td>"+chipFor("estado",c.estado)+"</td>"+
         "<td>"+acciones+"</td>";
       body.appendChild(tr);
     });
   }
 
   $("casos-estado-filter").addEventListener("change", function(){ state.casosFiltroEstado = this.value; renderMisCasos(); });
-  $("casos-barrio-filter").addEventListener("change", function(){ state.casosBarrio = this.value; renderMisCasos(); });
+  $("casos-localidad-filter").addEventListener("change", function(){ state.casosLocalidad = this.value; renderMisCasos(); });
   $("casos-fecha-desde").addEventListener("change", function(){ state.casosFechaDesde = this.value; renderMisCasos(); });
   $("casos-fecha-hasta").addEventListener("change", function(){ state.casosFechaHasta = this.value; renderMisCasos(); });
   $("casos-dni-filter").addEventListener("input", function(){ state.casosDni = this.value; renderMisCasos(); });
   $("btnLimpiarFiltrosCasos").addEventListener("click", function(){
-    state.casosFiltroEstado = "Todos"; state.casosBarrio = "Todos"; state.casosFechaDesde = ""; state.casosFechaHasta = ""; state.casosDni = "";
-    $("casos-estado-filter").value = "Todos"; $("casos-barrio-filter").value = "Todos";
+    state.casosFiltroEstado = "Todos"; state.casosLocalidad = "Todas"; state.casosFechaDesde = ""; state.casosFechaHasta = ""; state.casosDni = "";
+    state.casosSecSeguimiento = null;
+    $("casos-estado-filter").value = "Todos"; $("casos-localidad-filter").value = "Todas";
     $("casos-fecha-desde").value = ""; $("casos-fecha-hasta").value = ""; $("casos-dni-filter").value = "";
     renderMisCasos();
   });
@@ -2228,7 +2359,7 @@
         "<td class='cell-id'>"+(c.requiereVisita?PIN_VISITA+' ':'')+c.id+"</td>"+
         "<td>"+c.secretaria+"</td>"+
         "<td class='cell-name'>"+c.nombre+"<small>DNI "+c.dni+"</small></td>"+
-        "<td>"+c.incidente+"</td>"+
+        "<td>"+c.tema+"</td>"+
         "<td>"+chipFor("prioridad",c.prioridad)+"</td>"+
         "<td>"+c.fecha+"</td>"+
         "<td><button type='button' class='btn btn-ghost btn-sm btn-ver-ficha' data-id='"+c.id+"'>Ver ficha</button> "+
@@ -2245,6 +2376,50 @@
     }
   });
   wireCaseRowOpen("resueltosParaCerrarBody", function(){ return {view:"mis-casos"}; });
+
+  $("btnToggleSeguimiento").addEventListener("click", function(){
+    state.seguimientoAbierto = !state.seguimientoAbierto;
+    $("seguimientoPanel").style.display = state.seguimientoAbierto ? "block" : "none";
+    if (state.seguimientoAbierto) renderMisCasos();
+  });
+
+  /* ---- Secretarías de seguimiento del Colaborador ----
+     Mismo patrón visual que la vista "Secretarías" del Encargado: una tarjeta por Secretaría asignada
+     que, al tocarla, filtra el listado general de Casos a esa Secretaría (cualquier estado). */
+  function renderSeguimientoSecretarias(){
+    var wrap = $("seguimientoSecList");
+    if (!wrap) return;
+    wrap.innerHTML = "";
+    var mias = misSecretariasSeguimiento();
+    if (!mias.length){
+      wrap.innerHTML = '<p class="hint" style="margin:0;">No tenés Secretarías de seguimiento asignadas.</p>';
+      return;
+    }
+    mias.forEach(function(nombreSec){
+      var s = getSecretaria(nombreSec);
+      if (!s) return;
+      var activa = state.casosSecSeguimiento === s.nombre;
+      var pend = cases.filter(function(c){ return c.secretaria===s.nombre && c.estado!=="Cerrado"; }).length;
+      var card = document.createElement("button");
+      card.type = "button";
+      card.className = "card";
+      card.style.textAlign = "left";
+      card.style.display = "block";
+      card.style.width = "100%";
+      card.style.cursor = "pointer";
+      if (activa) card.style.borderColor = "var(--celeste)";
+      card.innerHTML =
+        '<h2 style="display:flex;align-items:center;gap:8px;">'+iconoSecretariaSvg(s.nombre)+'<span>'+s.nombre+'</span></h2>'+
+        '<p class="hint" style="margin-bottom:8px;">'+pend+' caso'+(pend===1?"":"s")+' sin cerrar</p>'+
+        (activa ? '<span class="chip" style="background:var(--celeste-pale);color:var(--celeste-deep);">Mostrando estos casos</span>' :
+          '<span class="chip" style="background:var(--ok-bg);color:var(--ok);">Ver casos →</span>');
+      card.addEventListener("click", function(){
+        state.casosSecSeguimiento = activa ? null : s.nombre;
+        renderMisCasos();
+      });
+      wrap.appendChild(card);
+    });
+  }
 
   /* ================= ENCARGADO: SECRETARIAS ================= */
   function renderEncargadoSecretarias(){
@@ -2360,6 +2535,22 @@
     showToast("Nota agregada.");
   });
 
+  $("fichaFotoInput").addEventListener("change", function(){
+    var c = getCaso(state.fichaCasoId);
+    if (!c) return;
+    if (!c.fotos) c.fotos = [];
+    var files = Array.prototype.slice.call(this.files || []);
+    files.forEach(function(file){
+      var reader = new FileReader();
+      reader.onload = function(){
+        c.fotos.push(reader.result);
+        renderFotosThumbs("fichaFotosThumbs", c.fotos, "Todavía no hay fotos adjuntas.");
+      };
+      reader.readAsDataURL(file);
+    });
+    this.value = "";
+  });
+
   /* ---- Circuito de estados: gatea las transiciones por rol + estado actual del caso ----
      Colaborador carga y deriva el caso (pasa a Abierto automáticamente, ya existente). Encargado lo
      mueve Abierto → En proceso → Resuelto, un paso por vez y solo en sus Secretarías asignadas.
@@ -2433,15 +2624,14 @@
       return;
     }
     $("viewTitle").textContent = c.id + " — " + c.nombre;
-    $("viewSub").textContent = c.secretaria + " · " + c.area;
+    $("viewSub").textContent = c.secretaria + " · " + c.tema;
 
-    $("ficha-titulo").textContent = c.id + " — " + c.incidente;
+    $("ficha-titulo").textContent = c.id + " — " + c.tema;
     $("ficha-sub").textContent = "Cargado el " + c.fecha;
     $("ficha-estado-chip").innerHTML = chipFor("estado", c.estado);
 
     $("fc-secretaria").textContent = c.secretaria;
-    $("fc-area").textContent = c.area;
-    $("fc-incidente").textContent = c.incidente;
+    $("fc-tema").textContent = c.tema;
     $("fc-prioridad").innerHTML = chipFor("prioridad", c.prioridad);
     $("fc-canal").innerHTML = chipFor("canal", c.canal) || "—";
     $("fc-fecha").textContent = c.fecha;
@@ -2460,12 +2650,15 @@
     renderFichaNotasList(c);
     $("fichaNotaTexto").value = "";
 
+    if (!c.fotos) c.fotos = [];
+    renderFotosThumbs("fichaFotosThumbs", c.fotos, "Todavía no hay fotos adjuntas.");
+
     var ciu = getCiudadano(c.dni);
     if (ciu){
-      $("fcs-nombre").innerHTML = (ciu.especial?STAR_ESPECIAL+' ':'')+ciu.nombre;
+      $("fcs-nombre").innerHTML = (ciu.especial?STAR_ESPECIAL+' ':'')+nombreCompleto(ciu);
       $("fcs-dni").textContent = "DNI " + ciu.dni;
       $("fcs-telefono").textContent = ciu.telefono || "—";
-      $("fcs-domicilio").textContent = (ciu.direccion||"—") + (ciu.barrio?", "+ciu.barrio:"");
+      $("fcs-domicilio").textContent = formatDomicilio(ciu.domicilio) || "—";
     } else {
       $("fcs-nombre").textContent = c.nombre;
       $("fcs-dni").textContent = "DNI " + c.dni;
@@ -2496,7 +2689,7 @@
     var body = $("ciudadanosTableBody"); body.innerHTML = "";
     var list = ciudadanos.filter(function(c){
       if (!q) return true;
-      return c.nombre.toLowerCase().indexOf(q)>-1 || c.dni.toLowerCase().indexOf(q)>-1;
+      return nombreCompleto(c).toLowerCase().indexOf(q)>-1 || c.dni.toLowerCase().indexOf(q)>-1;
     });
     if (!list.length){
       body.innerHTML = '<tr class="empty-row"><td colspan="7">No hay ciudadanos que coincidan.</td></tr>';
@@ -2508,10 +2701,10 @@
       var ultimo = count ? casosCliente.slice().sort(function(a,b){ return parseFecha(b.fecha)-parseFecha(a.fecha); })[0].fecha : "—";
       var tr = document.createElement("tr");
       tr.innerHTML =
-        "<td class='cell-name'>"+(c.especial?STAR_ESPECIAL+" ":"")+c.nombre+"</td>"+
+        "<td class='cell-name'>"+(c.especial?STAR_ESPECIAL+" ":"")+nombreCompleto(c)+"</td>"+
         "<td class='cell-id'>"+c.dni+"</td>"+
         "<td>"+(c.telefono || "—")+"</td>"+
-        "<td>"+(c.barrio || "—")+"</td>"+
+        "<td>"+(c.localidad || "—")+"</td>"+
         "<td>"+count+"</td>"+
         "<td>"+ultimo+"</td>"+
         "<td><button type='button' class='btn btn-ghost btn-sm btn-ver-historial' data-dni='"+c.dni+"'>Ver historial</button></td>";
@@ -2527,29 +2720,48 @@
     openCiudadanoDetail(b.dataset.dni);
   });
 
+  function llenarFormCiudadano(c){
+    $("cu-nombre").value = c.nombre;
+    $("cu-apellido").value = c.apellido;
+    $("cu-dni").value = c.dni;
+    $("cu-genero").value = c.genero || "";
+    $("cu-fecha-nacimiento").value = c.fechaNacimiento || "";
+    $("cu-localidad").value = c.localidad || "";
+    $("cu-telefono").value = c.telefono || "";
+    $("cu-mail").value = c.mail || "";
+    $("cu-instagram").value = c.instagram || "";
+    $("cu-facebook").value = c.facebook || "";
+    var dom = c.domicilio || {};
+    $("cu-dom-calle").value = dom.calle || "";
+    $("cu-dom-numero").value = dom.numero || "";
+    $("cu-dom-entre1").value = dom.entre1 || "";
+    $("cu-dom-entre2").value = dom.entre2 || "";
+    $("cu-especial").checked = !!c.especial;
+  }
+
+  function resumenCiudadanoHtml(c){
+    return "<div><strong>"+c.dni+"</strong><span>DNI</span></div>"+
+      "<div><strong>"+(c.genero||"—")+"</strong><span>Género</span></div>"+
+      "<div><strong>"+(formatFechaDMY(c.fechaNacimiento)||"—")+"</strong><span>Fecha de nacimiento</span></div>"+
+      "<div><strong>"+(c.localidad||"—")+"</strong><span>Localidad</span></div>"+
+      "<div><strong>"+(c.telefono||"—")+"</strong><span>Teléfono</span></div>"+
+      "<div><strong>"+(c.mail||"—")+"</strong><span>Mail</span></div>"+
+      "<div><strong>"+(c.instagram||"—")+"</strong><span>Instagram</span></div>"+
+      "<div><strong>"+(c.facebook||"—")+"</strong><span>Facebook</span></div>"+
+      "<div><strong>"+(formatDomicilio(c.domicilio)||"—")+"</strong><span>Domicilio</span></div>";
+  }
+
   function openCiudadanoDetail(dni){
     var c = ciudadanos.find(function(x){ return x.dni===dni; });
     if (!c) return;
     state.clienteModoNuevo = false;
     state.ciudadanoDetailDni = dni;
-    $("ciudadanoDetailTitle").innerHTML = (c.especial ? STAR_ESPECIAL+" " : "") + c.nombre;
-    $("cu-nombre").value = c.nombre;
-    $("cu-dni").value = c.dni;
+    $("ciudadanoDetailTitle").innerHTML = (c.especial ? STAR_ESPECIAL+" " : "") + nombreCompleto(c);
+    fillOptions($("cu-localidad"), LOCALIDADES, "Elegir localidad…");
+    llenarFormCiudadano(c);
     $("cu-dni").disabled = true;
-    $("cu-telefono").value = c.telefono || "";
-    $("cu-mail").value = c.mail || "";
-    $("cu-direccion").value = c.direccion || "";
-    $("cu-barrio").value = c.barrio || "";
-    $("cu-localidad").value = c.localidad || "";
-    $("cu-especial").checked = !!c.especial;
 
-    $("cdSummary").innerHTML =
-      "<div><strong>"+c.dni+"</strong><span>DNI</span></div>"+
-      "<div><strong>"+(c.telefono||"—")+"</strong><span>Teléfono</span></div>"+
-      "<div><strong>"+(c.mail||"—")+"</strong><span>Mail</span></div>"+
-      "<div><strong>"+(c.direccion||"—")+"</strong><span>Dirección</span></div>"+
-      "<div><strong>"+(c.barrio||"—")+"</strong><span>Barrio</span></div>"+
-      "<div><strong>"+(c.localidad||"—")+"</strong><span>Localidad</span></div>";
+    $("cdSummary").innerHTML = resumenCiudadanoHtml(c);
     $("cdSummary").style.display = "flex";
     $("btnEditarCiudadano").style.display = "inline-flex";
     $("ciudadanoForm").style.display = "none";
@@ -2571,12 +2783,13 @@
     state.clienteModoNuevo = true;
     $("ciudadanoDetailTitle").textContent = "Nuevo ciudadano";
     $("ciudadanoForm").reset();
+    fillOptions($("cu-localidad"), LOCALIDADES, "Elegir localidad…");
     $("cu-dni").disabled = false;
     $("cdSummary").style.display = "none";
     $("btnEditarCiudadano").style.display = "none";
     $("ciudadanoForm").style.display = "block";
     // Ciudadano recién creado: todavía no puede tener casos, así que la sección de historial
-    // se oculta por completo (ni vacía ni con placeholder) — pedido de Macarena, 23/09/2026.
+    // se oculta por completo (ni vacía ni con placeholder).
     $("cdHistoriaWrap").style.display = "none";
     $("ciudadanoDetail").style.display = "block";
     $("ciudadanosListWrap").style.display = "none";
@@ -2605,142 +2818,102 @@
     e.preventDefault();
     var dni = $("cu-dni").value.trim();
     var nombre = $("cu-nombre").value.trim();
-    if (!dni || !nombre) return;
+    var apellido = $("cu-apellido").value.trim();
+    var genero = $("cu-genero").value, fechaNac = $("cu-fecha-nacimiento").value, localidad = $("cu-localidad").value;
+    var telefono = $("cu-telefono").value.trim();
+    if (!dni || !nombre || !apellido || !genero || !fechaNac || !localidad || !telefono){
+      showToast("Completá los campos obligatorios del ciudadano.");
+      return;
+    }
+    var domicilio = {calle:$("cu-dom-calle").value.trim(), numero:$("cu-dom-numero").value.trim(), entre1:$("cu-dom-entre1").value.trim(), entre2:$("cu-dom-entre2").value.trim()};
     if (state.clienteModoNuevo){
       if (ciudadanos.some(function(c){ return c.dni===dni; })){
         showToast("Ya existe un ciudadano con ese DNI.");
         return;
       }
-      ciudadanos.push({dni:dni, nombre:nombre, telefono:$("cu-telefono").value.trim(), mail:$("cu-mail").value.trim(), direccion:$("cu-direccion").value.trim(), barrio:$("cu-barrio").value.trim(), localidad:$("cu-localidad").value.trim(), activo:true, especial:$("cu-especial").checked});
+      ciudadanos.push({
+        dni:dni, nombre:nombre, apellido:apellido, genero:genero, fechaNacimiento:fechaNac, localidad:localidad,
+        telefono:telefono, mail:$("cu-mail").value.trim(), instagram:$("cu-instagram").value.trim(), facebook:$("cu-facebook").value.trim(),
+        domicilio:domicilio, activo:true, especial:$("cu-especial").checked
+      });
       showToast("Ciudadano creado.");
     } else {
       var c = ciudadanos.find(function(x){ return x.dni===dni; });
-      c.nombre = nombre; c.telefono = $("cu-telefono").value.trim();
-      c.mail = $("cu-mail").value.trim(); c.direccion = $("cu-direccion").value.trim();
-      c.barrio = $("cu-barrio").value.trim(); c.localidad = $("cu-localidad").value.trim();
+      c.nombre = nombre; c.apellido = apellido; c.genero = genero; c.fechaNacimiento = fechaNac; c.localidad = localidad;
+      c.telefono = telefono; c.mail = $("cu-mail").value.trim();
+      c.instagram = $("cu-instagram").value.trim(); c.facebook = $("cu-facebook").value.trim();
+      c.domicilio = domicilio;
       c.especial = $("cu-especial").checked;
       showToast("Ciudadano actualizado.");
     }
     closeCiudadanoDetail();
   });
 
-  /* ================= CONFIGURACION: SECRETARIAS/AREAS/INCIDENTES ================= */
+  /* ================= CONFIGURACION: SECRETARIAS Y TEMAS ================= */
+  // Listas planas e independientes entre sí — el Tema ya no está anidado bajo la Secretaría.
   $("cfg-search").addEventListener("input", function(){ state.cfgSearch = this.value.toLowerCase(); renderConfigTree(); });
   $("cfg-mostrar-todas").addEventListener("change", function(){ state.cfgMostrarTodas = this.checked; renderConfigTree(); });
 
-  function renderConfigTree(){
-    var wrap = $("configTree"); wrap.innerHTML = "";
-    CONFIG.filter(function(s){ return state.cfgMostrarTodas || s.activo; }).forEach(function(sec, idx){
-      var areas = sec.areas.filter(function(a){
-        var passActivo = state.cfgMostrarTodas || a.activo;
-        var passSearch = !state.cfgSearch || a.nombre.toLowerCase().indexOf(state.cfgSearch)>-1 ||
-          a.incidentes.some(function(i){ return i.nombre.toLowerCase().indexOf(state.cfgSearch)>-1; });
-        return passActivo && passSearch;
-      });
-      var areasHtml = areas.map(function(a){
-        var incs = a.incidentes.filter(function(i){ return state.cfgMostrarTodas || i.activo; });
-        var incsHtml = incs.map(function(i){
-          return '<li class="'+(i.activo?'':'is-anulado')+'">'+i.nombre+
-            ' <button type="button" class="mini-toggle '+(i.activo?'':'is-off')+' btn-anular-inc" data-sec="'+sec.nombre+'" data-area="'+a.nombre+'" data-inc="'+i.nombre+'">'+(i.activo?'Anular':'Reactivar')+'</button></li>';
-        }).join("");
-        return '<div class="tree-area'+(a.activo?'':' is-anulado')+'">'+
-          '<div class="a-name-row"><span class="a-name">'+a.nombre+'</span>'+
-          '<button type="button" class="mini-toggle '+(a.activo?'':'is-off')+' btn-anular-area" data-sec="'+sec.nombre+'" data-area="'+a.nombre+'">'+(a.activo?'Anular':'Reactivar')+'</button>'+
-          '<button type="button" class="mini-edit btn-editar-area" data-sec="'+sec.nombre+'" data-area="'+a.nombre+'">Editar</button></div>'+
-          '<ul>'+(incsHtml || '<li style="color:var(--ink-faint);">Sin incidentes cargados</li>')+'</ul>'+
-          '<div class="add-row"><input type="text" class="add-input" data-new-inc="'+sec.nombre+'|'+a.nombre+'" placeholder="Nuevo incidente…">'+
-          '<button type="button" class="mini-add btn-add-incidente" data-sec="'+sec.nombre+'" data-area="'+a.nombre+'">+ Agregar</button></div>'+
-          '</div>';
-      }).join("") || '<p class="hint" style="margin:8px 0;">Sin áreas que coincidan.</p>';
-
-      var det = document.createElement("details");
-      det.className = "tree-sec" + (sec.activo? "" : " is-anulado");
-      if (idx===0) det.open = true;
-      det.innerHTML = '<summary><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>'+
-        iconoSecretariaSvg(sec.nombre) +
-        '<span class="sec-name">'+sec.nombre+'</span>'+
-        '<button type="button" class="mini-toggle '+(sec.activo?'':'is-off')+' btn-anular-sec" data-sec="'+sec.nombre+'">'+(sec.activo?'Anular':'Reactivar')+'</button>'+
-        '<button type="button" class="mini-edit btn-editar-sec" data-sec="'+sec.nombre+'">Editar</button>'+
-        '</summary>'+
-        '<div class="tree-body">'+areasHtml+
-        '<div class="add-row add-row-top"><input type="text" class="add-input" data-new-area="'+sec.nombre+'" placeholder="Nueva área…">'+
-        '<button type="button" class="mini-add btn-add-area" data-sec="'+sec.nombre+'">+ Agregar área</button></div>'+
-        '</div>';
-      wrap.appendChild(det);
+  function renderFlatConfigList(elId, items, kind){
+    var wrap = $(elId); wrap.innerHTML = "";
+    var filtrados = items.filter(function(it){
+      var passActivo = state.cfgMostrarTodas || it.activo;
+      var passSearch = !state.cfgSearch || it.nombre.toLowerCase().indexOf(state.cfgSearch)>-1;
+      return passActivo && passSearch;
     });
+    if (!filtrados.length){
+      wrap.innerHTML = '<p class="hint" style="margin:8px 0;">Sin resultados.</p>';
+      return;
+    }
+    filtrados.forEach(function(it){
+      var row = document.createElement("div");
+      row.className = "tree-area" + (it.activo ? "" : " is-anulado");
+      row.innerHTML = '<div class="a-name-row"><span class="a-name">'+it.nombre+'</span>'+
+        '<button type="button" class="mini-toggle '+(it.activo?'':'is-off')+' btn-anular-'+kind+'" data-nombre="'+it.nombre+'">'+(it.activo?'Anular':'Reactivar')+'</button>'+
+        '<button type="button" class="mini-edit btn-editar-'+kind+'" data-nombre="'+it.nombre+'">Editar</button></div>';
+      wrap.appendChild(row);
+    });
+  }
+
+  function renderConfigTree(){
+    renderFlatConfigList("configSecList", CONFIG, "sec");
+    renderFlatConfigList("configTemasList", TEMAS, "tema");
+  }
+
+  function startEditFlat(elId, nombreActual, kind){
+    var btn = document.querySelector('#'+elId+' .btn-editar-'+kind+'[data-nombre="'+nombreActual+'"]');
+    if (!btn) return;
+    var row = btn.closest(".a-name-row");
+    var nameEl = row.querySelector(".a-name");
+    nameEl.outerHTML = '<span class="edit-row"><input type="text" class="cfg-edit-input" value="'+nombreActual+'">'+
+      '<button type="button" class="mini-add btn-guardar-'+kind+'" data-old="'+nombreActual+'">Guardar</button>'+
+      '<button type="button" class="mini-toggle btn-cancelar-edit">Cancelar</button></span>';
   }
 
   $("configTree").addEventListener("click", function(e){
     var t = e.target;
-
     if (t.classList.contains("btn-anular-sec")){
       e.preventDefault();
-      var secObj = getSecretaria(t.dataset.sec);
+      var secObj = getSecretaria(t.dataset.nombre);
       if (!secObj.activo){ secObj.activo = true; renderConfigTree(); renderSecNav(); return; }
       confirmThenRun(t, function(){ secObj.activo = false; renderConfigTree(); renderSecNav(); showToast("Secretaría anulada."); });
       return;
     }
-    if (t.classList.contains("btn-anular-area")){
+    if (t.classList.contains("btn-anular-tema")){
       e.preventDefault();
-      var area1 = getSecretaria(t.dataset.sec).areas.find(function(a){return a.nombre===t.dataset.area;});
-      if (!area1.activo){ area1.activo = true; renderConfigTree(); return; }
-      confirmThenRun(t, function(){ area1.activo = false; renderConfigTree(); showToast("Área anulada."); });
+      var temaObj = getTema(t.dataset.nombre);
+      if (!temaObj.activo){ temaObj.activo = true; renderConfigTree(); actualizarOpcionesTema(); return; }
+      confirmThenRun(t, function(){ temaObj.activo = false; renderConfigTree(); actualizarOpcionesTema(); showToast("Tema anulado."); });
       return;
     }
-    if (t.classList.contains("btn-anular-inc")){
-      e.preventDefault();
-      var area2 = getSecretaria(t.dataset.sec).areas.find(function(a){return a.nombre===t.dataset.area;});
-      var inc = area2.incidentes.find(function(i){return i.nombre===t.dataset.inc;});
-      if (!inc.activo){ inc.activo = true; renderConfigTree(); return; }
-      confirmThenRun(t, function(){ inc.activo = false; renderConfigTree(); showToast("Incidente anulado."); });
-      return;
-    }
-    if (t.classList.contains("btn-add-area")){
-      e.preventDefault();
-      var input1 = document.querySelector('[data-new-area="'+t.dataset.sec+'"]');
-      var val1 = input1.value.trim(); if (!val1) return;
-      getSecretaria(t.dataset.sec).areas.push({nombre:val1, activo:true, incidentes:[]});
-      renderConfigTree(); showToast("Área agregada.");
-      return;
-    }
-    if (t.classList.contains("btn-add-incidente")){
-      e.preventDefault();
-      var key = t.dataset.sec+'|'+t.dataset.area;
-      var input2 = document.querySelector('[data-new-inc="'+key+'"]');
-      var val2 = input2.value.trim(); if (!val2) return;
-      var area3 = getSecretaria(t.dataset.sec).areas.find(function(a){return a.nombre===t.dataset.area;});
-      area3.incidentes.push({nombre:val2, activo:true});
-      renderConfigTree(); showToast("Incidente agregado.");
-      return;
-    }
-    if (t.classList.contains("btn-editar-area")){
-      e.preventDefault();
-      startEditArea(t.dataset.sec, t.dataset.area);
-      return;
-    }
-  });
-
-  function startEditSec(nombreSec){
-    var det = document.querySelector('.btn-anular-sec[data-sec="'+nombreSec+'"]').closest(".tree-sec");
-    var nameEl = det.querySelector(".sec-name");
-    nameEl.outerHTML = '<span class="edit-row"><input type="text" class="cfg-edit-input" value="'+nombreSec+'">'+
-      '<button type="button" class="mini-add btn-guardar-sec" data-old="'+nombreSec+'">Guardar</button>'+
-      '<button type="button" class="mini-toggle btn-cancelar-edit">Cancelar</button></span>';
-  }
-  function startEditArea(nombreSec, nombreArea){
-    var btn = document.querySelector('.btn-editar-area[data-sec="'+nombreSec+'"][data-area="'+nombreArea+'"]');
-    var row = btn.closest(".a-name-row");
-    var nameEl = row.querySelector(".a-name");
-    nameEl.outerHTML = '<span class="edit-row"><input type="text" class="cfg-edit-input" value="'+nombreArea+'">'+
-      '<button type="button" class="mini-add btn-guardar-area" data-sec="'+nombreSec+'" data-old="'+nombreArea+'">Guardar</button>'+
-      '<button type="button" class="mini-toggle btn-cancelar-edit">Cancelar</button></span>';
-  }
-
-  $("configTree").addEventListener("click", function(e){
-    var t = e.target;
     if (t.classList.contains("btn-editar-sec")){
       e.preventDefault();
-      startEditSec(t.dataset.sec);
+      startEditFlat("configSecList", t.dataset.nombre, "sec");
+      return;
+    }
+    if (t.classList.contains("btn-editar-tema")){
+      e.preventDefault();
+      startEditFlat("configTemasList", t.dataset.nombre, "tema");
       return;
     }
     if (t.classList.contains("btn-cancelar-edit")){
@@ -2756,28 +2929,41 @@
       renderConfigTree(); renderSecNav();
       return;
     }
-    if (t.classList.contains("btn-guardar-area")){
+    if (t.classList.contains("btn-guardar-tema")){
       e.preventDefault();
       var input2 = t.closest(".edit-row").querySelector(".cfg-edit-input");
       var val2 = input2.value.trim();
-      if (val2){
-        var area = getSecretaria(t.dataset.sec).areas.find(function(a){return a.nombre===t.dataset.old;});
-        area.nombre = val2;
-        showToast("Área actualizada.");
-      }
+      if (val2){ getTema(t.dataset.old).nombre = val2; showToast("Tema actualizado."); actualizarOpcionesTema(); }
       renderConfigTree();
       return;
     }
   });
 
+  // El select de Tema del formulario de Nuevo caso se refresca cuando se agrega/renombra/anula un tema.
+  function actualizarOpcionesTema(){
+    var cur = $("f-tema").value;
+    fillOptions($("f-tema"), temasActivos().map(function(t){return t.nombre;}), "Elegir tema…");
+    if (cur) $("f-tema").value = cur;
+  }
+
   $("btnAddSecretaria").addEventListener("click", function(){
     var input = $("newSecretariaInput");
     var val = input.value.trim(); if (!val) return;
     if (CONFIG.some(function(s){ return s.nombre===val; })){ showToast("Ya existe esa secretaría."); return; }
-    CONFIG.push({nombre:val, activo:true, areas:[]});
+    CONFIG.push({nombre:val, activo:true});
     input.value = "";
     renderConfigTree(); renderSecNav();
     showToast("Secretaría creada.");
+  });
+
+  $("btnAddTema").addEventListener("click", function(){
+    var input = $("newTemaInput");
+    var val = input.value.trim(); if (!val) return;
+    if (TEMAS.some(function(t){ return t.nombre===val; })){ showToast("Ya existe ese tema."); return; }
+    TEMAS.push({nombre:val, activo:true});
+    input.value = "";
+    renderConfigTree(); actualizarOpcionesTema();
+    showToast("Tema creado.");
   });
 
   /* ================= CONFIGURACION: USUARIOS Y ROLES ================= */
