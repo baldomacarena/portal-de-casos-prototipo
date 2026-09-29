@@ -234,7 +234,13 @@
   .card h2{margin:0 0 4px;font-size:1.0625rem;font-weight:700;letter-spacing:-.01em;}
   .card .hint{margin:0 0 18px;font-size:.8125rem;color:var(--ink-soft);}
 
+  .field-section{
+    font-size:.6875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--ink-faint);margin:18px 0 8px;
+  }
+  .field-section:first-child{margin-top:0;}
   .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .field-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
   .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
   .field label{font-size:.75rem;font-weight:600;color:var(--ink-soft);letter-spacing:.01em;}
   .field input,.field select,.field textarea{
@@ -294,6 +300,7 @@
   .check-especial input{width:16px;height:16px;accent-color:var(--warn);cursor:pointer;flex:none;}
   .star-especial{width:13px;height:13px;fill:var(--warn);stroke:var(--warn);flex:none;vertical-align:-2px;}
   .pin-visita{width:13px;height:13px;fill:none;stroke:var(--crit);stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-2px;}
+  .pin-recontacto{width:13px;height:13px;fill:none;stroke:var(--celeste-deep);stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-2px;}
   .check-visita{display:flex;align-items:center;gap:8px;font-size:.8125rem;color:var(--ink);margin:0 0 16px;cursor:pointer;}
   .check-visita input{width:16px;height:16px;accent-color:var(--crit);cursor:pointer;flex:none;}
   .foto-thumbs{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
@@ -620,6 +627,17 @@
         <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
         Casos
       </button>
+    </div>
+
+    <!-- Secretarías de seguimiento del Colaborador logueado, entre Casos e Información — mismo patrón
+         visual que la lista de Secretarías de Gestión (id="secNavList" abajo). Se oculta por completo
+         si el Colaborador logueado no tiene ninguna Secretaría de seguimiento asignada. -->
+    <div class="nav-group" data-roles="colaborador" id="colabSecNavGroup" style="display:none;">
+      <div class="eyebrow">Secretarías</div>
+      <div id="colabSecNavList"></div>
+    </div>
+
+    <div class="nav-group">
       <button class="nav-item" data-view="informacion" data-roles="colaborador">
         <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
         Información
@@ -692,28 +710,30 @@
                   <div class="ico-badge"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3.1-7 7-7 1 0 2 .2 2.8.6M16 8h6M19 5v6"/></svg></div>
                   <div><strong>Nuevo ciudadano</strong><span>Se agrega a la lista y queda elegido para este caso</span></div>
                 </div>
+                <div class="field-section">Datos generales</div>
+                <div class="field-row-3">
+                  <div class="field"><label>DNI *</label><input type="text" id="ci-dni" placeholder="00000000" required></div>
+                  <div class="field"><label>Fecha de nacimiento *</label><input type="date" id="ci-fecha-nacimiento" required></div>
+                  <div class="field"><label>Género *</label>
+                    <select id="ci-genero" required><option value="">Elegir…</option><option>Femenino</option><option>Masculino</option><option>Otro</option></select>
+                  </div>
+                </div>
                 <div class="field-row">
                   <div class="field"><label>Nombre *</label><input type="text" id="ci-nombre" required></div>
                   <div class="field"><label>Apellido *</label><input type="text" id="ci-apellido" required></div>
                 </div>
+                <label class="check-especial"><input type="checkbox" id="ci-especial"> Ciudadano prioritario / especial</label>
+
+                <div class="field-section">Datos de contacto</div>
                 <div class="field-row">
-                  <div class="field"><label>DNI *</label><input type="text" id="ci-dni" placeholder="00000000" required></div>
                   <div class="field"><label>Teléfono *</label><input type="text" id="ci-telefono" placeholder="1100000000" required></div>
+                  <div class="field"><label>Mail</label><input type="email" id="ci-mail" placeholder="nombre@mail.com"></div>
                 </div>
-                <div class="field-row">
-                  <div class="field"><label>Género *</label>
-                    <select id="ci-genero" required><option value="">Elegir…</option><option>Femenino</option><option>Masculino</option><option>Otro</option></select>
-                  </div>
-                  <div class="field"><label>Fecha de nacimiento *</label><input type="date" id="ci-fecha-nacimiento" required></div>
-                </div>
+
+                <div class="field-section">Domicilio</div>
                 <div class="field"><label>Localidad *</label>
                   <select id="ci-localidad" required><option value="">Elegir localidad…</option></select>
                 </div>
-                <div class="field-row">
-                  <div class="field"><label>Mail</label><input type="email" id="ci-mail" placeholder="nombre@mail.com"></div>
-                  <div class="field"><label>Instagram</label><input type="text" id="ci-instagram" placeholder="Link de perfil"></div>
-                </div>
-                <div class="field"><label>Facebook</label><input type="text" id="ci-facebook" placeholder="Link de perfil"></div>
                 <div class="field-row">
                   <div class="field"><label>Calle</label><input type="text" id="ci-dom-calle"></div>
                   <div class="field"><label>Número</label><input type="text" id="ci-dom-numero"></div>
@@ -722,7 +742,12 @@
                   <div class="field"><label>Entre calle 1</label><input type="text" id="ci-dom-entre1"></div>
                   <div class="field"><label>Entre calle 2</label><input type="text" id="ci-dom-entre2"></div>
                 </div>
-                <label class="check-especial"><input type="checkbox" id="ci-especial"> Ciudadano prioritario / especial</label>
+
+                <div class="field-section">Redes sociales</div>
+                <div class="field-row">
+                  <div class="field"><label>Instagram</label><input type="text" id="ci-instagram" placeholder="Link de perfil"></div>
+                  <div class="field"><label>Facebook</label><input type="text" id="ci-facebook" placeholder="Link de perfil"></div>
+                </div>
                 <div style="display:flex;gap:8px;">
                   <button type="button" class="btn btn-primary btn-sm" id="btnGuardarCiudadanoInline">Guardar y continuar</button>
                   <button type="button" class="btn btn-ghost btn-sm" id="btnCancelarCiudadanoInline">Cancelar</button>
@@ -956,22 +981,17 @@
         <span id="encargadoNuevosText"></span>
       </div>
 
-      <!-- Seguimiento por Secretaría: solo para el rol Colaborador. El botón muestra/oculta el panel de
-           abajo, que agrupa la lista de Secretarías de seguimiento asignadas y el listado de "Casos para
-           chequear y cerrar" (mismo contenido de siempre: todos los casos Resuelto del sistema, sin
-           filtro de Secretaría). -->
+      <!-- Seguimiento: solo para el rol Colaborador. El botón muestra/oculta el listado de "Casos para
+           chequear y cerrar", filtrado a las Secretarías de seguimiento asignadas a este Colaborador
+           (nunca casos de otra Secretaría) y, mientras está abierto, reemplaza al listado general de
+           abajo — las dos vistas no se muestran juntas nunca. Las Secretarías de seguimiento asignadas
+           viven en el menú lateral (ver #colabSecNavList), no acá. -->
       <button type="button" class="btn btn-ghost btn-sm" id="btnToggleSeguimiento" data-roles="colaborador" style="margin-bottom:14px;">Seguimiento</button>
       <div id="seguimientoPanel" style="display:none;">
-        <div class="card" id="seguimientoSecretariasCard">
-          <h2><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Tus Secretarías de seguimiento</h2>
-          <p class="hint">Elegí una Secretaría para ver todos sus casos, en cualquier estado.</p>
-          <div id="seguimientoSecList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;"></div>
-        </div>
-
-        <!-- "Casos para chequear y cerrar": listado fijo de tareas pendientes (todos los casos Resuelto
-             del sistema, sin filtro de Secretaría) — a diferencia del aviso de casos nuevos del Encargado
+        <!-- "Casos para chequear y cerrar": listado de tareas pendientes, filtrado a las Secretarías de
+             seguimiento del Colaborador logueado — a diferencia del aviso de casos nuevos del Encargado
              de arriba, este bloque NO tiene lógica de visto/no visto: se muestra siempre que haya al menos
-             un caso Resuelto, y desaparece solo cuando no queda ninguno pendiente. -->
+             un caso Resuelto en sus Secretarías, y desaparece solo cuando no queda ninguno pendiente. -->
         <div class="card card-accent" id="resueltosParaCerrarCard" style="display:none;">
           <h2><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12.3 11 14.3 15.5 9.5"/></svg>Casos para chequear y cerrar</h2>
           <p class="hint">Casos que ya fueron resueltos por la Secretaría correspondiente. Revisalos y cerralos si está todo en orden.</p>
@@ -986,35 +1006,37 @@
         </div>
       </div>
 
-      <div class="toolbar">
-        <select class="filter-select" id="casos-estado-filter">
-          <option value="Todos">Todos los estados</option>
-          <option>Abierto</option>
-          <option>En proceso</option>
-          <option>Resuelto</option>
-          <option>Cerrado</option>
-        </select>
-        <select class="filter-select" id="casos-localidad-filter"></select>
-        <div class="date-range">
-          <input type="date" class="filter-select" id="casos-fecha-desde" title="Desde">
-          <span>—</span>
-          <input type="date" class="filter-select" id="casos-fecha-hasta" title="Hasta">
+      <div id="casosListadoGeneral">
+        <div class="toolbar">
+          <select class="filter-select" id="casos-estado-filter">
+            <option value="Todos">Todos los estados</option>
+            <option>Abierto</option>
+            <option>En proceso</option>
+            <option>Resuelto</option>
+            <option>Cerrado</option>
+          </select>
+          <select class="filter-select" id="casos-localidad-filter"></select>
+          <div class="date-range">
+            <input type="date" class="filter-select" id="casos-fecha-desde" title="Desde">
+            <span>—</span>
+            <input type="date" class="filter-select" id="casos-fecha-hasta" title="Hasta">
+          </div>
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" class="search-input" id="casos-dni-filter" placeholder="Buscar por DNI…">
+          </div>
         </div>
-        <div class="search-wrap">
-          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-          <input type="text" class="search-input" id="casos-dni-filter" placeholder="Buscar por DNI…">
+        <div class="filter-badge" id="casosFilterBadge">
+          <span id="casosFilterText"></span>
+          <button type="button" class="btn btn-ghost btn-sm" id="btnLimpiarFiltrosCasos">Limpiar filtros</button>
         </div>
-      </div>
-      <div class="filter-badge" id="casosFilterBadge">
-        <span id="casosFilterText"></span>
-        <button type="button" class="btn btn-ghost btn-sm" id="btnLimpiarFiltrosCasos">Limpiar filtros</button>
-      </div>
-      <div class="table-wrap">
-        <div class="card-pad">
-          <table>
-            <thead><tr><th>ID</th><th>Secretaría</th><th>Ciudadano</th><th>Tema</th><th>Prioridad</th><th>Canal</th><th>Fecha</th><th>Estado</th><th></th></tr></thead>
-            <tbody id="misCasosBody"></tbody>
-          </table>
+        <div class="table-wrap">
+          <div class="card-pad">
+            <table>
+              <thead><tr><th>ID</th><th>Secretaría</th><th>Ciudadano</th><th>Tema</th><th>Prioridad</th><th>Canal</th><th>Fecha</th><th>Estado</th><th></th></tr></thead>
+              <tbody id="misCasosBody"></tbody>
+            </table>
+          </div>
         </div>
       </div>
     </section>
@@ -1043,6 +1065,13 @@
           <div class="ficha-row"><span>Cargado / derivado por</span><span id="fc-derivadopor">—</span></div>
           <div class="ficha-row"><span>Responsable</span><span id="fc-responsable">—</span></div>
           <div class="ficha-row" id="fc-visita-row" style="display:none;"><span>Visita física</span><span id="fc-visita">—</span></div>
+          <div class="ficha-row">
+            <span>Contactos por este caso</span>
+            <span style="display:flex;align-items:center;gap:8px;">
+              <span id="fc-recontactos">1 contacto</span>
+              <button type="button" class="btn btn-ghost btn-sm" id="btnSumarRecontacto">+ Se volvió a contactar</button>
+            </span>
+          </div>
         </div>
         <div class="ficha-estado-actions" id="fichaEstadoActions"></div>
       </div>
@@ -1155,28 +1184,30 @@
         </button>
 
         <form id="ciudadanoForm" style="display:none;">
+          <div class="field-section" style="margin-top:0;">Datos generales</div>
+          <div class="field-row-3">
+            <div class="field"><label>DNI *</label><input type="text" id="cu-dni" placeholder="00000000" required></div>
+            <div class="field"><label>Fecha de nacimiento *</label><input type="date" id="cu-fecha-nacimiento" required></div>
+            <div class="field"><label>Género *</label>
+              <select id="cu-genero" required><option value="">Elegir…</option><option>Femenino</option><option>Masculino</option><option>Otro</option></select>
+            </div>
+          </div>
           <div class="field-row">
             <div class="field"><label>Nombre *</label><input type="text" id="cu-nombre" required></div>
             <div class="field"><label>Apellido *</label><input type="text" id="cu-apellido" required></div>
           </div>
+          <label class="check-especial"><input type="checkbox" id="cu-especial"> Ciudadano prioritario / especial</label>
+
+          <div class="field-section">Datos de contacto</div>
           <div class="field-row">
-            <div class="field"><label>DNI *</label><input type="text" id="cu-dni" placeholder="00000000" required></div>
             <div class="field"><label>Teléfono *</label><input type="text" id="cu-telefono" placeholder="1100000000" required></div>
+            <div class="field"><label>Mail</label><input type="email" id="cu-mail" placeholder="nombre@mail.com"></div>
           </div>
-          <div class="field-row">
-            <div class="field"><label>Género *</label>
-              <select id="cu-genero" required><option value="">Elegir…</option><option>Femenino</option><option>Masculino</option><option>Otro</option></select>
-            </div>
-            <div class="field"><label>Fecha de nacimiento *</label><input type="date" id="cu-fecha-nacimiento" required></div>
-          </div>
+
+          <div class="field-section">Domicilio</div>
           <div class="field"><label>Localidad *</label>
             <select id="cu-localidad" required><option value="">Elegir localidad…</option></select>
           </div>
-          <div class="field-row">
-            <div class="field"><label>Mail</label><input type="email" id="cu-mail" placeholder="nombre@mail.com"></div>
-            <div class="field"><label>Instagram</label><input type="text" id="cu-instagram" placeholder="Link de perfil"></div>
-          </div>
-          <div class="field"><label>Facebook</label><input type="text" id="cu-facebook" placeholder="Link de perfil"></div>
           <div class="field-row">
             <div class="field"><label>Calle</label><input type="text" id="cu-dom-calle"></div>
             <div class="field"><label>Número</label><input type="text" id="cu-dom-numero"></div>
@@ -1185,8 +1216,13 @@
             <div class="field"><label>Entre calle 1</label><input type="text" id="cu-dom-entre1"></div>
             <div class="field"><label>Entre calle 2</label><input type="text" id="cu-dom-entre2"></div>
           </div>
-          <label class="check-especial"><input type="checkbox" id="cu-especial"> Ciudadano prioritario / especial</label>
-          <div style="display:flex;gap:8px;">
+
+          <div class="field-section">Redes sociales</div>
+          <div class="field-row">
+            <div class="field"><label>Instagram</label><input type="text" id="cu-instagram" placeholder="Link de perfil"></div>
+            <div class="field"><label>Facebook</label><input type="text" id="cu-facebook" placeholder="Link de perfil"></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
             <button type="submit" class="btn btn-primary">Guardar ciudadano</button>
             <button type="button" class="btn btn-ghost" id="btnCancelarEdicionCiudadano">Cancelar</button>
           </div>
@@ -1323,7 +1359,7 @@
   var LOCALIDADES = ["Aldo Bonzi", "Ciudad Celina", "Ciudad Evita", "González Catán"];
 
   var usuarios = [
-    {nombre:"Colaborador 1", rol:"Colaborador", turno:"Mañana", secretaria:"Salud", activo:true},
+    {nombre:"Colaborador 1", rol:"Colaborador", turno:"Mañana", secretaria:"Salud", activo:true, secretarias:["Salud","Desarrollo Social"]},
     {nombre:"Colaborador 2", rol:"Colaborador", turno:"Tarde", secretaria:"Salud", activo:true, secretarias:["Salud","Educación"]},
     {nombre:"Colaborador 3", rol:"Colaborador", turno:"Mañana", secretaria:"Obras Públicas", activo:true, secretarias:["Obras Públicas"]},
     {nombre:"Colaborador 4", rol:"Colaborador", turno:"Tarde", secretaria:"Desarrollo Social", activo:true, secretarias:["Desarrollo Social","Casos especiales"]},
@@ -1386,6 +1422,8 @@
   var ICONO_SECRETARIA_DEFAULT = '<rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M9 8h6M9 12h6M9 16h3"/>';
   var STAR_ESPECIAL = '<svg class="star-especial" viewBox="0 0 24 24"><path d="M12 2 14.9 8.6 22 9.3 16.8 14 18.2 21 12 17.5 5.8 21 7.2 14 2 9.3 9.1 8.6 12 2Z"/></svg>';
   var PIN_VISITA = '<svg class="pin-visita" viewBox="0 0 24 24" aria-label="Requiere visita física"><path d="M12 21s7-7.5 7-12.5A7 7 0 0 0 5 8.5C5 13.5 12 21 12 21Z"/><circle cx="12" cy="8.5" r="2.3"/></svg>';
+  // Ícono para marcar, en los listados, que el ciudadano se contactó más de una vez por el mismo caso.
+  var PIN_RECONTACTO = '<svg class="pin-recontacto" viewBox="0 0 24 24" aria-label="Se contactó más de una vez"><path d="M17 2.1 21 6l-4 3.9"/><path d="M3 12.6v-1a5 5 0 0 1 5-5h13"/><path d="M7 21.9 3 18l4-3.9"/><path d="M21 11.4v1a5 5 0 0 1-5 5H3"/></svg>';
   function iconoSecretariaSvg(nombre){
     return '<svg class="sec-icon" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">' + (ICONOS_SECRETARIA[nombre] || ICONO_SECRETARIA_DEFAULT) + '</svg>';
   }
@@ -1406,7 +1444,9 @@
 
   function mk(secretaria,tema,prioridad,responsable,estado,fecha,nombre,dni,derivadoPor,canal,requiereVisita,notas,fotos){
     return {id:nextId(),secretaria:secretaria,tema:tema,prioridad:prioridad,
-      responsable:responsable,estado:estado,fecha:fecha,nombre:nombre,dni:dni,derivadoPor:derivadoPor||responsable,canal:canal||"Otro",requiereVisita:!!requiereVisita,notas:notas||[],fotos:fotos||[]};
+      responsable:responsable,estado:estado,fecha:fecha,nombre:nombre,dni:dni,derivadoPor:derivadoPor||responsable,canal:canal||"Otro",requiereVisita:!!requiereVisita,notas:notas||[],fotos:fotos||[],
+      // Cuántas veces se volvió a contactar al ciudadano por este mismo caso, además del contacto inicial.
+      recontactos:0};
   }
 
   var cases = [
@@ -1586,7 +1626,7 @@
       var tr = document.createElement("tr");
       tr.className = "row-clickable";
       tr.dataset.id = cs.id;
-      tr.innerHTML = "<td class='cell-id'>"+(cs.requiereVisita?PIN_VISITA+' ':'')+cs.id+"</td><td>"+cs.secretaria+"</td><td>"+cs.tema+"</td>"+
+      tr.innerHTML = "<td class='cell-id'>"+(cs.requiereVisita?PIN_VISITA+' ':'')+(cs.recontactos?PIN_RECONTACTO+' ':'')+cs.id+"</td><td>"+cs.secretaria+"</td><td>"+cs.tema+"</td>"+
         "<td>"+chipFor("prioridad", cs.prioridad)+"</td><td>"+cs.fecha+"</td><td>"+chipFor("estado", cs.estado)+"</td>";
       hb.appendChild(tr);
     });
@@ -1646,11 +1686,25 @@
     if (view==="ficha") renderFicha();
     renderSecNav();
     applyRoleVisibility();
+    // Se llama después de applyRoleVisibility() a propósito: ese paso deja visible cualquier elemento
+    // con data-roles="colaborador" (display:""), y acá se vuelve a ocultar el grupo si este Colaborador
+    // puntual no tiene ninguna Secretaría de seguimiento asignada.
+    renderColabSecNav();
   }
 
   document.addEventListener("click", function(e){
     var btn = e.target.closest(".nav-item");
-    if (btn) setView(btn.dataset.view, btn.dataset.sec);
+    if (btn){
+      // El botón general "Casos" del menú siempre arranca en limpio: sin ninguna Secretaría de
+      // seguimiento seleccionada y con el panel de Seguimiento cerrado, para mostrar el listado
+      // completo de casos. El filtro por Secretaría puntual solo se activa al elegir una Secretaría
+      // específica en #colabSecNavList (ver su propio listener más abajo).
+      if (btn.dataset.view === "mis-casos" && !btn.dataset.sec){
+        state.casosSecSeguimiento = null;
+        state.seguimientoAbierto = false;
+      }
+      setView(btn.dataset.view, btn.dataset.sec);
+    }
   });
 
   /* ================= NUEVO CASO ================= */
@@ -1763,6 +1817,9 @@
     } else {
       var resp = usuarios.filter(function(u){ return u.rol==="Colaborador" && u.activo && u.secretaria===s; }).map(function(u){ return u.nombre; });
       fillOptions(respSel, resp, "Elegir responsable…"); respSel.disabled = resp.length===0;
+      // Se autocompleta con el colaborador responsable del área asignada; si hay más de uno para la
+      // misma Secretaría, queda el primero como sugerencia y el campo sigue editable manualmente.
+      if (resp.length) respSel.value = resp[0];
     }
     updatePreview();
   });
@@ -2196,7 +2253,7 @@
           ' <button type="button" class="btn btn-primary btn-sm btn-avanzar-estado" data-id="'+c.id+'" data-nuevo-estado="'+t.nuevoEstado+'">'+t.label+'</button>' : '');
       }
       tr.innerHTML =
-        '<td class="cell-id">'+(c.requiereVisita?PIN_VISITA+' ':'')+c.id+'</td>'+
+        '<td class="cell-id">'+(c.requiereVisita?PIN_VISITA+' ':'')+(c.recontactos?PIN_RECONTACTO+' ':'')+c.id+'</td>'+
         '<td class="cell-name">'+c.nombre+'<small>DNI '+c.dni+'</small></td>'+
         '<td>'+c.tema+'</td>'+
         '<td>'+chipFor("prioridad", c.prioridad)+'</td>'+
@@ -2259,11 +2316,14 @@
   function renderMisCasos(){
     refreshCasosFiltroLocalidad();
     // El panel de seguimiento es exclusivo del Colaborador — si se cambia de rol se oculta sin importar
-    // cómo haya quedado el botón la última vez.
-    $("seguimientoPanel").style.display = (state.rol==="Colaborador" && state.seguimientoAbierto) ? "block" : "none";
+    // cómo haya quedado el botón la última vez. Las dos vistas (seguimiento vs. listado general) son
+    // mutuamente excluyentes: nunca se muestran juntas.
+    var seguimientoOn = state.rol==="Colaborador" && state.seguimientoAbierto;
+    $("seguimientoPanel").style.display = seguimientoOn ? "block" : "none";
+    $("casosListadoGeneral").style.display = seguimientoOn ? "none" : "block";
     if (state.rol !== "Colaborador") state.casosSecSeguimiento = null;
     renderResueltosParaCerrar();
-    renderSeguimientoSecretarias();
+    renderColabSecNav();
 
     // Aviso de casos nuevos sin ver, solo para el Encargado. Se calcula ANTES de marcarlos como vistos,
     // para poder mostrar el número real; después de mostrarlo se marcan como vistos (ver más abajo).
@@ -2310,7 +2370,7 @@
       // "Marcar cerrado" (Resuelto → Cerrado) es una acción exclusiva del Colaborador (ver circuito de
       // estados): el Encargado, aunque comparte esta tabla, ya no tiene turno de actuar sobre un caso Resuelto.
       if (c.estado==="Resuelto" && state.rol==="Colaborador") acciones += ' <button type="button" class="btn btn-primary btn-sm btn-cerrar-caso" data-id="'+c.id+'">Marcar cerrado</button>';
-      tr.innerHTML = "<td class='cell-id'>"+(c.requiereVisita?PIN_VISITA+' ':'')+c.id+"</td><td>"+c.secretaria+"</td>"+
+      tr.innerHTML = "<td class='cell-id'>"+(c.requiereVisita?PIN_VISITA+' ':'')+(c.recontactos?PIN_RECONTACTO+' ':'')+c.id+"</td><td>"+c.secretaria+"</td>"+
         "<td class='cell-name'>"+c.nombre+"<small>DNI "+c.dni+"</small></td>"+
         "<td>"+c.tema+"</td><td>"+chipFor("prioridad",c.prioridad)+"</td><td>"+chipFor("canal",c.canal)+"</td><td>"+c.fecha+"</td><td>"+chipFor("estado",c.estado)+"</td>"+
         "<td>"+acciones+"</td>";
@@ -2342,12 +2402,17 @@
 
   /* ---- "Casos para chequear y cerrar" (Colaborador) ----
      A diferencia del aviso de casos nuevos del Encargado, este listado NO se marca como visto: se
-     recalcula en cada render y se muestra siempre que haya al menos un caso Resuelto en el sistema
-     (sin filtro de Secretaría, igual que el resto de esta vista para el Colaborador). */
+     recalcula en cada render. Se filtra a las Secretarías de seguimiento asignadas al Colaborador
+     logueado — un Colaborador nunca tiene que ver acá casos de una Secretaría que no le corresponde. */
   function renderResueltosParaCerrar(){
     var card = $("resueltosParaCerrarCard");
     if (state.rol !== "Colaborador"){ card.style.display = "none"; return; }
-    var list = cases.filter(function(c){ return c.estado==="Resuelto"; }).slice().sort(defaultCaseSort);
+    // Si el Colaborador eligió una Secretaría puntual en el menú lateral, el listado "para cerrar" se
+    // acota a esa única Secretaría. Sin selección, se muestra el combinado de todas sus Secretarías asignadas.
+    var misSecs = state.casosSecSeguimiento ? [state.casosSecSeguimiento] : misSecretariasSeguimiento();
+    var list = cases.filter(function(c){
+      return c.estado==="Resuelto" && misSecs.indexOf(c.secretaria) > -1;
+    }).slice().sort(defaultCaseSort);
     if (!list.length){ card.style.display = "none"; return; }
     card.style.display = "block";
     var body = $("resueltosParaCerrarBody"); body.innerHTML = "";
@@ -2356,7 +2421,7 @@
       tr.className = "row-clickable";
       tr.dataset.id = c.id;
       tr.innerHTML =
-        "<td class='cell-id'>"+(c.requiereVisita?PIN_VISITA+' ':'')+c.id+"</td>"+
+        "<td class='cell-id'>"+(c.requiereVisita?PIN_VISITA+' ':'')+(c.recontactos?PIN_RECONTACTO+' ':'')+c.id+"</td>"+
         "<td>"+c.secretaria+"</td>"+
         "<td class='cell-name'>"+c.nombre+"<small>DNI "+c.dni+"</small></td>"+
         "<td>"+c.tema+"</td>"+
@@ -2379,47 +2444,46 @@
 
   $("btnToggleSeguimiento").addEventListener("click", function(){
     state.seguimientoAbierto = !state.seguimientoAbierto;
-    $("seguimientoPanel").style.display = state.seguimientoAbierto ? "block" : "none";
-    if (state.seguimientoAbierto) renderMisCasos();
+    // Ya no se limpia la Secretaría elegida al abrir Seguimiento: si el Colaborador venía de seleccionar
+    // una Secretaría puntual en el menú lateral, el panel "para cerrar" debe respetar esa selección y
+    // mostrar solo esa Secretaría (ver renderResueltosParaCerrar).
+    renderMisCasos();
   });
 
-  /* ---- Secretarías de seguimiento del Colaborador ----
-     Mismo patrón visual que la vista "Secretarías" del Encargado: una tarjeta por Secretaría asignada
-     que, al tocarla, filtra el listado general de Casos a esa Secretaría (cualquier estado). */
-  function renderSeguimientoSecretarias(){
-    var wrap = $("seguimientoSecList");
-    if (!wrap) return;
-    wrap.innerHTML = "";
+  /* ---- Secretarías de seguimiento del Colaborador, en el menú lateral ----
+     Mismo patrón visual que la lista de Secretarías de Gestión (#secNavList): un botón de navegación
+     por Secretaría asignada, con la cantidad de casos sin cerrar. Al tocarlo, filtra el listado general
+     de Casos a esa Secretaría (cualquier estado) y cierra el panel de Seguimiento si estaba abierto. */
+  function renderColabSecNav(){
+    var group = $("colabSecNavGroup");
+    var wrap = $("colabSecNavList");
+    if (!group || !wrap) return;
     var mias = misSecretariasSeguimiento();
-    if (!mias.length){
-      wrap.innerHTML = '<p class="hint" style="margin:0;">No tenés Secretarías de seguimiento asignadas.</p>';
-      return;
-    }
+    group.style.display = (state.rol==="Colaborador" && mias.length) ? "block" : "none";
+    wrap.innerHTML = "";
     mias.forEach(function(nombreSec){
       var s = getSecretaria(nombreSec);
       if (!s) return;
-      var activa = state.casosSecSeguimiento === s.nombre;
+      var activa = state.view==="mis-casos" && state.casosSecSeguimiento===s.nombre;
       var pend = cases.filter(function(c){ return c.secretaria===s.nombre && c.estado!=="Cerrado"; }).length;
-      var card = document.createElement("button");
-      card.type = "button";
-      card.className = "card";
-      card.style.textAlign = "left";
-      card.style.display = "block";
-      card.style.width = "100%";
-      card.style.cursor = "pointer";
-      if (activa) card.style.borderColor = "var(--celeste)";
-      card.innerHTML =
-        '<h2 style="display:flex;align-items:center;gap:8px;">'+iconoSecretariaSvg(s.nombre)+'<span>'+s.nombre+'</span></h2>'+
-        '<p class="hint" style="margin-bottom:8px;">'+pend+' caso'+(pend===1?"":"s")+' sin cerrar</p>'+
-        (activa ? '<span class="chip" style="background:var(--celeste-pale);color:var(--celeste-deep);">Mostrando estos casos</span>' :
-          '<span class="chip" style="background:var(--ok-bg);color:var(--ok);">Ver casos →</span>');
-      card.addEventListener("click", function(){
-        state.casosSecSeguimiento = activa ? null : s.nombre;
-        renderMisCasos();
-      });
-      wrap.appendChild(card);
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "nav-item" + (activa ? " active" : "");
+      btn.dataset.view = "mis-casos";
+      btn.dataset.sec = s.nombre;
+      btn.innerHTML = iconoSecretariaSvg(s.nombre) + '<span>'+s.nombre+'</span><span class="count">'+pend+'</span>';
+      wrap.appendChild(btn);
     });
   }
+  $("colabSecNavList").addEventListener("click", function(e){
+    var btn = e.target.closest(".nav-item");
+    if (!btn) return;
+    e.stopPropagation();
+    var sec = btn.dataset.sec;
+    state.casosSecSeguimiento = (state.casosSecSeguimiento === sec) ? null : sec;
+    state.seguimientoAbierto = false;
+    setView("mis-casos");
+  });
 
   /* ================= ENCARGADO: SECRETARIAS ================= */
   function renderEncargadoSecretarias(){
@@ -2535,6 +2599,14 @@
     showToast("Nota agregada.");
   });
 
+  $("btnSumarRecontacto").addEventListener("click", function(){
+    var c = getCaso(state.fichaCasoId);
+    if (!c) return;
+    c.recontactos = (c.recontactos||0) + 1;
+    renderFicha();
+    showToast("Se sumó un contacto más para " + c.id + ".");
+  });
+
   $("fichaFotoInput").addEventListener("change", function(){
     var c = getCaso(state.fichaCasoId);
     if (!c) return;
@@ -2643,6 +2715,12 @@
     } else {
       $("fc-visita-row").style.display = "none";
     }
+
+    // Contactos por este caso: 1 (el contacto inicial que originó el caso) + los recontactos que se
+    // fueron marcando — no depende del estado del caso, se puede seguir sumando en cualquier momento.
+    if (!c.recontactos) c.recontactos = 0;
+    var totalContactos = 1 + c.recontactos;
+    $("fc-recontactos").textContent = totalContactos + (totalContactos===1 ? " contacto" : " contactos");
 
     renderFichaEstadoActions(c);
 
